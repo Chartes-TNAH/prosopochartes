@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="513f0a00-4c79-419f-ae8d-92385b3f9d88" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prosopapp/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/prosopapp/app/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prosopapp/app/templates/headerfooter.html" beforeDir="false" afterPath="$PROJECT_DIR$/prosopapp/app/templates/headerfooter.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prosopapp/app/templates/pages/accueil.html" beforeDir="false" afterPath="$PROJECT_DIR$/prosopapp/app/templates/pages/accueil.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prosopapp/app/templates/pages/chercheurs.html" beforeDir="false" afterPath="$PROJECT_DIR$/prosopapp/app/templates/pages/chercheurs.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prosopapp/app/templates/pages/noticechercheur" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/prosopapp/app/templates/pages/recherche.html" beforeDir="false" afterPath="$PROJECT_DIR$/prosopapp/app/templates/pages/recherche.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prosopapp/app/templates/pages/resultats.html" beforeDir="false" afterPath="$PROJECT_DIR$/prosopapp/app/templates/pages/resultats.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prosopapp/.flaskenv" beforeDir="false" afterPath="$PROJECT_DIR$/prosopapp/.flaskenv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,7 +23,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="flaskenv" value="4" />
+          <entry key="flaskenv" value="5" />
           <entry key="html" value="7" />
           <entry key="py" value="19" />
         </counts>
@@ -38,12 +31,13 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="HTML" value="7" />
-          <entry key="PLAIN_TEXT" value="4" />
+          <entry key="PLAIN_TEXT" value="5" />
           <entry key="Python" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
+          <entry key="flaskenv" value="3" />
           <entry key="html" value="54" />
           <entry key="py" value="331" />
         </counts>
@@ -51,6 +45,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="54" />
+          <entry key="PLAIN_TEXT" value="3" />
           <entry key="Python" value="331" />
         </counts>
       </usages-collector>
@@ -59,22 +54,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/prosopapp/app/templates/pages/noticechercheur.html">
+        <entry file="file://$PROJECT_DIR$/prosopapp/app/routes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            <state relative-caret-position="495">
+              <caret line="33" selection-start-line="33" selection-end-line="33" />
+              <folding>
+                <element signature="e#0#33#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/prosopapp/app/routes.py">
+        <entry file="file://$PROJECT_DIR$/prosopapp/.flaskenv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="79">
-              <caret line="6" column="28" lean-forward="true" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
-              <folding>
-                <element signature="e#0#33#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="15">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -98,6 +93,7 @@
         <option value="$PROJECT_DIR$/prosopapp/app/templates/headerfooter.html" />
         <option value="$PROJECT_DIR$/prosopapp/app/templates/pages/noticechercheur.html" />
         <option value="$PROJECT_DIR$/prosopapp/app/routes.py" />
+        <option value="$PROJECT_DIR$/prosopapp/.flaskenv" />
       </list>
     </option>
   </component>
@@ -117,6 +113,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -139,7 +136,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -150,6 +146,9 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$USER_HOME$/Desktop" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/prosopapp" />
     </key>
@@ -207,7 +206,7 @@
     <frame x="0" y="23" width="1440" height="759" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29756796" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3190272" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -231,6 +230,31 @@
       <window_info anchor="right" id="R Packages" order="5" />
       <window_info anchor="right" id="Database" order="6" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30615166" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50858366" side_tool="true" visible="true" weight="0.36131933" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4914163" visible="true" weight="0.36131933" />
+      <window_info anchor="bottom" id="Python Console" order="12" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info anchor="right" id="R Graphics" order="4" />
+      <window_info anchor="right" id="R Packages" order="5" />
+      <window_info anchor="right" id="Database" order="6" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -241,13 +265,6 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/prosopapp/__init__.py" />
     <entry file="file://$PROJECT_DIR$/prosopapp/routes.py" />
-    <entry file="file://$PROJECT_DIR$/prosopapp/.flaskenv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/prosopapp/app/templates/pages/accueil.html">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -283,13 +300,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/prosopapp/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" selection-start-column="19" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/prosopapp/app.py" />
     <entry file="file://$PROJECT_DIR$/prosopapp/app/templates/pages/noticechercheur.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -297,20 +308,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Desktop/.flaskenv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/prosopapp/app/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prosopapp/app/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        <state relative-caret-position="210">
+          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/prosopapp/app/routes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="6" column="28" lean-forward="true" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+        <state relative-caret-position="495">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prosopapp/run.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="11" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prosopapp/.flaskenv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
