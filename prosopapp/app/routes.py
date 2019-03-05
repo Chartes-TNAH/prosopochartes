@@ -6,10 +6,10 @@ from app.app import app
 
 #Les commandes suivantes nous permettent de créer différentes routes - qui correspondent à l'URL des différents pages
 # de notre application :
+
 @app.route('/')
-@app.route('/accueil')
 def accueil ():
-    return render_template("pages/accueil.html")
+    return render_template("pages/accueil.html", title="accueil")
 #la fonction render_template prend comme premier argument le chemin du template et en deuxième des arguments nommés, qui
 #peuvent ensuite être réutilisé en tant que variables dans les templates.
 
@@ -26,8 +26,9 @@ def resultat():
     return render_template("pages/resultats.html")
 #cette route correspond à la page qui affichera les notices abrégées des résultats
 # à voir si on choisit de la conserver sous la dénomination résultat où si l'on préfère un nom qui reprend les mots-clés?
-@app.route('/<string:nomchercheur>')
-def nomchercheur():
-    return render_template("pages/accueil.html")
+@app.route('/noticechercheur')
+def noticechercheur():
+    return render_template("pages/noticechercheur.html")
 #idealement nomchercheur est remplacé par le nomprenom du chercheur
 #cette page correspond à la notice complète sur le chercheur
+#<string:nomchercheur>
