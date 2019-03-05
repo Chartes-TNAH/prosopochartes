@@ -6,7 +6,7 @@ from app import prosopochartes.sqlite
 
 # Table correspondant à un.e chercheu.r.se
 # Par souci de simplicité, chaque membre de la table est dans une relation many to one avec les autres tables
-# (un.e chercheu.r.se n'a qu'un diplôme, une distinction... dans notre base)
+# (dans notre base, un.e chercheu.r.se n'a qu'un diplôme, une distinction...)
 # Les relations sont donc identifiées par des clefs étrangères
 class Individu(db.Model):
     __tablename__ = "individu"
@@ -33,42 +33,42 @@ class Individu(db.Model):
     domaine_activite = db.Relationship("Domaine_activite", back_populate="individu")
     distinction = db.Relationship("Distinction", back_populate="individu")
 
-# Table correspondant aux pays (nationalité des chercheu.r.ses)
+# Table contenant les pays correspondant à la nationalité des individus
 class Pays_nationalite :
     __tablename__ = "pays_nationalite"
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
     pays_label = db.Column(db.Text)
     individu = db.Relationship("Individu", back_populate="pays_nationalite")
 
-# Table correspondant au métier exercé par le ou la chercheuse
+# Table contenant les métiers exercés par les individus (ex : archiviste, historien)
 class Occupation :
     __tablename__ = "occupation"
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
     occupation_label = db.Column(db.Text)
     individu = db.Relationship("Individu", back_populate="occupation")
 
-# Table correspondant à un champ disciplinaire (moyen-âge, histoire du livre...)
+# Table contenant les champs disciplinaires (ex : moyen-âge, histoire du livre)
 class Domaine_activite :
     __tablename__ = "domaine_activite"
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
     domaine_label = db.Column(db.Text)
     individu = db.Relationship("Individu", back_populate="domaine_activite")
 
-# Table correspondant à la liste des distinctions reçues par les individus de la base de données
+# Table correspondant à la liste des distinctions reçues par les individus (ex : chevalier de la légion d'honneur)
 class Distinction :
     __tablename__ = "distinction"
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
     distinction_label = db.Column(db.Text)
     individu = db.Relationship("Individu", back_populate="distinction")
 
-# Table correspondant aux différents diplomes (archiviste paléographe, doctorat...)
+# Table contenant les diplomes des individus (ex : archiviste paléographe, doctorat)
 class Diplome :
     __tablename__ = "diplome"
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
     diplome_label = db.Column(db.Text)
     individu = db.Relationship("Individu", back_populate="diplome")
 
-# Table contenant les informations sur les thèses d'école (titre, date de soutenance...)
+# Table contenant les informations sur les thèses d'école (titre, date de soutenance, lien vers la thèse)
 class These_enc :
     __tablename__ = "these_enc"
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
