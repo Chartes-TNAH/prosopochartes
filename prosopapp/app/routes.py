@@ -26,5 +26,11 @@ def resultat():
     return render_template("pages/resultats.html")
 #cette route correspond à la page qui affichera les notices abrégées des résultats
 # à voir si on choisit de la conserver sous la dénomination résultat où si l'on préfère un nom qui reprend les mots-clés?
-#changemement de l'argument de la route nomcercheur pour tenter de régler l'erreur du terminal quand je tape flask run
+
+@app.route('/noticechercheur')
+def noticechercheur():
+    return render_template("pages/noticechercheur.html")
+#idealement nomchercheur est remplacé par le nomprenom du chercheur
+#cette page correspond à la notice complète sur le chercheur
+#<string:nomchercheur>
 
