@@ -1,8 +1,11 @@
 from flask import Flask
 
+
 #import de Flask depuis la librairie flask
 
-app = Flask(__name__)
+
+app = Flask(__name__
+            )
 
 #Selon le manuel de Grinberg, _name_ est une variable Python prédéfinie qui prend le nom du module dans lequel elle est
 #utilisée. Nous avions vu en cours qu'il pouvait être judicieux de lui donner un nom distinct dans le cas du développement

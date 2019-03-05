@@ -6,10 +6,10 @@ from app.app import app
 
 #Les commandes suivantes nous permettent de créer différentes routes - qui correspondent à l'URL des différents pages
 # de notre application :
+
 @app.route('/')
-@app.route('/accueil')
 def accueil ():
-    return render_template("pages/accueil.html")
+    return render_template("pages/accueil.html", title="accueil")
 #la fonction render_template prend comme premier argument le chemin du template et en deuxième des arguments nommés, qui
 #peuvent ensuite être réutilisé en tant que variables dans les templates.
 
@@ -33,4 +33,3 @@ def noticechercheur():
 #idealement nomchercheur est remplacé par le nomprenom du chercheur
 #cette page correspond à la notice complète sur le chercheur
 #<string:nomchercheur>
-
