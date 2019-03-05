@@ -1,7 +1,7 @@
 from flask import render_template
 #cette commande nous permet de relier nos templates à nos urls - routes.
 
-from app import app
+from app.app import app
 #Cette commande permet d'importer de notre package app, la variable app, qui instancie notre application.
 
 #Les commandes suivantes nous permettent de créer différentes routes - qui correspondent à l'URL des différents pages
