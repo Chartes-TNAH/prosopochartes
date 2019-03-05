@@ -1,4 +1,4 @@
-from app import app
+from app.app import app
 
 #Ce script permet de déclarer notre application Flask. Littéralement on lui dit d'importer notre variable
 #app qui correspond à notre application, de notre package app (cette variable est définie dans le fichier app.py.

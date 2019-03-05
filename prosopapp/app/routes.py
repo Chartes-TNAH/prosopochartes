@@ -9,25 +9,25 @@ from app.app import app
 @app.route('/')
 @app.route('/accueil')
 def accueil ():
-    return render_template("templates/pages/accueil.html")
+    return render_template("pages/accueil.html")
 #la fonction render_template prend comme premier argument le chemin du template et en deuxième des arguments nommés, qui
 #peuvent ensuite être réutilisé en tant que variables dans les templates.
 
 @app.route('/chercheurs')
 def chercheurs():
-    return render_template("templates/pages/chercheurs.html")
+    return render_template("pages/chercheurs.html")
 
 @app.route('/recherche')
 def recherche():
-    return render_template("templates/pages/recherche.html")
+    return render_template("pages/recherche.html")
 
 @app.route('/resultats')
 def resultat():
-    return render_template("templates/pages/resultats.html")
+    return render_template("pages/resultats.html")
 #cette route correspond à la page qui affichera les notices abrégées des résultats
 # à voir si on choisit de la conserver sous la dénomination résultat où si l'on préfère un nom qui reprend les mots-clés?
 @app.route('/<string:nomchercheur>')
 def nomchercheur():
-    return render_template("templates/pages/accueil.html")
+    return render_template("pages/accueil.html")
 #idealement nomchercheur est remplacé par le nomprenom du chercheur
 #cette page correspond à la notice complète sur le chercheur
