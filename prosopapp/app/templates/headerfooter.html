@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="fr"> <!--ajout de la langue, à raouter sur tous les templates-->
+<html lang="fr"> <!--ajout de la langue, à rajouter sur tous les templates-->
 <head>
     <meta charset="UTF-8"> <!--ajout de la balise UTF-8-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <meta charset="UTF-8">
     <title>ProsopoChartes {%block titre %}{%endblock%}</title>
-    {% include "partials/css.html" %}
-    {% include "partials/metadata.html" %}
     <style type="text/css">
-    .hero  {
+    body  {
     background-position: center center;
-    padding:10vh;
-    background-image: url({{url_for("static", filename="ENC.jpg")}});
-            }
-            .container .hero {
-            background-image: none;
-            }
+    padding:8vh;
+    background-image: url("../statics/Images/ENC.jpg");
+    }
+    </style><style type="text/css">
+    body  {
+    background-position: center center;
+    padding:8vh;
+    background-image: url("../statics/Images/ENC.jpg");
+    }
     </style>
 </head>
     <body>
