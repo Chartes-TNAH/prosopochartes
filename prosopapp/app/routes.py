@@ -26,9 +26,17 @@ def resultat():
     return render_template("pages/resultats.html")
 #cette route correspond à la page qui affichera les notices abrégées des résultats
 # à voir si on choisit de la conserver sous la dénomination résultat où si l'on préfère un nom qui reprend les mots-clés?
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5b803456df51a809320d78b1668404b9c6f8a9e2
 @app.route('/noticechercheur')
 def noticechercheur():
     return render_template("pages/noticechercheur.html")
 #idealement nomchercheur est remplacé par le nomprenom du chercheur
 #cette page correspond à la notice complète sur le chercheur
 #<string:nomchercheur>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5b803456df51a809320d78b1668404b9c6f8a9e2
