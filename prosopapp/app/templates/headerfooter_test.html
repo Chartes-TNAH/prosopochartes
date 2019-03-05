@@ -7,49 +7,34 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
     <title>ProsopoChartes</title>
-      <style type="text/css">
-    .container-fluid {
-    background-color: #FFFFFF;
-    background-image: url("../statics/Images/ENC.jpg");
-    background-image: center;
-    width: 100%;
-    font-family: Georgia, serif;
-    font-size: 20px;
-    color: #FFFFFF;
-    }
-    </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark justify-content-between" style="background-color:  #fc0816;">
-        <a class="navbar-brand" href="{{ url_for('accueil') }}">Prosopapp</a>
+    <nav class="navbar navbar-expand-md navbar-light justify-content-between" style="background-color:  #fe2734; font-weight: bold;">
+        <a class="navbar-brand" href="{{ url_for('accueil') }}">ProsoChartes</a>
 
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{{url_for('chercheurs')}}">Gallerie des chercheurs</a>
-              </li>
+            <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Recherche
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Recherche plein texte</a>
+          <a class="dropdown-item" href="#">Recherche avancée</a>
+        </div>
+      </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{url_for('noticechercheur')}}">Toutes les notices</a>
               </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{url_for('recherche')}}">Recherche avancée</a>
+                <a class="nav-link" href="{{url_for('chercheurs')}}">Galerie des chercheurs</a>
               </li>
         </ul>
-        <form class="form-inline" action="{{url_for("recherche")}}" method="GET">
-          <input class="form-control" name="keyword" type="search" placeholder="Recherche rapide" aria-label="Recherche">
-          <button class="btn btn-info" type="submit">Rechercher</button>
-        </form>
-      </nav>
-    <div class="container-fluid">
-        <h1>ProsopoChartes</h1>
         <form class="form-inline" action="{{url_for('recherche')}}" method="GET">
           <input class="form-control" name="keyword" type="search" placeholder="Recherche rapide" aria-label="Recherche">
           <button class="btn btn-info" type="submit">Rechercher</button>
         </form>
-    </div>
-    <div class="container-fluid">Coucou, c'est le bottom !</div>
-
+      </nav>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
