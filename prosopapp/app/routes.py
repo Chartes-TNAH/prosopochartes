@@ -19,7 +19,7 @@ def accueil ():
 
 @app.route('/chercheurs')
 def chercheurs():
-    individus = Individu.query.order_by(Individu.id.desc()).all()
+    individus = Individu.query.order_by(Individu.annee_naissance.asc()).all()
     return render_template("pages/chercheurs.html", individus=individus)
 
 @app.route('/recherche')

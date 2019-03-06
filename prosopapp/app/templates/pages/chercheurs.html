@@ -1,13 +1,15 @@
 {%extends "headerfooter.html"%}
 
 {% block corps %}
-<<<<<<< HEAD
 <h1>Ils travaillent pour l'École des Chartes</h1>
     {%if individus%}
         <ul>
             {% for individu in individus %}
-                <li><a href="{{ url_for('noticechercheur')}}" </li>
+                <li>{{ individu.annee_naissance}} - {{individu.prenom}}, {{ individu.nom }}</li>
+            {% endfor %}
+
         </ul>
+    {% endif %}
 {% endblock %}
 
-<!--chercheurs-->
+
