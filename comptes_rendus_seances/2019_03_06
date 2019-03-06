@@ -1,0 +1,22 @@
+# Projet Python - Séance 3 de travail en groupe
+# 6 mars 2019
+
+La branche master a été nettoyée, afin de ne pas présenter de conflits lorsqu'elle sera fusionnée avec la branche dev.
+
+# Louise
+
+Travaille sur la recherche simple par mots clefs dans plusieurs champs de la base de données + modifications header/footer.
+
+# Camille B.
+
+Travaille sur
+
+# Lucie
+
+Travaille sur les champs de recherche à choix multiples (diplome, occupation, etc.)
+
+# Camille C.
+
+Travaille sur la recherche par intervalle de dates
+
+Lucie + Camille C. : cherchent comment lier plusieurs champs de recherche dans le résultat.

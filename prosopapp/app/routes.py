@@ -1,5 +1,8 @@
 from flask import render_template
 #cette commande nous permet de relier nos templates à nos urls - routes.
+from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc
+#cette commande nous permet de relier les classes de notre modèle de données pour pouvoir ensuite les requêter.
+
 
 from app.app import app
 #Cette commande permet d'importer de notre package app, la variable app, qui instancie notre application.
@@ -15,6 +18,7 @@ def accueil ():
 
 @app.route('/chercheurs')
 def chercheurs():
+    individus = Individu.querry.all()
     return render_template("pages/chercheurs.html")
 
 @app.route('/recherche')
