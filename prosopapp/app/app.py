@@ -1,10 +1,16 @@
 from flask import Flask
 # import de Flask depuis la librairie flask
 
+import os
+
 from flask_sqlalchemy import SQLAlchemy
 # import de SQLAlchemy, qui nous permet de lier notre base de données à notre application, et de la requêter
 
-app = Flask(__name__
+chemin_actuel = os.path.dirname(os.path.abspath(__file__))
+templates = os.path.join(chemin_actuel, "templates")
+static = os.path.join(chemin_actuel, "statics")
+
+app = Flask(__name__,  template_folder=templates, static_folder=static
             )
 
 # Configuration de la base de données
