@@ -1,7 +1,8 @@
-{%extends "headerfooter_test.html"%}
+{%extends "headerfooter.html"%}
 
 {% block corps %}
 <h1>Bienvenue !</h1>
         <p>La base de données est en cours de constitution</p>
+        <p><a href="{{url_for('accueil')}}">Retour à l'accueil</a></p>
 {% endblock %}
 <!--chercheurs-->

@@ -1,59 +1,40 @@
-<!DOCTYPE html>
-<html lang="fr"> <!--ajout de la langue, à rajouter sur tous les templates-->
-<head>
-    <meta charset="UTF-8"> <!--ajout de la balise UTF-8-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <title>ProsopoChartes {%block titre %}{%endblock%}</title>
-    <style type="text/css">
-    body  {
-    background-position: center center;
-    padding:8vh;
-    background-image: url("../statics/Images/ENC.jpg");
-    }
-    </style><style type="text/css">
-    body  {
-    background-position: center center;
-    padding:8vh;
-    background-image: url("../statics/Images/ENC.jpg");
-    }
-    </style>
-</head>
-    <body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between">
-        <a class="navbar-brand" href="{{ url_for('accueil') }}">ProsopoChartes</a>
-
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>ProsopoChartes</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-light justify-content-between" style="background-color:  #fe2734; font-weight: bold;">
+        <a class="navbar-brand" href="{{url_for('accueil')}}">ProsoChartes</a>
         <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="{{url_for('chercheurs')}}">Chercheurs</a>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('recherche')}}">Recherche avancée</a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('chercheurs')}}">Galerie des chercheurs</a>
               </li>
         </ul>
         <form class="form-inline" action="{{url_for('recherche')}}" method="GET">
           <input class="form-control" name="keyword" type="search" placeholder="Recherche rapide" aria-label="Recherche">
-          <button class="btn btn-info" type="submit">Rechercher</button>
+          <button class="btn btn-outline-dark" type="submit">Rechercher</button>
         </form>
       </nav>
-      {% block afternav %}{%endblock%}
-      <div class="container">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-          <div class="row">
-              <div class="col">
-                {% for category, message in messages %}
-                  <div class="alert alert-{{category}}" role="alert">{{ message }}</div>
-                {% endfor %}
-              </div>
-          </div>
-          <div class="alert alert-primary" role="alert">A simple primary alert—check it out!</div>
-          {% endif %}
-        {% endwith %}
         <div class="row">
             <div class="col">
             {% block corps %}{% endblock %}
             </div>
         </div>
       </div>
-    </body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
 </html>
