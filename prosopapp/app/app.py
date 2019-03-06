@@ -1,11 +1,17 @@
 from flask import Flask
+# import de Flask depuis la librairie flask
 
-
-#import de Flask depuis la librairie flask
-
+from flask_sqlalchemy import SQLAlchemy
+# import de SQLAlchemy, qui nous permet de lier notre base de données à notre application, et de la requêter
 
 app = Flask(__name__
             )
+
+# Configuration de la base de données
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../prosopochartes.sqlite'
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+# Initiation de l'extension
+db = SQLAlchemy(app)
 
 #Selon le manuel de Grinberg, _name_ est une variable Python prédéfinie qui prend le nom du module dans lequel elle est
 #utilisée. Nous avions vu en cours qu'il pouvait être judicieux de lui donner un nom distinct dans le cas du développement
