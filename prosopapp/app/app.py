@@ -11,7 +11,7 @@ app = Flask(__name__
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../prosopochartes.sqlite'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # Initiation de l'extension
-basedonnees = SQLAlchemy(app)
+db = SQLAlchemy(app)
 
 #Selon le manuel de Grinberg, _name_ est une variable Python prédéfinie qui prend le nom du module dans lequel elle est
 #utilisée. Nous avions vu en cours qu'il pouvait être judicieux de lui donner un nom distinct dans le cas du développement

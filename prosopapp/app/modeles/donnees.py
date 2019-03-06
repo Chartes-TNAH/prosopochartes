@@ -1,6 +1,6 @@
 #  Importation de la base de données sqlite
 
-from ..app import basedonnees
+from ..app import db
 
 # Création du modèle selon celui de la base de données prosopochartes.sqlite
 
