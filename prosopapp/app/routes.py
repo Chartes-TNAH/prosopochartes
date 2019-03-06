@@ -1,5 +1,6 @@
-from flask import render_template
-#cette commande nous permet de relier nos templates à nos urls - routes.
+from flask import render_template, url_for
+#cette commande nous permet de relier nos templates à nos urls - routes
+#On importe url_for pour construire des URL vers les fonctions et les pages html
 from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc
 #cette commande nous permet de relier les classes de notre modèle de données pour pouvoir ensuite les requêter.
 
