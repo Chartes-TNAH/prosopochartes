@@ -1,14 +1,36 @@
 {%extends "headerfooter.html"%}
 
 {% block corps %}
-<h1>Ils travaillent pour l'École des Chartes</h1>
+
+<h1>Ils travaillent ou ont travaillé pour l'École des Chartes</h1>
+
     {%if individus%}
-        <ul>
+
             {% for individu in individus %}
-                <li>{{ individu.annee_naissance}} - {{individu.prenom}}, {{ individu.nom }}</li>
+                <div class ="container">
+                    <div class="row">
+                        <div class ="col-3">
+                            {% if lien %}
+                                <img src="{{individu.image_lien}}" class="rounded-circle" style="width:150px; height:200px;">
+                            {% else %}
+                                <img src="../../statics/Images/anonyme.jpg" class="rounded-circle" style="width:150px; height:200px;">
+                            {% endif %}
+                        </div>
+                        <div class="col-8" >
+                            {{ individu.image_lien }} - {{individu.prenom}}, {{ individu.nom }}
+                        </div>
+                        <div class="col-sm-1" style="background-color:#fe2734 " style="width:15px"></div>
+                        </div>
+                    <div class="row">
+                        <div class="col-3">
+                            ***
+                        </div>
+                    </div>
+                </div>
+
             {% endfor %}
 
-        </ul>
+
     {% endif %}
 {% endblock %}
 

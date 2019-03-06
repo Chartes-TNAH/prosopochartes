@@ -20,7 +20,9 @@ def accueil ():
 @app.route('/chercheurs')
 def chercheurs():
     individus = Individu.query.order_by(Individu.annee_naissance.asc()).all()
-    return render_template("pages/chercheurs.html", individus=individus)
+#Nous stockons dans la variable individu une liste contenant les valeurs de notre table individ.
+    lien = Individu.query.filter(Individu.image_lien != "None").all()
+    return render_template("pages/chercheurs.html", individus=individus, lien=lien)
 
 @app.route('/recherche')
 def recherche():
