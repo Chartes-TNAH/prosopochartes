@@ -1,4 +1,6 @@
-# MANQUE LE "FROM CHEMIN IMPORTER LA BASE" (voir config à faire dans app.py, voir chapitre 10 et/ou 12)
+#  Importation de la base de données sqlite
+
+from ..app import basedonnees
 
 # Création du modèle selon celui de la base de données prosopochartes.sqlite
 
