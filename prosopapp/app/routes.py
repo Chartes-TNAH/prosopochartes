@@ -18,8 +18,8 @@ def accueil ():
 
 @app.route('/chercheurs')
 def chercheurs():
-    individus = Individu.querry.all()
-    return render_template("pages/chercheurs.html")
+    individus = Individu.query.order_by(Individu.id.desc()).all()
+    return render_template("pages/chercheurs.html", individus=individus)
 
 @app.route('/recherche')
 def recherche():
@@ -31,9 +31,13 @@ def resultat():
 #cette route correspond à la page qui affichera les notices abrégées des résultats
 # à voir si on choisit de la conserver sous la dénomination résultat où si l'on préfère un nom qui reprend les mots-clés?
 
-@app.route('/noticechercheur')
-def noticechercheur():
-    return render_template("pages/noticechercheur.html")
+@app.route('/noticechercheur/<int:individu_id>')
+def noticechercheur(individu_id):
+    """"Route permettant l'affichage de la notice d'un chercheur
+    :param individu_id : Identifiant numérique du chercheur
+    """
+    unique_individu = Individu.query.get(id)
+    return render_template("pages/noticechercheur.html", individu = unique_individu)
 #idealement nomchercheur est remplacé par le nomprenom du chercheur
 #cette page correspond à la notice complète sur le chercheur
 #<string:nomchercheur>

@@ -1,7 +1,12 @@
 {%extends "headerfooter_test.html"%}
 
 {% block corps %}
-<h1>Bienvenue !</h1>
-        <p>La base de données est en cours de constitution</p>
+<h1>Ils travaillent pour l'École des Chartes</h1>
+    {%if individus%}
+        <ul>
+            {% for individu in individus %}
+                <li><a href="{{ url_for('noticechercheur')}}" </li>
+        </ul>
 {% endblock %}
+
 <!--chercheurs-->
