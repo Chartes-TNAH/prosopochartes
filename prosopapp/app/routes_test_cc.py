@@ -29,20 +29,26 @@ def recherche():
     return render_template("pages/recherche_test_cc.html")
 
 @app.route('/resultats_test_cc')
-def resultat():
+def query():
 
     naissanceMin = request.args.get("naissanceMin", None)
     naissanceMax = request.args.get("naissanceMax", None)
+    naissanceExacte = request.args.get("naissanceExacte", None)
     mortMin = request.args.get("mortMin", None)
     mortMax = request.args.get("mortMax", None)
+    mortExacte = request.args.get("mortExacte", None)
 
-    resultats = Individu.query.filter(
+    query = Individu.query.filter(
         and_(
             Individu.annee_naissance.between(naissanceMin,naissanceMax),
             Individu.annee_mort.between(mortMin,mortMax))
+        and_(Individu.annee_naissance==naissanceExacte,
+            Individu.annee_mort==mortExacte)
     ).order_by(Individu.annee_naissance.asc()).all()
 
-    return render_template("pages/resultats_test_cc.html", resultats=resultats)
+
+
+    return render_template("pages/resultats_test_cc.html", query=query)
 
 
 #cette route correspond à la page qui affichera les notices abrégées des résultats
