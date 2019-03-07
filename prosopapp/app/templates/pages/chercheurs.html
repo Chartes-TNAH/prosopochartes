@@ -2,7 +2,7 @@
 
 {% block corps %}
 
-<h1>Ils travaillent ou ont travaillé pour l'École des Chartes</h1>
+<h2>Ils travaillent ou ont travaillé pour l'École des Chartes</h2>
 
     {%if individus%}
 
@@ -10,21 +10,24 @@
                 <div class ="container">
                     <div class="row">
                         <div class ="col-3">
-                            {% if lien %}
-                                <img src="{{individu.image_lien}}" class="rounded-circle" style="width:150px; height:200px;">
+                            {% if lien == None %}
+                                <img src="{{ url_for('static', filename='Images/anonyme.jpg')}}" class="rounded-circle" style="width:150px; height:200px;">
                             {% else %}
-                                <img src="../../statics/Images/anonyme.jpg" class="rounded-circle" style="width:150px; height:200px;">
+                                <img src="{{individu.image_lien}}" class="rounded-circle" style="width:150px; height:200px;">
                             {% endif %}
                         </div>
                         <div class="col-8" >
+                            <h5>{{individu.prenom}}{{ individu.nom }}</h5>
+                            <dl>
+                            <dt>Pays nationalité</dt><dd>{{individu.pays_nationalite.pays_label}}</dd>
+
                             {{ individu.image_lien }} - {{individu.prenom}}, {{ individu.nom }}
+
                         </div>
                         <div class="col-sm-1" style="background-color:#fe2734 " style="width:15px"></div>
                         </div>
                     <div class="row">
-                        <div class="col-3">
-                            ***
-                        </div>
+                       <br/>
                     </div>
                 </div>
 
@@ -32,6 +35,7 @@
 
 
     {% endif %}
+    <img src="{{ url_for('static', filename='Images/anonyme.jpg')}}" class="rounded-circle" style="width:150px; height:200px;">
 {% endblock %}
 
 

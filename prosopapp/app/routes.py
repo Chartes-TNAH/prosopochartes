@@ -21,7 +21,8 @@ def accueil ():
 def chercheurs():
     individus = Individu.query.order_by(Individu.annee_naissance.asc()).all()
 #Nous stockons dans la variable individu une liste contenant les valeurs de notre table individ.
-    lien = Individu.query.filter(Individu.image_lien != "None").all()
+    lien = Individu.query.filter(Individu.image_lien.is_(None))
+    #lien = Individu.query.filter(Individu.image_lien)
     return render_template("pages/chercheurs.html", individus=individus, lien=lien)
 
 @app.route('/recherche')
@@ -29,10 +30,30 @@ def recherche():
     return render_template("pages/recherche.html")
 
 @app.route('/resultats')
-def resultat():
-    return render_template("pages/resultats.html")
-#cette route correspond à la page qui affichera les notices abrégées des résultats
-# à voir si on choisit de la conserver sous la dénomination résultat où si l'on préfère un nom qui reprend les mots-clés?
+def resultats():
+    """ Route permettant la recherche plein-texte
+    """
+    motclef = request.args.get("keyword", None)
+    # Liste vide de résultat (qui restera vide par défaut si on n'a pas de mot clé)
+    resultats = []
+
+    # On fait de même pour le titre de la page
+    titre = "Résultats"
+    if motclef:
+        resultats = Individu.query.filter(
+            or_ (
+                Individu.nom.like("%{}%".format(motclef)),
+                Individu.prenom.like("%{}%".format(motclef)),
+                Individu.annee_mort.like("%{}%".format(motclef)),
+                Individu.annee_naissance.like("%{}%".format(motclef)),
+                Individu.date_mort.like("%{}%".format(motclef)),
+                Individu.date_naissance.like("%{}%".format(motclef)),
+                Individu.distinction.like("%{}%".format(motclef))
+            )
+        ).order_by(Individu.nom.asc()).all()
+        titre = "Résultat pour la recherche `" + motclef + "`"
+
+    return render_template("pages/resultats.html", resultats=resultats, titre=titre)
 
 @app.route('/noticechercheur/<int:individu_id>')
 def noticechercheur(individu_id):
