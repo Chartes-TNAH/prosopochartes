@@ -22,7 +22,8 @@ def accueil ():
 def chercheurs():
     """Route permettant d'afficher certains champs pour les notices de tous les chercheurs"""
     individus = Individu.query.order_by(Individu.nom.asc()).all()
-#Nous stockons dans la variable individu une liste contenant les valeurs de notre table individ.
+#Nous stockons dans la variable individu une liste contenant les valeurs de notre table individ, c'est ce qui nous permet
+#de faire le lien vers son template qui se trouve dans le dossier "pages" (avec l'utilisation surtout de la fonction render_template)
     return render_template("pages/chercheurs.html", individus=individus)
 
 @app.route('/recherche')
@@ -62,7 +63,7 @@ def resultats():
 @app.route('/noticechercheur/<int:individu_id>')
 def noticechercheur(individu_id):
     """"Route permettant l'affichage de la notice d'un chercheur
-    :param individu_id : variable qui nous permettra de lier nos deux pages et qui correspond à l'id de notre chercheur.
+    :param individu_id : variable qui nous permettra de lier nos pages via des url_for et qui correspond à l'id de notre chercheur.
     """
     individuu = Individu.query.get(individu_id)
     return render_template("pages/noticechercheur.html", individuu=individuu)
