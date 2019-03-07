@@ -79,7 +79,12 @@ def requete():
 
     if naissanceMin :
         requete = requete.filter(Individu.annee_naissance >= naissanceMin)
-
+    if naissanceMax :
+        requete = requete.filter(Individu.annee_naissance <= naissanceMax)
+    if mortMin :
+        requete = requete.filter(Individu.annee_mort >= mortMin)
+    if mortMax :
+        requete = requete.filter(Individu.annee_mort <= mortMax)
 
     return render_template("pages/resultats_test_cc.html", requete=requete)
 
