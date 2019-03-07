@@ -1,7 +1,12 @@
 {%extends "headerfooter.html"%}
 
 {% block corps %}
-<h1>Bienvenue !</h1>
+    {% if individuu %}
+            <h4>{{individuu.prenom}} {{ individuu.nom }}</h4>
+    {% else %}
         <p>La base de données est en cours de constitution</p>
+    {% endif %}
 {% endblock %}
-<!--noticechercheur-->
+
+
+

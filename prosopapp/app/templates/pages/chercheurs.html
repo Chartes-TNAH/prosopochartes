@@ -13,7 +13,7 @@ headerfooter en premier lieu, puis la mise en forme bootstrap ci-après-->
                             {% if lien == None %}
                                 <img src="{{ url_for('static', filename='Images/anonyme.jpg')}}" class="rounded-circle" style="width:150px; height:200px;">
                             {% else %}
-                                <img src="{{individu.image_lien}}" class="rounded-circle" style="width:150px; height:200px;">
+                                <a href="{{ url_for('noticechercheur', individu_id=individu.id) }}"><img src="{{individu.image_lien}}" class="rounded-circle" style="width:150px; height:200px"></a>
                             {% endif %}
                         </div>
                         <div class="col-sm-4" >

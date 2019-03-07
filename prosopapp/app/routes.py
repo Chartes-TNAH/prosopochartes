@@ -59,8 +59,8 @@ def noticechercheur(individu_id):
     """"Route permettant l'affichage de la notice d'un chercheur
     :param individu_id : Identifiant numérique du chercheur
     """
-    unique_individu = Individu.query.get(id)
-    return render_template("pages/noticechercheur.html", individu = unique_individu)
+    individuu = Individu.query.get(individu_id)
+    return render_template("pages/noticechercheur.html", individuu=individuu)
 #idealement nomchercheur est remplacé par le nomprenom du chercheur
 #cette page correspond à la notice complète sur le chercheur
 #<string:nomchercheur>
