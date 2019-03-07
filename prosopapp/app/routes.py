@@ -4,6 +4,7 @@ from flask import render_template, url_for, request
 from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc
 #cette commande nous permet de relier les classes de notre modèle de données pour pouvoir ensuite les requêter.
 from sqlalchemy import and_, or_
+from sqlalchemy.orm import session
 
 from app.app import app
 #Cette commande permet d'importer de notre package app, la variable app, qui instancie notre application.
@@ -34,19 +35,25 @@ def resultats():
     """
     motclef = request.args.get("keyword", None)
     # Liste vide de résultat (qui restera vide par défaut si on n'a pas de mot clé)
-    resultats = []
+    #resultats = []
 
     # On fait de même pour le titre de la page
     titre = "Résultats"
     if motclef:
-        resultats = Individu.query.filter(
+        resultats = Individu.query.outerjoin(Diplome).outerjoin(Distinction).outerjoin(Pays_nationalite).outerjoin(Occupation).outerjoin(Domaine_activite).outerjoin(These_enc).filter(
             or_(
                 Individu.nom.like("%{}%".format(motclef)),
                 Individu.prenom.like("%{}%".format(motclef)),
                 Individu.annee_mort.like("%{}%".format(motclef)),
                 Individu.annee_naissance.like("%{}%".format(motclef)),
                 Individu.date_mort.like("%{}%".format(motclef)),
-                Individu.date_naissance.like("%{}%".format(motclef))
+                Individu.date_naissance.like("%{}%".format(motclef)),
+                Diplome.diplome_label.like("%{}%".format(motclef)),
+                Distinction.distinction_label.like("%{}%".format(motclef)),
+                Pays_nationalite.pays_label.like("%{}%".format(motclef)),
+                Occupation.occupation_label.like("%{}%".format(motclef)),
+                Domaine_activite.domaine_label.like("%{}%".format(motclef)),
+                These_enc.these_label.like("%{}%".format(motclef)),
             )
         ).order_by(Individu.nom.asc()).all()
         titre = "Résultat pour la recherche `" + motclef + "`"
