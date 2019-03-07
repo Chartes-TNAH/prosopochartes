@@ -9,7 +9,7 @@
         <p>Nous avons trouvé {{resultats|length}} chercheurs dans notre base :</p>
         <ul>
             {% for individu in resultats %}
-                <li>{{individu.nom}} {{individu.prenom}}</li>
+                <li><a href="{{ url_for('noticechercheur', individu_id=individu.id) }}">{{individu.nom}} {{individu.prenom}}</a></li>
             {% endfor %}
         </ul>
     {% endif %}
