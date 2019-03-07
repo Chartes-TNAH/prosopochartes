@@ -8,6 +8,8 @@ from sqlalchemy.orm import session
 
 from app.app import app
 #Cette commande permet d'importer de notre package app, la variable app, qui instancie notre application.
+from .constantes import CHERCHEURS_PAR_PAGE
+#Cette commande permet d'importer le nombre de chercheurs par pages depuis notre dossier constantes.py
 
 #Les commandes suivantes nous permettent de créer différentes routes - qui correspondent à l'URL des différents pages
 # de notre application :
@@ -34,6 +36,13 @@ def resultats():
     """ Route permettant la recherche plein-texte
     """
     motclef = request.args.get("keyword", None)
+    page = request.args.get("page", 1)
+
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+
     # Liste vide de résultat (qui restera vide par défaut si on n'a pas de mot clé)
     #resultats = []
 
@@ -55,7 +64,7 @@ def resultats():
                 Domaine_activite.domaine_label.like("%{}%".format(motclef)),
                 These_enc.these_label.like("%{}%".format(motclef)),
             )
-        ).order_by(Individu.nom.asc()).all()
+        ).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
         titre = "Résultat pour la recherche `" + motclef + "`"
     return render_template("pages/resultats.html", resultats=resultats, titre=titre)
 
