@@ -2,6 +2,7 @@ from flask import Flask
 # import de Flask depuis la librairie flask
 
 import os
+#le module os de python nous permet d'interagir avec le système sur lequel python est en train de "tourner".
 
 from flask_sqlalchemy import SQLAlchemy
 # import de SQLAlchemy, qui nous permet de lier notre base de données à notre application, et de la requêter
@@ -10,8 +11,15 @@ chemin_actuel = os.path.dirname(os.path.abspath(__file__))
 templates = os.path.join(chemin_actuel, "templates")
 static = os.path.join(chemin_actuel, "statics")
 
+#Ces trois "commandes sont liées au module os, nous indiquons, quel endroit est pour nous la page de base de notre site et
+#depuis cette dernière comment accéder à nos différents fichiers stockés en locals (déclarer où se trouve le dossier templates sera
+#notamment très utile pour nous permettre d'afficher nos images par la suite.
+
 app = Flask(__name__,  template_folder=templates, static_folder=static
+
             )
+#Instanciation de notre application, nous lui ajoutons deux arguments qui permettent de faire le lien
+#vers nos dossiers déclarés via les commandes os.
 
 # Configuration de la base de données
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../prosopochartes.sqlite'
