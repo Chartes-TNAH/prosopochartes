@@ -74,7 +74,7 @@ class These_enc(db.Model):
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
     these_label = db.Column(db.Text)
     these_lien = db.Column(db.Text)
-    date_soutenance = db.Column(db.Text)
+    date_soutenance = db.Column(db.Integer)
     individu = db.relationship("Individu", back_populates="these_enc")
 
 

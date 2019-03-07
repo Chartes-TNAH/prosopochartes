@@ -24,6 +24,7 @@ app = Flask(__name__,  template_folder=templates, static_folder=static
 # Configuration de la base de données
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../prosopochartes.sqlite'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config['DEBUG'] = True
 # Initiation de l'extension
 db = SQLAlchemy(app)
 
@@ -35,7 +36,7 @@ db = SQLAlchemy(app)
 # app est ici une variable définie comme appartenant à la classe Flask, à ne pas confondre avec notre package app (initialisé
 #avec notre fichier __init__.py.) et qui contient notre application.
 
-from app import routes
+from app import routes_test_cc
 
 #Cette commande permet de relier nos routes - urls à notre application. Elle se situe en dernier car routes a besoin de
 # notre variable app pour fonctionner. Ceci permet d'éviter des erreurs de code.
