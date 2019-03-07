@@ -25,73 +25,72 @@
 
 <h2>Formulaire de recherche avancée</h2>
 
-  <form action="{{url_for('resultats')}}" method="GET"> <!-- début du formulaire de recherche avancée -->
+  <form>       <!-- début du formulaire de recherche avancée -->
 
     <div class="form-group">
-  <label>Recherche plein texte dans toutes les champs des notices</label>
+  <label>Recherche plein texte dans toutes les notices</label>
         <input class="form-control" type="text" name="recherche-plein-texte" placeholder="Termes à rechercher">
   </div>
 
 
 <div class="form-group">
   <label>Diplôme</label>
-   <select class="form-control" name="diplome">
+   <select class="form-control">
       <option>Diplôme‎</option>
-    <option value=1>archiviste paléographe‎</option>
-      <option value=3>doctorat</option>
-      <option value=4>agrégation</option>
+    <option>archiviste paléographe‎</option>
+      <option>doctorat</option>
+      <option>agrégation</option>
     </select>
 </div>
 
     <div class="form-group">
   <label>Distinction</label>
-   <select class="form-control" name="distinction">
+   <select class="form-control">
        <option>Distinction</option>
-    <option value=1>chevalier de la Légion d'honneur‎</option>
-       <option value=2>officier de la Légion d'honneur</option>
-     <option value=5>commandeur de la Légion d'honneur</option>
-     <option value=3>commandeur des Palmes académiques</option>
-     <option value=4>officier des Arts et des Lettres</option>
-      <option value=14>chevalier des Arts et des Lettres</option>
-      <option value=7>concours général</option>
-     <option value=10>docteur honoris causa</option>
-     <option value=11>prix Gobert</option>
-      <option value=12>grand prix Gobert</option>
-      <option value=15>chevalier de l'ordre national du Mérite</option>
+    <option>chevalier de la Légion d'honneur‎</option>
+     <option>commandeur de la Légion d'honneur</option>
+     <option>commandeur des Palmes académiques</option>
+     <option>officier des Arts et des Lettres</option>
+      <option>chevalier des Arts et des Lettres</option>
+      <option>concours général</option>
+     <option>docteur honoris causa</option>
+     <option>prix Gobert</option>
+      <option>grand prix Gobert</option>
+      <option>chevalier de l'ordre national du Mérite</option>
     </select>
 </div>
 
 
   <div class="form-group">
   <label>Domaine d'activité</label>
-    <select class="form-control" name="domaine">
+    <select class="form-control">
       <option>Domaine d'activité</option>
-    <option value =1>Moyen Âge‎</option>
-     <option value=2>Histoire du livre</option>
+    <option>Moyen Âge‎</option>
+     <option>Histoire du livre</option>
     </select>
     </div>
 
   <div class="form-group">
   <label>Nationalité</label>
-    <select class="form-control" name="nationalite">
+    <select class="form-control">
       <option>Nationalité</option>
-    <option value =1>France</option>
-     <option value =2>Royaume-Uni</option>
+    <option>France</option>
+     <option>Royaume-Uni</option>
     </select>
     </div>
 
 <div class="form-groupe">
   <label>Occupation</label>
-     <select class="form-control" name="occupation">
+     <select class="form-control">
        <option>Occupation</option>
-    <option value =1>historien‎</option>
-     <option value =2>archiviste</option>
-     <option value =4>historien du droit</option>
-     <option value =6>philologue</option>
-      <option value =8>‎paléographe</option>
-      <option value =9>enseignant</option>
-     <option value =10>bibliothécaire</option>
-     <option value =11>archéologue</option>
+    <option>historien‎</option>
+     <option>archiviste</option>
+     <option>historien du droit</option>
+     <option>philologue</option>
+      <option>‎paléographe</option>
+      <option>enseignant</option>
+     <option>bibliothécaire</option>
+     <option>archéologue</option>
     </select>
 </div>
 
