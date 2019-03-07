@@ -72,6 +72,7 @@ def noticechercheur(individu_id):
 @app.route('/resultats_test_cc')
 def requete():
 
+    occupationLabel = request.form.get("occupationLabel", None)
     naissanceMin = request.args.get("naissanceMin", None)
     naissanceExacte = request.args.get("naissanceExacte", None)
     naissanceMax = request.args.get("naissanceMax", None)
@@ -81,8 +82,9 @@ def requete():
     theseMin = request.args.get("theseMin", None)
     theseExacte = request.args.get("theseExacte", None)
     theseMax = request.args.get("theseMax", None)
+    theseLabel = request.args.get("theseLabel", None)
 
-    requete = Individu.query
+    requete = Individu.query.outerjoin(These_enc).outerjoin(Occupation)
 
     if naissanceMin :
         requete = requete.filter(Individu.annee_naissance >= naissanceMin)
@@ -97,12 +99,15 @@ def requete():
     if mortMax :
         requete = requete.filter(Individu.annee_mort <= mortMax)
     if theseMin :
-        requete = requete.filter(Individu.these_enc.date_soutenance >= theseMin)
+        requete = requete.filter(These_enc.date_soutenance >= theseMin)
     if theseExacte :
-        requete = requete.filter(Individu.these_enc.date_soutenance == theseExacte)
+        requete = requete.filter(These_enc.date_soutenance == theseExacte)
     if theseMax :
-        requete = requete.filter(Individu.these_enc.date_soutenance <= theseMax)
-
+        requete = requete.filter(These_enc.date_soutenance <= theseMax)
+    if theseLabel :
+        requete = requete.filter(These_enc.these_label.like("%{}%".format(theseLabel)))
+    if occupationLabel :
+        requete = requete.filter(Occupation.occupation_label == occupationLabel)
 
 
     return render_template("pages/resultats_test_cc.html", requete=requete)

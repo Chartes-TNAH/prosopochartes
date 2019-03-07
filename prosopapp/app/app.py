@@ -36,7 +36,7 @@ db = SQLAlchemy(app)
 # app est ici une variable définie comme appartenant à la classe Flask, à ne pas confondre avec notre package app (initialisé
 #avec notre fichier __init__.py.) et qui contient notre application.
 
-from app import routes
+from app import routes_test_cc
 
 #Cette commande permet de relier nos routes - urls à notre application. Elle se situe en dernier car routes a besoin de
 # notre variable app pour fonctionner. Ceci permet d'éviter des erreurs de code.
