@@ -69,22 +69,36 @@ def noticechercheur(individu_id):
 def requete():
 
     naissanceMin = request.args.get("naissanceMin", None)
+    naissanceExacte = request.args.get("naissanceExacte", None)
     naissanceMax = request.args.get("naissanceMax", None)
-    #naissanceExacte = request.args.get("naissanceExacte", None)
     mortMin = request.args.get("mortMin", None)
+    mortExacte = request.args.get("mortExacte", None)
     mortMax = request.args.get("mortMax", None)
-    #mortExacte = request.args.get("mortExacte", None)
+    theseMin = request.args.get("theseMin", None)
+    theseExacte = request.args.get("theseExacte", None)
+    theseMax = request.args.get("theseMax", None)
 
     requete = Individu.query
 
     if naissanceMin :
         requete = requete.filter(Individu.annee_naissance >= naissanceMin)
+    if naissanceExacte :
+        requete = requete.filter(Individu.annee_naissance == naissanceExacte)
     if naissanceMax :
         requete = requete.filter(Individu.annee_naissance <= naissanceMax)
     if mortMin :
         requete = requete.filter(Individu.annee_mort >= mortMin)
+    if mortExacte :
+        requete = requete.filter(Individu.annee_mort == mortExacte)
     if mortMax :
         requete = requete.filter(Individu.annee_mort <= mortMax)
+    if theseMin :
+        requete = requete.filter(Individu.these_enc.date_soutenance >= theseMin)
+    if theseExacte :
+        requete = requete.filter(Individu.these_enc.date_soutenance == theseExacte)
+    if theseMax :
+        requete = requete.filter(Individu.these_enc.date_soutenance <= theseMax)
+
 
     return render_template("pages/resultats_test_cc.html", requete=requete)
 

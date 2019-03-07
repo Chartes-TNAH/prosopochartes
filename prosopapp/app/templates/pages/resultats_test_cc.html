@@ -5,7 +5,7 @@
     {%if requete%}
         <ul>
             {% for individu in requete %}
-                <li>{{individu.annee_naissance}} - {{individu.annee_mort}} : {{individu.nom}}</li>
+                <li>{{individu.annee_naissance}} - {{individu.annee_mort}} : {{individu.nom}} (thèse soutenue en {{individu.these_enc.date_soutenance}})</li>
             {% endfor %}
         </ul>
     {% endif %}
