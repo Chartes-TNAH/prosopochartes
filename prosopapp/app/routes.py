@@ -19,7 +19,8 @@ def accueil ():
 
 @app.route('/chercheurs')
 def chercheurs():
-    individus = Individu.query.order_by(Individu.annee_naissance.asc()).all()
+    """Route permettant d'afficher certains champs pour les notices de tous les chercheurs"""
+    individus = Individu.query.order_by(Individu.nom.asc()).all()
 #Nous stockons dans la variable individu une liste contenant les valeurs de notre table individ.
     lien = Individu.query.filter(Individu.image_lien.is_(None))
     #lien = Individu.query.filter(Individu.image_lien)
