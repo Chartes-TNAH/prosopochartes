@@ -1,0 +1,12 @@
+{%extends "headerfooter.html"%}
+
+{% block corps %}
+<h1>WSH EST-CE QUE LA REQUÊTE MARCHE</h1>
+    {%if requete%}
+        <ul>
+            {% for individu in requete %}
+                <li>{{individu.annee_naissance}} - {{individu.annee_mort}} : {{individu.nom}} (thèse soutenue en {{individu.these_enc.date_soutenance}})</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
