@@ -1,8 +1,39 @@
 {%extends "headerfooter.html"%}
-
+<!-- Sur cette page se trouve la mise en forme de la page correspondant à la notice complète du chercheur. On y accède par
+différentes requêtes via des url_for (disséminées notamment dans la page chercheurs.html et résultats.html-->
 {% block corps %}
     {% if individuu %}
-            <h4>{{individuu.prenom}} {{ individuu.nom }}</h4>
+        <div class="container">
+            <div class="row" style=" padding-top: 5% ">
+                <div class ="col-1">
+                    <h4 style="color:#fe2734">{{individuu.prenom}} {{ individuu.nom }}</h4>
+                </div>
+             <div class="row" style="margin-bottom: 2% ; padding-bottom: 2%; border-bottom:1px solid black">
+                <div class ="col-1">
+                </div>
+                 <div class ="col-7">
+                     <dl>
+                      <dt>Diplome</dt><dd>{{individuu.diplome.diplome_label}}</dd>
+                       <dt>Thèse ENC</dt><dd>{{individuu.these_enc.these_label}}</dd>
+                      <dt>Pays de nationalité</dt><dd>{{individuu.pays_nationalite.pays_label}}</dd>
+                       <dt>Année de naissance</dt><dd>{{individuu.annee_naissance}}</dd>
+                       <dt>Année de mort</dt><dd>{{individuu.annee_mort}}</dd>
+                       <dt>Identifiant Wikidata</dt><dd>{{individuu.id_wikidata}}</dd>
+                      <dt>Identifiant VIAF</dt><dd>{{individuu.id_autorite}}</dd>
+                      <dt>Domaine d'activité</dt><dd>{{individuu.domaine_activite.domaine_label}}</dd>
+                       <dt>Occupation</dt><dd>{{individuu.occupation.occupation_label}}</dd>
+                     <dt>Distinction reçue</dt><dd>{{individuu.distinction.distinction_label}}</dd>
+                      </dl>
+                </div>
+                <div class="col-4" style="padding-top: 8%">
+                    {% if not individuu.image_lien%}
+                        <img src="{{ url_for('static', filename='Images/anonyme.jpg')}}" class="rounded-circle" style="width:300px; height:400px;">
+                     {% else %}
+                         <img src="{{individuu.image_lien}}" class="rounded-circle" style="width:300px; height:400px">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     {% else %}
         <p>La base de données est en cours de constitution</p>
     {% endif %}

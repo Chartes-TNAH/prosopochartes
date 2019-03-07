@@ -10,14 +10,14 @@ headerfooter en premier lieu, puis la mise en forme bootstrap ci-après-->
                 <div class ="container">
                     <div class="row" style="margin-bottom: 2% ; padding-bottom: 2%; border-bottom:1px solid black">
                         <div class ="col-3">
-                            {% if lien == None %}
-                                <img src="{{ url_for('static', filename='Images/anonyme.jpg')}}" class="rounded-circle" style="width:150px; height:200px;">
+                            {% if not individu.image_lien %}
+                                <a href="{{ url_for('noticechercheur', individu_id=individu.id) }}"><img src="{{ url_for('static', filename='Images/anonyme.jpg')}}" class="rounded-circle" style="width:150px; height:200px;"></a>
                             {% else %}
                                 <a href="{{ url_for('noticechercheur', individu_id=individu.id) }}"><img src="{{individu.image_lien}}" class="rounded-circle" style="width:150px; height:200px"></a>
                             {% endif %}
                         </div>
                         <div class="col-sm-4" >
-                            <h5 style="color:#fe2734 ">{{individu.prenom}} {{ individu.nom }}</h5>
+                            <a href="{{ url_for('noticechercheur', individu_id=individu.id) }}"><h5 style="color:#fe2734 ">{{individu.prenom}} {{ individu.nom }}</h5></a>
                             <dl>
                              <dt>Diplome</dt><dd>{{individu.diplome.diplome_label}}</dd>
                             <dt>Pays de nationalité</dt><dd>{{individu.pays_nationalite.pays_label}}</dd>
@@ -30,9 +30,7 @@ headerfooter en premier lieu, puis la mise en forme bootstrap ci-après-->
                                 </dd>
                                 <dt>Occupation</dt><dd>{{individu.occupation.occupation_label}}</dd>
                             </dl>
-
                         </div >
-
                         <div class="col-sm-1" style="background-color:#fe2734 ; max-width:4%"></div>
                         </div>
                 </div>
@@ -41,8 +39,4 @@ headerfooter en premier lieu, puis la mise en forme bootstrap ci-après-->
     {% else %}
         <p>La base de données est en cours de constitution.</p>
     {% endif %}
-    <img src="{{ url_for('static', filename='Images/anonyme.jpg')}}" class="rounded-circle" style="width:150px; height:200px;">
 {% endblock %}
-
-
-x

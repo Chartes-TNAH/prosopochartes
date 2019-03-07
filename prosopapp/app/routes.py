@@ -23,9 +23,7 @@ def chercheurs():
     """Route permettant d'afficher certains champs pour les notices de tous les chercheurs"""
     individus = Individu.query.order_by(Individu.nom.asc()).all()
 #Nous stockons dans la variable individu une liste contenant les valeurs de notre table individ.
-    lien = Individu.query.filter(Individu.image_lien.is_(None))
-    #lien = Individu.query.filter(Individu.image_lien)
-    return render_template("pages/chercheurs.html", individus=individus, lien=lien)
+    return render_template("pages/chercheurs.html", individus=individus)
 
 @app.route('/recherche')
 def recherche():
@@ -64,10 +62,8 @@ def resultats():
 @app.route('/noticechercheur/<int:individu_id>')
 def noticechercheur(individu_id):
     """"Route permettant l'affichage de la notice d'un chercheur
-    :param individu_id : Identifiant numérique du chercheur
+    :param individu_id : variable qui nous permettra de lier nos deux pages et qui correspond à l'id de notre chercheur.
     """
     individuu = Individu.query.get(individu_id)
     return render_template("pages/noticechercheur.html", individuu=individuu)
-#idealement nomchercheur est remplacé par le nomprenom du chercheur
-#cette page correspond à la notice complète sur le chercheur
-#<string:nomchercheur>
+
