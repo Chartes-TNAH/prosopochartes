@@ -1,9 +1,9 @@
-from flask import render_template, url_for
+from flask import render_template, url_for, request
 #cette commande nous permet de relier nos templates à nos urls - routes
 #On importe url_for pour construire des URL vers les fonctions et les pages html
 from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc
 #cette commande nous permet de relier les classes de notre modèle de données pour pouvoir ensuite les requêter.
-
+from sqlalchemy import and_, or_
 
 from app.app import app
 #Cette commande permet d'importer de notre package app, la variable app, qui instancie notre application.
@@ -42,18 +42,16 @@ def resultats():
     titre = "Résultats"
     if motclef:
         resultats = Individu.query.filter(
-            or_ (
+            or_(
                 Individu.nom.like("%{}%".format(motclef)),
                 Individu.prenom.like("%{}%".format(motclef)),
                 Individu.annee_mort.like("%{}%".format(motclef)),
                 Individu.annee_naissance.like("%{}%".format(motclef)),
                 Individu.date_mort.like("%{}%".format(motclef)),
-                Individu.date_naissance.like("%{}%".format(motclef)),
-                Individu.distinction.like("%{}%".format(motclef))
+                Individu.date_naissance.like("%{}%".format(motclef))
             )
         ).order_by(Individu.nom.asc()).all()
         titre = "Résultat pour la recherche `" + motclef + "`"
-
     return render_template("pages/resultats.html", resultats=resultats, titre=titre)
 
 @app.route('/noticechercheur/<int:individu_id>')
