@@ -1,8 +1,29 @@
 {%extends "headerfooter.html"%}
 
 {% block corps %}
-<h1>Bienvenue !</h1>
-<div class="alert alert-danger" role="alert">
-  La base de données est en cours de constitution
-</div>
+    <div class="container">
+    <div class="row" style="padding-top: 10%">
+        <div class="col-12" >
+            <h1>Bienvenue sur ProsoChartes !</h1>
+        </div>
+    </div>
+    <div class="row" style="padding-top:5%">
+        <div class="col-3" >
+        </div>
+        <div class="col-6" >
+            <h5 style="color: #fe2734">"Prosopochartes" est une application Web visant à la consultation et à l'exploration d'une base prosopographique de chercheuses et chercheurs de l'Ecole Nationale des Chartes.</h5>
+        </div>
+        <div class="col-3" >
+        </div>
+    </div>
+        <div class="row" style="padding-top:5%">
+        <div class="col-3" >
+        </div>
+        <div class="col-6" >
+        </div>
+        <div class="col-3" >
+            <img src="{{ url_for('static', filename='Images/EcoleChartes.png')}}" class="img-thumbnail">
+        </div>
+    </div>
+    </div>
 {% endblock %}
