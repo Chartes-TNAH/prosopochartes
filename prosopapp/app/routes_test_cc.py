@@ -3,12 +3,10 @@ from flask import render_template, url_for, request
 #On importe url_for pour construire des URL vers les fonctions et les pages html
 from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc
 #cette commande nous permet de relier les classes de notre modèle de données pour pouvoir ensuite les requêter.
-
+from sqlalchemy import and_, or_
 
 from app.app import app
 #Cette commande permet d'importer de notre package app, la variable app, qui instancie notre application.
-
-from sqlalchemy import and_, or_
 
 #Les commandes suivantes nous permettent de créer différentes routes - qui correspondent à l'URL des différents pages
 # de notre application :
@@ -21,38 +19,40 @@ def accueil ():
 
 @app.route('/chercheurs')
 def chercheurs():
-    individus = Individu.query.order_by(Individu.annee_naissance.asc()).all()
-    return render_template("pages/chercheurs.html", individus=individus)
+    """Route permettant d'afficher certains champs pour les notices de tous les chercheurs"""
+    individus = Individu.query.order_by(Individu.nom.asc()).all()
+#Nous stockons dans la variable individu une liste contenant les valeurs de notre table individ.
+    lien = Individu.query.filter(Individu.image_lien.is_(None))
+    #lien = Individu.query.filter(Individu.image_lien)
+    return render_template("pages/chercheurs.html", individus=individus, lien=lien)
 
 @app.route('/recherche_test_cc')
 def recherche():
     return render_template("pages/recherche_test_cc.html")
 
-@app.route('/resultats_test_cc')
-def query():
+@app.route('/resultats')
+def resultats():
+    """ Route permettant la recherche plein-texte
+    """
+    motclef = request.args.get("keyword", None)
+    # Liste vide de résultat (qui restera vide par défaut si on n'a pas de mot clé)
+    resultats = []
 
-    naissanceMin = request.args.get("naissanceMin", None)
-    naissanceMax = request.args.get("naissanceMax", None)
-    naissanceExacte = request.args.get("naissanceExacte", None)
-    mortMin = request.args.get("mortMin", None)
-    mortMax = request.args.get("mortMax", None)
-    mortExacte = request.args.get("mortExacte", None)
-
-    query = Individu.query.filter(
-        and_(
-            Individu.annee_naissance.between(naissanceMin,naissanceMax),
-            Individu.annee_mort.between(mortMin,mortMax))
-        and_(Individu.annee_naissance==naissanceExacte,
-            Individu.annee_mort==mortExacte)
-    ).order_by(Individu.annee_naissance.asc()).all()
-
-
-
-    return render_template("pages/resultats_test_cc.html", query=query)
-
-
-#cette route correspond à la page qui affichera les notices abrégées des résultats
-# à voir si on choisit de la conserver sous la dénomination résultat où si l'on préfère un nom qui reprend les mots-clés?
+    # On fait de même pour le titre de la page
+    titre = "Résultats"
+    if motclef:
+        resultats = Individu.query.filter(
+            or_(
+                Individu.nom.like("%{}%".format(motclef)),
+                Individu.prenom.like("%{}%".format(motclef)),
+                Individu.annee_mort.like("%{}%".format(motclef)),
+                Individu.annee_naissance.like("%{}%".format(motclef)),
+                Individu.date_mort.like("%{}%".format(motclef)),
+                Individu.date_naissance.like("%{}%".format(motclef))
+            )
+        ).order_by(Individu.nom.asc()).all()
+        titre = "Résultat pour la recherche `" + motclef + "`"
+    return render_template("pages/resultats.html", resultats=resultats, titre=titre)
 
 @app.route('/noticechercheur/<int:individu_id>')
 def noticechercheur(individu_id):
@@ -64,3 +64,36 @@ def noticechercheur(individu_id):
 #idealement nomchercheur est remplacé par le nomprenom du chercheur
 #cette page correspond à la notice complète sur le chercheur
 #<string:nomchercheur>
+
+@app.route('/resultats_test_cc')
+def requete():
+
+    naissanceMin = request.args.get("naissanceMin", None)
+    naissanceMax = request.args.get("naissanceMax", None)
+    #naissanceExacte = request.args.get("naissanceExacte", None)
+    mortMin = request.args.get("mortMin", None)
+    mortMax = request.args.get("mortMax", None)
+    #mortExacte = request.args.get("mortExacte", None)
+
+    requete = Individu.query
+
+    if naissanceMin :
+        requete = requete.filter(Individu.annee_naissance >= naissanceMin)
+
+
+    return render_template("pages/resultats_test_cc.html", requete=requete)
+
+# LE COPIER COLLER DE LA SAUVEGARDE
+
+    #naissanceMin = request.args.get("naissanceMin", None)
+    #naissanceMax = request.args.get("naissanceMax", None)
+    #naissanceExacte = request.args.get("naissanceExacte", None)
+    #mortMin = request.args.get("mortMin", None)
+    #mortMax = request.args.get("mortMax", None)
+    #mortExacte = request.args.get("mortExacte", None)
+
+    #query = Individu.query.filter(
+    #    and_(
+    #        Individu.annee_naissance.between(naissanceMin,naissanceMax),
+    #        Individu.annee_mort.between(mortMin,mortMax))
+    #).all()

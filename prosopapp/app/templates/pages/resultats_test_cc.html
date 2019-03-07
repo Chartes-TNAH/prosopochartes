@@ -2,9 +2,9 @@
 
 {% block corps %}
 <h1>WSH EST-CE QUE LA REQUÊTE MARCHE</h1>
-    {%if resultats%}
+    {%if requete%}
         <ul>
-            {% for individu in resultats %}
+            {% for individu in requete %}
                 <li>{{individu.annee_naissance}} - {{individu.annee_mort}} : {{individu.nom}}</li>
             {% endfor %}
         </ul>

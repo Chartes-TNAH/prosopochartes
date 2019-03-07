@@ -21,174 +21,46 @@
 
 <body>
 
+<div class = "container" id="formulaire-recherche-avancee">
+
 <h2>Formulaire de recherche avancée</h2>
 
-   <div class="container">
-  <h4>Recherche libre dans toutes les notices</h4>
-    <form>
-      <div>
-        <input class="form-control" type="search" placeholder="Termes à rechercher">
-      </div>
-    </form>
-  </div>
+  <form action="{{url_for('requete')}}" method="GET">       <!-- début du formulaire de recherche avancée -->
 
 
-<div class="container">
-  <h4>Diplôme</h4>
+<div class="form-group">
+   <label>Date de naissance</label>
 
-  <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Diplôme
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-      <input class="form-control" id="recherche_diplome" type="text" placeholder="Diplôme...">
-      <li><a href="#">archiviste paléographe‎</a></li>
-      <li><a href="#">doctorat</a></li>
-      <li><a href="#">agrégation</a></li>
-    </ul>
-  </div>
-</div>
-
-  <div class="container">
-  <h4>Distinction</h4>
-
-  <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Distinction
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-      <input class="form-control" id="recherche_distinction" type="text" placeholder="Distinction...">
-      <li><a href="#">chevalier de la Légion d'honneur‎</a></li>
-      <li><a href="#">officier de la Légion d'honneur</a></li>
-      <li><a href="#">commandeur de la Légion d'honneur</a></li>
-      <li><a href="#">commandeur des Palmes académiques</a></li>
-      <li><a href="#">officier des Arts et des Lettres</a></li>
-      <li><a href="#">‎chevalier des Arts et namedes Lettres</a></li>
-      <li><a href="#">concours général</a></li>
-      <li><a href="#">docteur honoris causa</a></li>
-      <li><a href="#">prix Gobert</a></li>
-      <li><a href="#">grand prix Gobert</a></li>
-       <li><a href="#">chevalier de l'ordre national du Mérite</a></li>
-    </ul>
-  </div>
-</div>
-
-  <div class="container">
-  <h4>Domaine d'activité</h4>
-
-  <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Domaine d'activité
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-      <input class="form-control" id="recherche_domaine" type="text" placeholder="Domaine...">
-      <li><a href="#">Moyen Âge‎</a></li>name
-      <li><a href="#">Histoire du livre</a></li>
-    </ul>
-  </div>
-</div>
-
-  <div class="container">
-  <h4>Nationalité</h4>
-
-  <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Nationalité
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-      <input class="form-control" id="recherche_nationalite" type="text" placeholder="Nationalité...">
-      <li><a href="#">France</a></li>
-      <li><a href="#">Royaume-Uni</a></li>
-    </ul>
-  </div>
-</div>
-
-<div class="container">
-  <h4>Occupation</h4>
-
-  <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Occupation
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-      <input class="form-control" id="recherche_occupation" type="text" placeholder="Occupation...">
-      <li><a href="#">historien</a></li>
-      <li><a href="#">archiviste</a></li>
-      <li><a href="#">historien du droit</a>name</li>
-      <li><a href="#">philologue</a></li>
-      <li><a href="#">‎paléographe</a></li>
-      <li><a href="#">enseignant</a></li>
-      <li><a href="#">bibliothécaire</a></li>
-      <li><a href="#">archéologue</a></li>
-    </ul>
-  </div>
-</div>
-
-   <div class="container">
-  <h4>Thèse de l'École des Chartes</h4>
-    <form>
-        <input class="form-control" type="search" placeholder="Termes à rechercher">
-    </form>
-  </div>
-
-
-<div class="container">
-
-   <h4>Date de naissance</h4>
-
-  <div class="form-row">
-    <div class="col">
-        <form action="{{url_for('resultat')}}" class="form-inline" method="GET">
-             <input type="search" name="naissanceMax" class="form-control" placeholder="avant..." aria-label="Recherche">
-        </form>
+  <div class="form-group row">
+    <div class=" form-group col">
+      <input type="text" class="form-control" placeholder="après..." name="naissanceMin">
     </div>
-        <div class="col">
-      <input type="text" class="form-control" placeholder="en...">
+    <div class="form-group col">
+      <input type="text" class="form-control" placeholder="avant..." name="naissanceMax">
     </div>
-    <div class="form-row">
-        <form action="{{url_for('resultat')}}" class="form-inline" method="GET">
-             <input type="search" name="naissanceMin" class="form-control" placeholder="après..." aria-label="Recherche">
-        </form>    </div>
   </div>
 </div>
 
-<div class="container">
+    <div class="form-group">
 
-   <h4>Date de mort</h4>
+   <label>Date de mort</label>
+          <div class="form-group row">
 
-  <div>
-    <div class="form-row">
-        <form action="{{url_for('resultat')}}" class="form-inline" method="GET">
-             <input type="search" name="mortMax" class="form-control" placeholder="avant..." aria-label="Recherche">
-        </form>
+
+    <div class="form-group col">
+      <input type="text" class="form-control" placeholder="après..." name="mortMin">
     </div>
-        <div>
-      <input type="text" class="form-control" placeholder="en...">
-    </div>
-    <div class="form-row">
-        <form action="{{url_for('resultat')}}" class="form-inline" method="GET">
-             <input type="search" name="mortMin" class="form-control" placeholder="après..." aria-label="Recherche">
-        </form>    </div>
+    <div class="form-group col">
+      <input type="text" class="form-control" placeholder="avant..." name="mortMax">
+
   </div>
   </div>
 </div>
 
-<div class="container">
 
-   <h4>Date de soutenance de thèse d'Ecole</h4>
-
-  <div>
-      <input type="text" class="form-control" placeholder="avant...">
-    </div>
-
-        <div>
-      <input type="text" class="form-control" placeholder="en...">
-    </div>
-
-    <div>
-      <input type="text" class="form-control" placeholder="après...">
-    </div>
-
-  </div>
-<button class="btn btn-outline-dark" type="submit">RECHERCHER</button>
-
+        <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search">Rechercher</button>
+  </form>
 </div>
-
 
 
 </body>
