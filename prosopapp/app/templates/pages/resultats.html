@@ -6,15 +6,15 @@
 
     <h1>{{titre}}</h1>
     {% if resultats %}
-        <p>Nous avons trouvé {{resultats|length}} chercheurs dans notre base :</p>
+        <p>Nous avons trouvé {{resultats.total}} chercheurs dans notre base :</p>
         <ul>
-            {% for individu in resultats %}
+            {% for individu in resultats.items %}
                 <li><a href="{{ url_for('noticechercheur', individu_id=individu.id) }}">{{individu.nom}} {{individu.prenom}}</a></li>
             {% endfor %}
         </ul>
 <nav aria-label="research-pagination">
       <ul class="pagination">
-        {%- for page in resultats.iter_pages() %}
+        {%- for page in resultats.iter_pages()%}
             {% if page %}
               {% if page != resultats.page %}
                 <li class="page-item">
@@ -35,3 +35,5 @@
     </nav>
     {% endif %}
 {% endblock %}
+
+<!--resultats.iter_pages()-->

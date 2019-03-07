@@ -44,7 +44,7 @@ def resultats():
         page = 1
 
     # Liste vide de résultat (qui restera vide par défaut si on n'a pas de mot clé)
-    #resultats = []
+    resultats = []
 
     # On fait de même pour le titre de la page
     titre = "Résultats"
@@ -64,7 +64,7 @@ def resultats():
                 Domaine_activite.domaine_label.like("%{}%".format(motclef)),
                 These_enc.these_label.like("%{}%".format(motclef)),
             )
-        ).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
+        ).order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
         titre = "Résultat pour la recherche `" + motclef + "`"
     return render_template("pages/resultats.html", resultats=resultats, titre=titre)
 

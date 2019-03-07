@@ -37,6 +37,7 @@ db = SQLAlchemy(app)
 #avec notre fichier __init__.py.) et qui contient notre application.
 
 from app import routes
+from .routes import accueil, chercheurs, noticechercheur, recherche, resultats
 
 #Cette commande permet de relier nos routes - urls à notre application. Elle se situe en dernier car routes a besoin de
 # notre variable app pour fonctionner. Ceci permet d'éviter des erreurs de code.
