@@ -41,16 +41,20 @@ def resultats():
     # On fait de même pour le titre de la page
     titre = "Résultats"
     if motclef:
-        resultats = Individu.query.filter(
+        resultats = Individu.query.outerjoin(Diplome).outerjoin(Distinction).filter(
             or_(
                 Individu.nom.like("%{}%".format(motclef)),
                 Individu.prenom.like("%{}%".format(motclef)),
                 Individu.annee_mort.like("%{}%".format(motclef)),
                 Individu.annee_naissance.like("%{}%".format(motclef)),
                 Individu.date_mort.like("%{}%".format(motclef)),
-                Individu.date_naissance.like("%{}%".format(motclef))
+                Individu.date_naissance.like("%{}%".format(motclef)),
+                Diplome.diplome_label.like("%{}%".format(motclef)),
+                Distinction.distinction_label.like("%{}%".format(motclef))
             )
         ).order_by(Individu.nom.asc()).all()
+
+
         titre = "Résultat pour la recherche `" + motclef + "`"
     return render_template("pages/resultats.html", resultats=resultats, titre=titre)
 
@@ -98,6 +102,7 @@ def requete():
         requete = requete.filter(Individu.these_enc.date_soutenance == theseExacte)
     if theseMax :
         requete = requete.filter(Individu.these_enc.date_soutenance <= theseMax)
+
 
 
     return render_template("pages/resultats_test_cc.html", requete=requete)
