@@ -24,6 +24,7 @@ app = Flask(__name__,  template_folder=templates, static_folder=static
 # Configuration de la base de données
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../prosopochartes.sqlite'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config['DEBUG'] = True
 # Initiation de l'extension
 db = SQLAlchemy(app)
 
