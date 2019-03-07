@@ -1,0 +1,90 @@
+{%extends "headerfooter.html"%}{% block corps %}
+<h1>Bienvenue !</h1>
+<p>
+	La base de données est en cours de constitution
+</p>
+<!--recherche-->
+<!DOCTYPE html>
+<html lang="fr">
+	<!--ajout de la langue, à raouter sur tous les templates-->
+	<head>
+		<meta charset="UTF-8">
+		<!--ajout des deux balises meta nécessaires à Bootstrap : Unicode + resnponsive à tous les supports-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<!-- JavaScript -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class = "container" id="formulaire-recherche-avancee">
+			<h2>Formulaire de recherche avancée</h2>
+			<form action="{{url_for('requete')}}" method="GET">
+				<!-- début du formulaire de recherche avancée -->
+                <div class="form-groupe">
+  <label>Occupation</label>
+     <select class="form-control">
+       <option>Occupation</option>
+    <option value = "historien" name="occupationLabel">historien‎</option>
+     <option value = "archiviste">archiviste</option>
+     <option value = "historien du droit">historien du droit</option>
+     <option value = "philologue">philologue</option>
+      <option value = "paléographe">‎paléographe</option>
+      <option value = "enseignant">enseignant</option>
+     <option value = "bibliothécaire">bibliothécaire</option>
+     <option value = "archéologue">archéologue</option>
+    </select>
+</div>
+				<div class="form-group">
+					<label>Date de naissance</label>
+					<div class="form-group row">
+						<div class=" form-group col">
+							<input type="text" class="form-control" placeholder="après..." name="naissanceMin">
+						</div>
+						<div class="form-group col">
+							<input type="text" class="form-control" placeholder="en..." name="naissanceExacte">
+						</div>
+						<div class="form-group col">
+							<input type="text" class="form-control" placeholder="avant..." name="naissanceMax">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label>Date de mort</label>
+					<div class="form-group row">
+						<div class="form-group col">
+							<input type="text" class="form-control" placeholder="après..." name="mortMin">
+						</div>
+						<div class="form-group col">
+							<input type="text" class="form-control" placeholder="en..." name="mortExacte">
+						</div>
+						<div class="form-group col">
+							<input type="text" class="form-control" placeholder="avant..." name="mortMax">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="recherche-plein-texte-theses">Thèse de l'École des Chartes</label>
+					<input class="form-control" type="text" id="recherche-plein-texte-theses" placeholder="Termes à rechercher" name="theseLabel">
+				</div>
+				<div class="form-group">
+					<label>Date de soutenance de thèse</label>
+					<div class="form-group row">
+						<div class="form-group col">
+							<input type="text" class="form-control" placeholder="après..." name="theseMin">
+						</div>
+						<div class="form-group col">
+							<input type="text" class="form-control" placeholder="en..." name="theseExacte">
+						</div>
+						<div class="form-group col">
+							<input type="text" class="form-control" placeholder="avant..." name="theseMax">
+						</div>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-info btn-lg btn-responsive" id="search">Rechercher</button>
+			</form>
+		</div>
+	</body>
+</html>
+{% endblock %}
