@@ -2,7 +2,25 @@
 
 {% block corps %}
     {% if individuu %}
-            <h4>{{individuu.prenom}} {{ individuu.nom }}</h4>
+        <div class="container">
+            <div class="row" style="margin-bottom: 2% ; padding-bottom: 2%; border-bottom:1px solid black">
+                <div class ="col">
+                    <h4 style="color:#fe2734">{{individuu.prenom}} {{ individuu.nom }}</h4>
+                     <dl>
+                      <dt>Diplome</dt><dd>{{individuu.diplome.diplome_label}}</dd>
+                       <dt>Thèse ENC</dt><dd>{{individuu.these_enc.these_label}}</dd>
+                      <dt>Pays de nationalité</dt><dd>{{individuu.pays_nationalite.pays_label}}</dd>
+                       <dt>Année de naissance</dt><dd>{{individuu.annee_naissance}}</dd>
+                       <dt>Année de mort</dt><dd>{{individuu.annee_mort}}</dd>
+                       <dt>Identifiant Wikidata</dt><dd>{{individuu.id_wikidata}}</dd>
+                      <dt>Identifiant VIAF</dt><dd>{{individuu.id_autorite}}</dd>
+                      <dt>Domaine d'activité</dt><dd>{{individuu.domaine_activite.domaine_label}}</dd>
+                       <dt>Occupation</dt><dd>{{individuu.occupation.occupation_label}}</dd>
+                     <dt>Distinction reçue</dt><dd>{{individuu.distinction.distinction_label}}</dd>
+                      </dl>
+                </div>
+            </div>
+        </div>
     {% else %}
         <p>La base de données est en cours de constitution</p>
     {% endif %}
