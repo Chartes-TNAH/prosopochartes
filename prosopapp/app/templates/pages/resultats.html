@@ -1,7 +1,16 @@
 {%extends "headerfooter.html"%}
 
+{% block titre %}| {{titre}}{%endblock%}
+
 {% block corps %}
-<h1>Bienvenue !</h1>
-        <p>La base de données est en cours de constitution</p>
+
+    <h1>{{titre}}</h1>
+    {% if resultats %}
+        <p>Nous avons trouvé {{resultats|length}} chercheurs dans notre base :</p>
+        <ul>
+            {% for individu in resultats %}
+                <li>{{individu.nom}} {{individu.prenom}}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}
-<!--resultats-->
