@@ -12,22 +12,67 @@ différentes requêtes via des url_for (disséminées notamment dans la page che
                 <div class ="col-1">
                 </div>
                  <div class ="col-7">
+                 <!--Comme certains champs de notre base de données sont vides, nous utilisons des requêtes vides qui affichent
+                  des valeurs différentes en fonction du résultat.-->
                      <dl>
-                      <dt>Diplome</dt><dd>{{individuu.diplome.diplome_label}}</dd>
-                       <dt>Thèse ENC</dt><dd>{{individuu.these_enc.these_label}}</dd>
-                      <dt>Pays de nationalité</dt><dd>{{individuu.pays_nationalite.pays_label}}</dd>
-                       <dt>Année de naissance</dt><dd>{{individuu.annee_naissance}}</dd>
-                       <dt>Année de mort</dt><dd>{{individuu.annee_mort}}</dd>
-                       <dt>Identifiant Wikidata</dt><dd>{{individuu.id_wikidata}}</dd>
-                      <dt>Identifiant VIAF</dt><dd>{{individuu.id_autorite}}</dd>
-                      <dt>Domaine d'activité</dt><dd>{{individuu.domaine_activite.domaine_label}}</dd>
-                       <dt>Occupation</dt><dd>{{individuu.occupation.occupation_label}}</dd>
-                     <dt>Distinction reçue</dt><dd>{{individuu.distinction.distinction_label}}</dd>
+                         {% if individuu.diplome %}
+                            <dt>Diplome</dt><dd>{{individuu.diplome.diplome_label}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                         {% if individuu.these_enc %}
+                            <dt>Thèse ENC</dt><dd>{{individuu.these_enc.these_label}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                         {% if individuu.pays_nationalite %}
+                            <dt>Pays de nationalité</dt><dd>{{individuu.pays_nationalite.pays_label}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                         {% if individuu.annee_naissance %}
+                            <dt>Année de naissance</dt><dd>{{individuu.annee_naissance}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                         {% if individuu.annee_mort %}
+                            <dt>Année de mort</dt><dd>{{individuu.annee_mort}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                         {% if individuu.id_wikidata %}
+                            <dt>Identifiant Wikidata</dt><dd>{{individuu.id_wikidata}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                         {% if individuu.id_autorite %}
+                            <dt>Identifiant VIAF</dt><dd>{{individuu.id_autorite}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                         {% if individuu.domaine_activite.domaine_label %}
+                            <dt>Domaine d'activité</dt><dd>{{individuu.domaine_activite.domaine_label}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                         {% if individuu.occupation.occupation_label %}
+                             <dt>Occupation</dt><dd>{{individuu.occupation.occupation_label}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                         {% if individuu.distinction.distinction_label %}
+                             <dt>Distinction reçue</dt><dd>{{individuu.distinction.distinction_label}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+
                       </dl>
                 </div>
+             <!-- Certains chercheurs ont des images, d'autres noms, pour le cas où ils n'en ont pas, nous avons choisi d'importer
+             une image par défaut qui se trouve dans notre dossier statics/Images-->
                 <div class="col-4" style="padding-top: 8%">
                     {% if not individuu.image_lien%}
-                        <img src="{{ url_for('static', filename='Images/anonyme.jpg')}}" class="rounded-circle" style="width:300px; height:400px;">
+                        <img src="{{ url_for('static', filename='Images/anonyme2.jpg')}}" class="rounded-circle" style="width:300px; height:400px;">
                      {% else %}
                          <img src="{{individuu.image_lien}}" class="rounded-circle" style="width:300px; height:400px">
                     {% endif %}
