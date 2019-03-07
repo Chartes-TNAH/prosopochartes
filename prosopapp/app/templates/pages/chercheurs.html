@@ -1,14 +1,14 @@
 {%extends "headerfooter.html"%}
 
 {% block corps %}
-
-<h2>Ils travaillent ou ont travaillé pour l'École des Chartes</h2>
+<!-- Sur cette page se trouve la construction des notices abrégées pour les chercheurs. Un héritage du template
+headerfooter en premier lieu, puis la mise en forme bootstrap ci-après-->
+<h4 style="padding-top:5% ; padding-left:2% ; padding-bottom: 5%">Ils travaillent ou ont travaillé pour l'École des Chartes</h4>
 
     {%if individus%}
-
             {% for individu in individus %}
                 <div class ="container">
-                    <div class="row">
+                    <div class="row" style="margin-bottom: 2% ; padding-bottom: 2%; border-bottom:1px solid black">
                         <div class ="col-3">
                             {% if lien == None %}
                                 <img src="{{ url_for('static', filename='Images/anonyme.jpg')}}" class="rounded-circle" style="width:150px; height:200px;">
@@ -16,26 +16,33 @@
                                 <img src="{{individu.image_lien}}" class="rounded-circle" style="width:150px; height:200px;">
                             {% endif %}
                         </div>
-                        <div class="col-8" >
-                            <h5>{{individu.prenom}}{{ individu.nom }}</h5>
+                        <div class="col-sm-4" >
+                            <h5 style="color:#fe2734 ">{{individu.prenom}} {{ individu.nom }}</h5>
                             <dl>
-                            <dt>Pays nationalité</dt><dd>{{individu.pays_nationalite.pays_label}}</dd>
-
-                            {{ individu.image_lien }} - {{individu.prenom}}, {{ individu.nom }}
-
+                             <dt>Diplome</dt><dd>{{individu.diplome.diplome_label}}</dd>
+                            <dt>Pays de nationalité</dt><dd>{{individu.pays_nationalite.pays_label}}</dd>
+                            </dl>
                         </div>
-                        <div class="col-sm-1" style="background-color:#fe2734 " style="width:15px"></div>
+                        <div class="col-sm-4">
+                            <dl>
+                                <dt>Identifiant VIAF</dt><dd>{{individu.id_autorite}}</dd>
+                                <dt>Domaine d'activité</dt><dd>{{individu.domaine_activite.domaine_label}}
+                                </dd>
+                                <dt>Occupation</dt><dd>{{individu.occupation.occupation_label}}</dd>
+                            </dl>
+
+                        </div >
+
+                        <div class="col-sm-1" style="background-color:#fe2734 ; max-width:4%"></div>
                         </div>
-                    <div class="row">
-                       <br/>
-                    </div>
                 </div>
 
             {% endfor %}
-
-
+    {% else %}
+        <p>La base de données est en cours de constitution.</p>
     {% endif %}
     <img src="{{ url_for('static', filename='Images/anonyme.jpg')}}" class="rounded-circle" style="width:150px; height:200px;">
 {% endblock %}
 
 
+x
