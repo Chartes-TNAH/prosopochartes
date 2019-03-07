@@ -10,8 +10,8 @@ headerfooter en premier lieu, puis la mise en forme bootstrap ci-après-->
                 <div class ="container">
                     <div class="row" style="margin-bottom: 2% ; padding-bottom: 2%; border-bottom:1px solid black">
                         <div class ="col-3">
-                            {% if lien == None %}
-                                <img src="{{ url_for('static', filename='Images/anonyme.jpg')}}" class="rounded-circle" style="width:150px; height:200px;">
+                            {% if not individu.image_lien %}
+                                <a href="{{ url_for('noticechercheur', individu_id=individu.id) }}"><img src="{{ url_for('static', filename='Images/anonyme.jpg')}}" class="rounded-circle" style="width:150px; height:200px;"></a>
                             {% else %}
                                 <a href="{{ url_for('noticechercheur', individu_id=individu.id) }}"><img src="{{individu.image_lien}}" class="rounded-circle" style="width:150px; height:200px"></a>
                             {% endif %}

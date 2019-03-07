@@ -26,7 +26,7 @@ différentes requêtes via des url_for (disséminées notamment dans la page che
                       </dl>
                 </div>
                 <div class="col-4" style="padding-top: 8%">
-                    {% if lien == None%}
+                    {% if not individuu.image_lien%}
                         <img src="{{ url_for('static', filename='Images/anonyme.jpg')}}" class="rounded-circle" style="width:300px; height:400px;">
                      {% else %}
                          <img src="{{individuu.image_lien}}" class="rounded-circle" style="width:300px; height:400px">

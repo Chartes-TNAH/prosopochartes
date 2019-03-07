@@ -3,26 +3,33 @@
 {% block corps %}
     <div class="container">
     <div class="row" style="padding-top: 10%">
-        <div class="col-12" >
-            <h1>Bienvenue sur ProsoChartes !</h1>
+        <div class="col-2" >
+        </div>
+        <div class="col-7" >
+        <h1 style="text-align:center">Bienvenue sur ProsoChartes !</h1>
+        </div>
+        <div class="col-3" >
+        </div>
+
         </div>
     </div>
     <div class="row" style="padding-top:5%">
-        <div class="col-3" >
+        <div class="col-2" >
         </div>
-        <div class="col-6" >
-            <h5 style="color: #fe2734">"Prosopochartes" est une application Web visant à la consultation et à l'exploration d'une base prosopographique de chercheuses et chercheurs de l'Ecole Nationale des Chartes.</h5>
+        <div class="col-7" >
+            <h5 style="color: #fe2734; text-align: center">"Prosopochartes" est une application Web visant à la consultation et à l'exploration d'une base prosopographique de chercheuses et chercheurs de l'Ecole Nationale des Chartes.</h5>
         </div>
         <div class="col-3" >
         </div>
     </div>
         <div class="row" style="padding-top:5%">
-        <div class="col-3" >
+        <div class="col-4" >
         </div>
-        <div class="col-6" >
+        <div class="col-5" >
+            <img src="{{ url_for('static', filename='Images/ENC_Logo.png')}}" class="img-thumbnail">
         </div>
         <div class="col-3" >
-            <img src="{{ url_for('static', filename='Images/EcoleChartes.png')}}" class="img-thumbnail">
+
         </div>
     </div>
     </div>
