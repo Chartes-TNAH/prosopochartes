@@ -1,10 +1,20 @@
 {%extends "headerfooter.html"%}
 
+{% block titre %}| {{titre}}{%endblock%}
+
 {% block corps %}
 
-    <h1>Résultats</h1>
+    <div class="container">
+        <div class="row" style="padding-top:5%;">
     {% if requete %}
-        <p>Nous avons trouvé {{requete.total}} chercheurs dans notre base :</p>
+        <div class="media">
+            <img src="../../statics/Images/logochartes.jpg" class="align-self-start mr-3" alt="...">
+            <div class="media-body"/>
+        </div>
+        </div>
+        <div class="container" style="padding-top:5%;">
+            <h3>{{titre}}</h3>
+            <p>Nous avons trouvé {{requete.total}} chercheurs dans notre base qui correspondent à votre recherche.</p>
         <ul>
             {% for individu in requete.items %}
                 <li><a href="{{ url_for('noticechercheur', individu_id=individu.id) }}">{{individu.nom}} {{individu.prenom}}</a></li>
@@ -36,4 +46,8 @@
       </ul>
     </nav>
     {% endif %}
+    </div>
+
+    </div>
+
 {% endblock %}

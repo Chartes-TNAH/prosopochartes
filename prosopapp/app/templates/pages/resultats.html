@@ -4,9 +4,17 @@
 
 {% block corps %}
 
-    <h1>{{titre}}</h1>
+    <div class="container">
+        <div class="row" style="padding-top:5%;">
     {% if resultats %}
-        <p>Nous avons trouvé {{resultats.total}} chercheurs dans notre base :</p>
+        <div class="media">
+            <img src="../../statics/Images/logochartes.jpg" class="align-self-start mr-3" alt="...">
+            <div class="media-body"/>
+        </div>
+        </div>
+        <div class="container" style="padding-top:5%;">
+            <h3>{{titre}}</h3>
+            <p>Nous avons trouvé {{resultats.total}} chercheurs dans notre base qui correspondent à votre recherche.</p>
         <ul>
             {% for individu in resultats.items %}
                 <li><a href="{{ url_for('noticechercheur', individu_id=individu.id) }}">{{individu.nom}} {{individu.prenom}}</a></li>
@@ -36,6 +44,8 @@
       </ul>
     </nav>
     {% endif %}
-{% endblock %}
+    </div>
 
-<!--resultats.iter_pages()-->
+    </div>
+
+{% endblock %}
