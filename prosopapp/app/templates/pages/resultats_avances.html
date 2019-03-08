@@ -1,24 +1,22 @@
 {%extends "headerfooter.html"%}
 
-{% block titre %}| {{titre}}{%endblock%}
-
 {% block corps %}
 
-    <h1>{{titre}}</h1>
-    {% if resultats %}
-        <p>Nous avons trouvé {{resultats.total}} chercheurs dans notre base :</p>
+    <h1>Résultats</h1>
+    {% if requete %}
+        <p>Nous avons trouvé {{requete.total}} chercheurs dans notre base :</p>
         <ul>
-            {% for individu in resultats.items %}
+            {% for individu in requete.items %}
                 <li><a href="{{ url_for('noticechercheur', individu_id=individu.id) }}">{{individu.nom}} {{individu.prenom}}</a></li>
             {% endfor %}
         </ul>
     <nav aria-label="research-pagination">
       <ul class="pagination">
-        {%- for page in resultats.iter_pages()%}
+        {%- for page in requete.iter_pages()%}
             {% if page %}
-              {% if page != resultats.page %}
+              {% if page != requete.page %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ url_for('resultats', keyword=keyword, page=page) }}">{{page}}</a>
+                    <a class="page-link" href="{{ url_for('resultats_avances', keyword=keyword, page=page) }}">{{page}}</a>
                 </li>
               {% else %}
                 <li class="page-item active disabled">
@@ -35,5 +33,3 @@
     </nav>
     {% endif %}
 {% endblock %}
-
-<!--resultats.iter_pages()-->

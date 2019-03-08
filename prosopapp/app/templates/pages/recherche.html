@@ -1,167 +1,121 @@
 {%extends "headerfooter.html"%}
-
 {% block corps %}
-<h1>Bienvenue !</h1>
-        <p>La base de données est en cours de constitution</p>
+
 <!--recherche-->
-<!DOCTYPE html>
-<html lang="fr"> <!--ajout de la langue, à raouter sur tous les templates-->
-<head>
-  <meta charset="UTF-8"> <!--ajout des deux balises meta nécessaires à Bootstrap : Unicode + resnponsive à tous les supports-->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
-      <!-- JavaScript -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-</head>
-
-<body>
-
-<div class = "container" id="formulaire-recherche-avancee">
-
-<h2>Formulaire de recherche avancée</h2>
-
-  <form action="{{url_for('resultats')}}" method="GET"> <!-- début du formulaire de recherche avancée -->
-
-    <div class="form-group">
-  <label>Recherche plein texte dans toutes les champs des notices</label>
-        <input class="form-control" type="text" name="recherche-plein-texte" placeholder="Termes à rechercher">
-  </div>
-
-
-<div class="form-group">
-  <label>Diplôme</label>
-   <select class="form-control" name="diplome">
-      <option>Diplôme‎</option>
-    <option value=1>archiviste paléographe‎</option>
-      <option value=3>doctorat</option>
-      <option value=4>agrégation</option>
-    </select>
-</div>
-
-    <div class="form-group">
-  <label>Distinction</label>
-   <select class="form-control" name="distinction">
-       <option>Distinction</option>
-    <option value=1>chevalier de la Légion d'honneur‎</option>
-       <option value=2>officier de la Légion d'honneur</option>
-     <option value=5>commandeur de la Légion d'honneur</option>
-     <option value=3>commandeur des Palmes académiques</option>
-     <option value=4>officier des Arts et des Lettres</option>
-      <option value=14>chevalier des Arts et des Lettres</option>
-      <option value=7>concours général</option>
-     <option value=10>docteur honoris causa</option>
-     <option value=11>prix Gobert</option>
-      <option value=12>grand prix Gobert</option>
-      <option value=15>chevalier de l'ordre national du Mérite</option>
-    </select>
-</div>
-
-
-  <div class="form-group">
-  <label>Domaine d'activité</label>
-    <select class="form-control" name="domaine">
-      <option>Domaine d'activité</option>
-    <option value =1>Moyen Âge‎</option>
-     <option value=2>Histoire du livre</option>
-    </select>
-    </div>
-
-  <div class="form-group">
-  <label>Nationalité</label>
-    <select class="form-control" name="nationalite">
-      <option>Nationalité</option>
-    <option value =1>France</option>
-     <option value =2>Royaume-Uni</option>
-    </select>
-    </div>
-
-<div class="form-groupe">
-  <label>Occupation</label>
-     <select class="form-control" name="occupation">
-       <option>Occupation</option>
-    <option value =1>historien‎</option>
-     <option value =2>archiviste</option>
-     <option value =4>historien du droit</option>
-     <option value =6>philologue</option>
-      <option value =8>‎paléographe</option>
-      <option value =9>enseignant</option>
-     <option value =10>bibliothécaire</option>
-     <option value =11>archéologue</option>
-    </select>
-</div>
-
-    <div class="form-group">
-  <label for="recherche-plein-texte-theses">Thèse de l'École des Chartes</label>
-        <input class="form-control" type="text" id="recherche-plein-texte-theses" placeholder="Termes à rechercher">
-  </div>
-
-
-<div class="form-group">
-   <label>Date de naissance</label>
-
-  <div class="form-group row">
-    <div class=" form-group col">
-      <input type="text" class="form-control" placeholder="après..." name="naissanceMin">
-    </div>
-
-        <div class="form-group col">
-      <input type="text" class="form-control" placeholder="en..." name="naissanceExacte">
-    </div>
-
-    <div class="form-group col">
-      <input type="text" class="form-control" placeholder="avant..." name="naissanceMax">
-    </div>
-  </div>
-</div>
-
-    <div class="form-group">
-
-   <label>Date de mort</label>
-          <div class="form-group row">
-
-
-    <div class="form-group col">
-      <input type="text" class="form-control" placeholder="après..." name="mortMin">
-    </div>
-        <div class="form-group col">
-      <input type="text" class="form-control" placeholder="en..." name="mortExacte">
-    </div>
-    <div class="form-group col">
-      <input type="text" class="form-control" placeholder="avant..." name="mortMax">
-
-  </div>
-  </div>
-</div>
-
-    <div class="form-group">
-
-   <label>Date de soutenance de thèse</label>
-
-          <div class="form-group row">
-
-    <div class="form-group col">
-      <input type="text" class="form-control" placeholder="après..." name="theseMin">
-    </div>
-        <div class="form-group col">
-      <input type="text" class="form-control" placeholder="en..." name="theseExacte">
-    </div>
-    <div class="form-group col">
-      <input type="text" class="form-control" placeholder="avant..." name="theseMax">
-    </div>
-    </div>
-</div>
-
-
-        <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search">Rechercher</button>
-  </form>
-</div>
-
-
-</body>
-</html>
-{% endblock %}
+		<div class = "container" id="formulaire-recherche-avancee">
+			<h2>Formulaire de recherche avancée</h2>
+			<form action="{{url_for('resultats_avances')}}" method="GET">
+				<!-- début du formulaire de recherche avancée -->
+				<!--
+				<div class="form-group">
+					<label>Recherche plein texte dans toutes les champs des notices</label>
+					<input class="form-control" type="text" name="recherche-plein-texte" placeholder="Termes à rechercher">
+				</div>
+				<div class="form-group">
+					<label>Diplôme</label>
+					<select class="form-control" name="diplome">
+						<option>Diplôme‎</option>
+						<option value=1>archiviste paléographe‎</option>
+						<option value=3>doctorat</option>
+						<option value=4>agrégation</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Distinction</label>
+					<select class="form-control" name="distinction">
+						<option>Distinction</option>
+						<option value=1>chevalier de la Légion d'honneur‎</option>
+						<option value=2>officier de la Légion d'honneur</option>
+						<option value=5>commandeur de la Légion d'honneur</option>
+						<option value=3>commandeur des Palmes académiques</option>
+						<option value=4>officier des Arts et des Lettres</option>
+						<option value=14>chevalier des Arts et des Lettres</option>
+						<option value=7>concours général</option>
+						<option value=10>docteur honoris causa</option>
+						<option value=11>prix Gobert</option>
+						<option value=12>grand prix Gobert</option>
+						<option value=15>chevalier de l'ordre national du Mérite</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Domaine d'activité</label>
+					<select class="form-control" name="domaine">
+						<option>Domaine d'activité</option>
+						<option value =1>Moyen Âge‎</option>
+						<option value=2>Histoire du livre</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Nationalité</label>
+					<select class="form-control" name="nationalite">
+						<option>Nationalité</option>
+						<option value =1>France</option>
+						<option value =2>Royaume-Uni</option>
+					</select>
+				</div>
+				<div class="form-groupe">
+					<label>Occupation</label>
+					<select class="form-control" name="occupation">
+						<option>Occupation</option>
+						<option value =1>historien‎</option>
+						<option value =2>archiviste</option>
+						<option value =4>historien du droit</option>
+						<option value =6>philologue</option>
+						<option value =8>‎paléographe</option>
+						<option value =9>enseignant</option>
+						<option value =10>bibliothécaire</option>
+						<option value =11>archéologue</option>
+					</select>
+				</div>
+				-->
+				<div class="form-group">
+					<label>Date de naissance</label>
+					<div class="form-group row">
+						<div class=" form-group col">
+							<input type="text" class="form-control" placeholder="après..." name="naissanceMin">
+						</div>
+						<div class="form-group col">
+							<input type="text" class="form-control" placeholder="en..." name="naissanceExacte">
+						</div>
+						<div class="form-group col">
+							<input type="text" class="form-control" placeholder="avant..." name="naissanceMax">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label>Date de mort</label>
+					<div class="form-group row">
+						<div class="form-group col">
+							<input type="text" class="form-control" placeholder="après..." name="mortMin">
+						</div>
+						<div class="form-group col">
+							<input type="text" class="form-control" placeholder="en..." name="mortExacte">
+						</div>
+						<div class="form-group col">
+							<input type="text" class="form-control" placeholder="avant..." name="mortMax">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="recherche-plein-texte-theses">Thèse de l'École des chartes</label>
+					<input class="form-control" type="text" id="recherche-plein-texte-theses" placeholder="Termes à rechercher">
+				</div>
+				<div class="form-group">
+					<label>Date de soutenance de thèse</label>
+					<div class="form-group row">
+						<div class="form-group col">
+							<input type="text" class="form-control" placeholder="après..." name="theseMin">
+						</div>
+						<div class="form-group col">
+							<input type="text" class="form-control" placeholder="en..." name="theseExacte">
+						</div>
+						<div class="form-group col">
+							<input type="text" class="form-control" placeholder="avant..." name="theseMax">
+						</div>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-info btn-lg btn-responsive" id="search">Rechercher</button>
+			</form>
+		</div>
+	{% endblock %}
