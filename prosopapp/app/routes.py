@@ -77,6 +77,8 @@ def resultats_avances():
     ainsi que date de soutenance, de décès et de mort (il est possible de requêter
     les dates précises, ou de définir un intervalle)
     """
+
+    motclef = request.args.get("motclef", None)
     naissanceMin = request.args.get("naissanceMin", None)
     naissanceExacte = request.args.get("naissanceExacte", None)
     naissanceMax = request.args.get("naissanceMax", None)
@@ -95,8 +97,23 @@ def resultats_avances():
     else:
         page = 1
 
-    requete = Individu.query.outerjoin(These_enc)
+    requete = Individu.query.outerjoin(Diplome).outerjoin(Distinction).outerjoin(Pays_nationalite).outerjoin(Occupation).outerjoin(Domaine_activite).outerjoin(These_enc)
 
+    if motclef :
+        requete = requete.filter(or_(
+                Individu.nom.like("%{}%".format(motclef)),
+                Individu.prenom.like("%{}%".format(motclef)),
+                Individu.annee_mort.like("%{}%".format(motclef)),
+                Individu.annee_naissance.like("%{}%".format(motclef)),
+                Individu.date_mort.like("%{}%".format(motclef)),
+                Individu.date_naissance.like("%{}%".format(motclef)),
+                Diplome.diplome_label.like("%{}%".format(motclef)),
+                Distinction.distinction_label.like("%{}%".format(motclef)),
+                Pays_nationalite.pays_label.like("%{}%".format(motclef)),
+                Occupation.occupation_label.like("%{}%".format(motclef)),
+                Domaine_activite.domaine_label.like("%{}%".format(motclef)),
+                These_enc.these_label.like("%{}%".format(motclef)),
+            ))
     if naissanceMin :
         requete = requete.filter(Individu.annee_naissance >= naissanceMin)
     if naissanceExacte :
