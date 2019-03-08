@@ -6,11 +6,34 @@
 
     <h1>{{titre}}</h1>
     {% if resultats %}
-        <p>Nous avons trouvé {{resultats|length}} chercheurs dans notre base :</p>
+        <p>Nous avons trouvé {{resultats.total}} chercheurs dans notre base :</p>
         <ul>
-            {% for individu in resultats %}
+            {% for individu in resultats.items %}
                 <li><a href="{{ url_for('noticechercheur', individu_id=individu.id) }}">{{individu.nom}} {{individu.prenom}}</a></li>
             {% endfor %}
         </ul>
+<nav aria-label="research-pagination">
+      <ul class="pagination">
+        {%- for page in resultats.iter_pages()%}
+            {% if page %}
+              {% if page != resultats.page %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('resultats', keyword=keyword, page=page) }}">{{page}}</a>
+                </li>
+              {% else %}
+                <li class="page-item active disabled">
+                  <a class="page-link">{{page}} <span class="sr-only">(actuelle)</span></a>
+                </li>
+              {% endif %}
+            {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link">...</a>
+                </li>
+            {% endif %}
+        {%- endfor %}
+      </ul>
+    </nav>
     {% endif %}
 {% endblock %}
+
+<!--resultats.iter_pages()-->
