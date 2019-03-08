@@ -48,7 +48,7 @@
 
 				<div class="form-group">
 					<label>Pays de nationalité</label>
-					<select class="form-control" name="nationalite">
+					<select class="form-control" name="pays">
                     <option value="all">Sélectionner un champ</option>
 						{% for pa in pays %}
                    			<option value="{{pa.pays_label}}">{{pa.pays_label}}</option>
@@ -56,10 +56,9 @@
 					</select>
 				</div>
 
-
 				<div class="form-group">
 					<label>Occupation</label>
-					<select form="recherche_form" class="form-control" name="occupations">
+					<select class="form-control" name="occupations">
                         <option value="all">Sélectionner un champ</option>
 						{% for occupation in occupations %}
                    			<option value="{{occupation.occupation_label}}">{{occupation.occupation_label}}</option>

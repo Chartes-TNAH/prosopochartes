@@ -110,9 +110,9 @@ def resultats_avances():
     theseMax = request.args.get("theseMax", None)
     theseLabel = request.args.get("theseLabel", None)
     occupations = request.args.get("occupations", None)
-    #nationalite = request.args.get("nationalite", None)
-    #domaine_activite = request.args.get("domaine_activite", None)
-    #distinction = request.args.get("distinction", None)
+    pays = request.args.get("pays", None)
+    domaine_activite = request.args.get("domaine_activite", None)
+    distinction = request.args.get("distinction", None)
 
 
     page = request.args.get("page", 1)
@@ -161,12 +161,12 @@ def resultats_avances():
         requete = requete.filter(These_enc.these_label.like("%{}%".format(theseLabel)))
     if occupations :
         requete = requete.filter(Occupation.occupation_label == occupations)
-    #if nationalite :
-        #requete = requete.filter(Pays_nationalite.pays_label == nationalite)
-    #if domaine_activite :
-       #requete = requete.filter(Domaine_activite.domaine_label == domaine_activite)
-    #if distinction :
-        #requete = requete.filter(Distinction.distinction_label == distinction)
+    if pays:
+        requete = requete.filter(Pays_nationalite.pays_label == pays)
+    if domaine_activite :
+       requete = requete.filter(Domaine_activite.domaine_label == domaine_activite)
+    if distinction :
+        requete = requete.filter(Distinction.distinction_label == distinction)
 
 
 
@@ -185,9 +185,9 @@ def resultats_avances():
         theseMax=theseMax,
         theseLabel=theseLabel,
         occupations=occupations,
-        #nationalite=nationalite,
-        #domaine_activite=domaine_activite,
-        #distinction=distinction,
+        pays=pays,
+        domaine_activite=domaine_activite,
+        distinction=distinction,
         requete=requete
         )
 
