@@ -77,7 +77,6 @@ def resultats_avances():
     ainsi que date de soutenance, de décès et de mort (il est possible de requêter
     les dates précises, ou de définir un intervalle)
     """
-    occupationLabel = request.form.get("occupationLabel", None)
     naissanceMin = request.args.get("naissanceMin", None)
     naissanceExacte = request.args.get("naissanceExacte", None)
     naissanceMax = request.args.get("naissanceMax", None)
@@ -89,7 +88,14 @@ def resultats_avances():
     theseMax = request.args.get("theseMax", None)
     theseLabel = request.args.get("theseLabel", None)
 
-    requete = Individu.query.outerjoin(These_enc).outerjoin(Occupation)
+    page = request.args.get("page", 1)
+
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+
+    requete = Individu.query.outerjoin(These_enc)
 
     if naissanceMin :
         requete = requete.filter(Individu.annee_naissance >= naissanceMin)
@@ -111,9 +117,8 @@ def resultats_avances():
         requete = requete.filter(These_enc.date_soutenance <= theseMax)
     if theseLabel :
         requete = requete.filter(These_enc.these_label.like("%{}%".format(theseLabel)))
-    if occupationLabel :
-        requete = requete.filter(Occupation.occupation_label == occupationLabel)
 
+    requete = requete.order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
 
     return render_template("pages/resultats_avances.html", requete=requete)
 

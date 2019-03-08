@@ -2,12 +2,34 @@
 
 {% block corps %}
 
+    <h1>Résultats</h1>
     {% if requete %}
-        <p>Nous avons trouvé {{requete|length}} chercheurs dans notre base :</p>
+        <p>Nous avons trouvé {{requete.total}} chercheurs dans notre base :</p>
         <ul>
-            {% for individu in requete %}
+            {% for individu in requete.items %}
                 <li><a href="{{ url_for('noticechercheur', individu_id=individu.id) }}">{{individu.nom}} {{individu.prenom}}</a></li>
             {% endfor %}
         </ul>
+    <nav aria-label="research-pagination">
+      <ul class="pagination">
+        {%- for page in requete.iter_pages()%}
+            {% if page %}
+              {% if page != requete.page %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('resultats_avances', keyword=keyword, page=page) }}">{{page}}</a>
+                </li>
+              {% else %}
+                <li class="page-item active disabled">
+                  <a class="page-link">{{page}} <span class="sr-only">(actuelle)</span></a>
+                </li>
+              {% endif %}
+            {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link">...</a>
+                </li>
+            {% endif %}
+        {%- endfor %}
+      </ul>
+    </nav>
     {% endif %}
 {% endblock %}

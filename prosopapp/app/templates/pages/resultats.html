@@ -12,7 +12,7 @@
                 <li><a href="{{ url_for('noticechercheur', individu_id=individu.id) }}">{{individu.nom}} {{individu.prenom}}</a></li>
             {% endfor %}
         </ul>
-<nav aria-label="research-pagination">
+    <nav aria-label="research-pagination">
       <ul class="pagination">
         {%- for page in resultats.iter_pages()%}
             {% if page %}
