@@ -25,7 +25,7 @@ def accueil ():
 def chercheurs():
     """Route permettant d'afficher certains champs pour les notices de tous les chercheurs"""
     individus = Individu.query.order_by(Individu.nom.asc()).all()
-#Nous stockons dans la variable individu une liste contenant les valeurs de notre table individ, c'est ce qui nous permet
+#Nous stockons dans la variable individu une liste contenant les valeurs de notre table individu, c'est ce qui nous permet
 #de faire le lien vers son template qui se trouve dans le dossier "pages" (avec l'utilisation surtout de la fonction render_template)
     return render_template("pages/chercheurs.html", individus=individus)
 
@@ -43,19 +43,27 @@ def resultats():
     """ Route permettant la recherche plein-texte
     """
     motclef = request.args.get("keyword", None)
+    #On stocke dans la variable mot clef une liste qui est destinée à contenir la valeur du mot clé rentré par l'utilisateur dans la barre de recherche
     page = request.args.get("page", 1)
+    #On stocke dans la variable page une liste qui est destinée à contenir la valeur du numéro de page
 
     if isinstance(page, str) and page.isdigit():
         page = int(page)
     else:
         page = 1
+    #Si le numéro de la page est une chaîne de caractères composée uniquement de chiffres
+    #Alors on la recaste en integer
+    #Sinon, le numéro de la page est égal à 1
 
-    # Liste vide de résultat (qui restera vide par défaut si on n'a pas de mot clé)
+    # On crée une liste vide de résultat (qui restera vide par défaut si on n'a pas de mot clé)
     resultats = []
 
-    # On fait de même pour le titre de la page
+    # On crée une variable titre qui nous servira à afficher le résultat de notre requête
     titre = "Résultats"
+
     if motclef:
+    #Si on a un mot clé, on requête toutes les tables de notre base de donnée pour vérifier s'il y a des correspondances
+    #Le résultat de cette requête est stocké dans la liste resultats = []
         resultats = Individu.query.outerjoin(Diplome).outerjoin(Distinction).outerjoin(Pays_nationalite).outerjoin(Occupation).outerjoin(Domaine_activite).outerjoin(These_enc).filter(
             or_(
                 Individu.nom.like("%{}%".format(motclef)),
@@ -72,9 +80,12 @@ def resultats():
                 These_enc.these_label.like("%{}%".format(motclef)),
             )
         ).order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
-
         titre = "Voici les résultats de votre recherche pour : '"+ motclef + "`"
+        #On affiche une phrase qui indiquera les résultats de la recherche en fonction du mot clé rentré par l'utilisateur
+        #Cette variable titre sera réutilisée dans la page resultats.html
     return render_template("pages/resultats.html", resultats=resultats, titre=titre, keyword=motclef)
+    #On retourne la page resultats.html, et on indique à quoi correspondent les variables resultats, titre et keyword,
+    #qui seront appelées ensuite au sein des pages html
 
 
 @app.route('/resultats_avances')
