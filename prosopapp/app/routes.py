@@ -1,4 +1,5 @@
 from flask import render_template, url_for, request
+
 #cette commande nous permet de relier nos templates à nos urls - routes
 #On importe url_for pour construire des URL vers les fonctions et les pages html
 from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc
@@ -67,7 +68,7 @@ def resultats():
             )
         ).order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
         titre = "Résultat pour la recherche `" + motclef + "`"
-    return render_template("pages/resultats.html", resultats=resultats, titre=titre)
+    return render_template("pages/resultats.html", resultats=resultats, titre=titre, keyword=motclef)
 
 @app.route('/resultats_avances')
 def resultats_avances():
