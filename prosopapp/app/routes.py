@@ -31,7 +31,12 @@ def chercheurs():
 
 @app.route('/recherche')
 def recherche():
-    return render_template("pages/recherche.html")
+    occupations = Occupation.query.all()
+    pays = Pays_nationalite.query.all()
+    activites = Domaine_activite.query.all()
+    distinctions = Distinction.query.all()
+    diplomes = Diplome.query.all()
+    return render_template("pages/recherche.html", occupations=occupations, pays=pays, activites=activites, distinctions=distinctions, diplomes=diplomes)
 
 @app.route('/resultats')
 def resultats():
@@ -92,6 +97,7 @@ def resultats_avances():
     les dates précises, ou de définir un intervalle)
     """
 
+
     motclef = request.args.get("motclef", None)
     naissanceMin = request.args.get("naissanceMin", None)
     naissanceExacte = request.args.get("naissanceExacte", None)
@@ -103,6 +109,11 @@ def resultats_avances():
     theseExacte = request.args.get("theseExacte", None)
     theseMax = request.args.get("theseMax", None)
     theseLabel = request.args.get("theseLabel", None)
+    occupations = request.args.get("occupations", None)
+    pays = request.args.get("pays", None)
+    domaine_activite = request.args.get("domaine_activite", None)
+    distinction = request.args.get("distinction", None)
+
 
     page = request.args.get("page", 1)
 
@@ -148,6 +159,16 @@ def resultats_avances():
         requete = requete.filter(These_enc.date_soutenance <= theseMax)
     if theseLabel :
         requete = requete.filter(These_enc.these_label.like("%{}%".format(theseLabel)))
+    if occupations :
+        requete = requete.filter(Occupation.occupation_label == occupations)
+    if pays:
+        requete = requete.filter(Pays_nationalite.pays_label == pays)
+    if domaine_activite :
+       requete = requete.filter(Domaine_activite.domaine_label == domaine_activite)
+    if distinction :
+        requete = requete.filter(Distinction.distinction_label == distinction)
+
+
 
     requete = requete.order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
 
@@ -163,7 +184,12 @@ def resultats_avances():
         theseExacte=theseExacte,
         theseMax=theseMax,
         theseLabel=theseLabel,
-        requete=requete)
+        occupations=occupations,
+        pays=pays,
+        domaine_activite=domaine_activite,
+        distinction=distinction,
+        requete=requete
+        )
 
 
 

@@ -1,72 +1,73 @@
 {%extends "headerfooter.html"%}
 {% block corps %}
 
-<!--recherche-->
+<!--Cette page contient un formulaire de recherche avancée dont les résultats sont ensuite affichés sur la page resultats_avances -->
 
-		<div class = "container" id="formulaire-recherche-avancee">
+		<div class = "container" id="formulaire-recherche-avancee" style="padding-top: 5%; padding-bottom: 5%">
 			<h2>Formulaire de recherche avancée</h2>
-			<form action="{{url_for('resultats_avances')}}" method="GET">
-				<!-- début du formulaire de recherche avancée -->
-								<div class="form-group">
-					<label>Recherche plein texte dans toutes les champs des notices</label>
+			<form action="{{url_for('resultats_avances')}}" method="GET" id="recherche_form">
+				<!--Ce premier champ de recherche est constitué par un champ de recherche avancée similaire à celui présent dans notre barre de
+                navigation.-->
+                <div class="form-group">
+					<label>Recherche plein texte dans tous les champs des notices</label>
 					<input class="form-control" type="text" name="motclef" placeholder="Termes à rechercher">
 				</div>
-				<!--
+
+            <!--Cette partie de la recherche avancée est constituée de drop-downs, pour les champs dont
+             le requêtage semblait ainsi plus pertinent.-->
 
 				<div class="form-group">
 					<label>Diplôme</label>
 					<select class="form-control" name="diplome">
-						<option>Diplôme‎</option>
-						<option value=1>archiviste paléographe‎</option>
-						<option value=3>doctorat</option>
-						<option value=4>agrégation</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label>Distinction</label>
-					<select class="form-control" name="distinction">
-						<option>Distinction</option>
-						<option value=1>chevalier de la Légion d'honneur‎</option>
-						<option value=2>officier de la Légion d'honneur</option>
-						<option value=5>commandeur de la Légion d'honneur</option>
-						<option value=3>commandeur des Palmes académiques</option>
-						<option value=4>officier des Arts et des Lettres</option>
-						<option value=14>chevalier des Arts et des Lettres</option>
-						<option value=7>concours général</option>
-						<option value=10>docteur honoris causa</option>
-						<option value=11>prix Gobert</option>
-						<option value=12>grand prix Gobert</option>
-						<option value=15>chevalier de l'ordre national du Mérite</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label>Domaine d'activité</label>
-					<select class="form-control" name="domaine">
-						<option>Domaine d'activité</option>
-						<option value =1>Moyen Âge‎</option>
-						<option value=2>Histoire du livre</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label>Nationalité</label>
-					<select class="form-control" name="nationalite">
-						<option>Nationalité</option>
-						<option value =1>France</option>
-						<option value =2>Royaume-Uni</option>
-					</select>
-				</div>
-
-
-				<div class="form-groupe">
-					<label>Occupation</label>
-					<select class="form-control" name="occupations">
-						{% for occupation in occupations %}
-                   			<option value="{{occupation}}">{{occupation}}</option>
+                        <option value="all">Sélectionner un champ</option>
+						{% for diplome in diplomes %}
+                   			<option value="{{diplome.diplome_label}}">{{diplome.diplome_label}}</option>
                			{% endfor %}
 					</select>
 				</div>
 
-				-->
+				<div class="form-group">
+					<label>Distinction</label>
+					<select class="form-control" name="distinction">
+                        <option value="all">Sélectionner un champ</option>
+						{% for distinction in distinctions %}
+                   			<option value="{{distinction.distinction_label}}">{{distinction.distinction_label}}</option>
+               			{% endfor %}
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label>Domaine d'activité</label>
+					<select class="form-control" name="domaine_activite">
+                        <option value="all">Sélectionner un champ</option>
+						{% for activite in activites %}
+                   			<option value="{{activite.domaine_label}}">{{activite.domaine_label}}</option>
+               			{% endfor %}
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label>Pays de nationalité</label>
+					<select class="form-control" name="pays">
+                    <option value="all">Sélectionner un champ</option>
+						{% for pa in pays %}
+                   			<option value="{{pa.pays_label}}">{{pa.pays_label}}</option>
+               			{% endfor %}
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label>Occupation</label>
+					<select class="form-control" name="occupations">
+                        <option value="all">Sélectionner un champ</option>
+						{% for occupation in occupations %}
+                   			<option value="{{occupation.occupation_label}}">{{occupation.occupation_label}}</option>
+               			{% endfor %}
+					</select>
+				</div>
+        <!--Fin de la recherche via des drop-downs -->
+        <!--Notre formulaire de requête avancée contient également une partie de recherche plein texte
+         pour rechercher et ainsi filtrer en fonction des dates (naissance, mort) ou de soutenance de thèse.-->
 
 				<div class="form-group">
 					<label>Date de naissance</label>
@@ -96,6 +97,8 @@
 						</div>
 					</div>
 				</div>
+            <!--Afin de pouvoir requêter de manière plus confortable dans le titre des thèses, nous avons choisi d'utiliser à cet endroit un
+             formulaire de recherche plein-texte-->
 				<div class="form-group">
 					<label for="recherche-plein-texte-theses">Thèse de l'École des chartes</label>
 					<input class="form-control" type="text" id="recherche-plein-texte-theses" placeholder="Termes à rechercher">
