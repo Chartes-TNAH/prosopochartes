@@ -1,0 +1,13 @@
+{%extends "headerfooter.html"%}
+
+{% block corps %}
+
+    {% if requete %}
+        <p>Nous avons trouvé {{requete|length}} chercheurs dans notre base :</p>
+        <ul>
+            {% for individu in requete %}
+                <li><a href="{{ url_for('noticechercheur', individu_id=individu.id) }}">{{individu.nom}} {{individu.prenom}}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
