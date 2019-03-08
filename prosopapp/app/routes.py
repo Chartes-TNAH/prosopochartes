@@ -66,7 +66,7 @@ def resultats():
                 These_enc.these_label.like("%{}%".format(motclef)),
             )
         ).order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
-        titre = "Résultat pour la recherche `" + motclef + "`"
+        titre = "Voici les résultats de votre recherche pour : '" + motclef + "'"
     return render_template("pages/resultats.html", resultats=resultats, titre=titre)
 
 @app.route('/resultats_avances')
