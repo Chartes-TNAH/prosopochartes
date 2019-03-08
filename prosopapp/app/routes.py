@@ -121,7 +121,19 @@ def resultats_avances():
 
     requete = requete.order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
 
-    return render_template("pages/resultats_avances.html", requete=requete)
+    return render_template(
+        "pages/resultats_avances.html",
+        naissanceMin=naissanceMin,
+        naissanceExacte=naissanceExacte,
+        naissanceMax=naissanceMax,
+        mortMin=mortMin,
+        mortExacte=mortExacte,
+        mortMax=mortMax,
+        theseMin=theseMin,
+        theseExacte=theseExacte,
+        theseMax=theseMax,
+        theseLabel=theseLabel,
+        requete=requete)
 
 
 
