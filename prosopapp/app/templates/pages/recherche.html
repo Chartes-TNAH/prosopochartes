@@ -7,11 +7,12 @@
 			<h2>Formulaire de recherche avancée</h2>
 			<form action="{{url_for('resultats_avances')}}" method="GET">
 				<!-- début du formulaire de recherche avancée -->
-				<!--
-				<div class="form-group">
+								<div class="form-group">
 					<label>Recherche plein texte dans toutes les champs des notices</label>
-					<input class="form-control" type="text" name="recherche-plein-texte" placeholder="Termes à rechercher">
+					<input class="form-control" type="text" name="motclef" placeholder="Termes à rechercher">
 				</div>
+				<!--
+
 				<div class="form-group">
 					<label>Diplôme</label>
 					<select class="form-control" name="diplome">
@@ -54,21 +55,19 @@
 						<option value =2>Royaume-Uni</option>
 					</select>
 				</div>
+
+
 				<div class="form-groupe">
 					<label>Occupation</label>
-					<select class="form-control" name="occupation">
-						<option>Occupation</option>
-						<option value =1>historien‎</option>
-						<option value =2>archiviste</option>
-						<option value =4>historien du droit</option>
-						<option value =6>philologue</option>
-						<option value =8>‎paléographe</option>
-						<option value =9>enseignant</option>
-						<option value =10>bibliothécaire</option>
-						<option value =11>archéologue</option>
+					<select class="form-control" name="occupations">
+						{% for occupation in occupations %}
+                   			<option value="{{occupation}}">{{occupation}}</option>
+               			{% endfor %}
 					</select>
 				</div>
+
 				-->
+
 				<div class="form-group">
 					<label>Date de naissance</label>
 					<div class="form-group row">
