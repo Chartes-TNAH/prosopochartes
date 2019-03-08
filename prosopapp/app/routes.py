@@ -31,7 +31,12 @@ def chercheurs():
 
 @app.route('/recherche')
 def recherche():
-    return render_template("pages/recherche.html")
+    occupations = Occupation.query.all()
+    pays = Pays_nationalite.query.all()
+    activites = Domaine_activite.query.all()
+    distinctions = Distinction.query.all()
+    diplomes = Diplome.query.all()
+    return render_template("pages/recherche.html", occupations=occupations, pays=pays, activites=activites, distinctions=distinctions, diplomes=diplomes)
 
 @app.route('/resultats')
 def resultats():
@@ -80,6 +85,7 @@ def resultats_avances():
     ainsi que date de soutenance, de décès et de mort (il est possible de requêter
     les dates précises, ou de définir un intervalle)
     """
+
 
     motclef = request.args.get("motclef", None)
     naissanceMin = request.args.get("naissanceMin", None)
@@ -152,7 +158,8 @@ def resultats_avances():
         theseExacte=theseExacte,
         theseMax=theseMax,
         theseLabel=theseLabel,
-        requete=requete)
+        requete=requete
+        )
 
 
 
