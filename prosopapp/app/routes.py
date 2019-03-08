@@ -1,4 +1,5 @@
 from flask import render_template, url_for, request
+
 #cette commande nous permet de relier nos templates à nos urls - routes
 #On importe url_for pour construire des URL vers les fonctions et les pages html
 from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc
@@ -66,8 +67,10 @@ def resultats():
                 These_enc.these_label.like("%{}%".format(motclef)),
             )
         ).order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
-        titre = "Voici les résultats de votre recherche pour : '" + motclef + "'"
-    return render_template("pages/resultats.html", resultats=resultats, titre=titre)
+
+        titre = "Voici les résultats de votre recherche pour : '"+ motclef + "`"
+    return render_template("pages/resultats.html", resultats=resultats, titre=titre, keyword=motclef)
+
 
 @app.route('/resultats_avances')
 def resultats_avances():
@@ -137,7 +140,19 @@ def resultats_avances():
 
     requete = requete.order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
 
-    return render_template("pages/resultats_avances.html", requete=requete)
+    return render_template(
+        "pages/resultats_avances.html",
+        naissanceMin=naissanceMin,
+        naissanceExacte=naissanceExacte,
+        naissanceMax=naissanceMax,
+        mortMin=mortMin,
+        mortExacte=mortExacte,
+        mortMax=mortMax,
+        theseMin=theseMin,
+        theseExacte=theseExacte,
+        theseMax=theseMax,
+        theseLabel=theseLabel,
+        requete=requete)
 
 
 
