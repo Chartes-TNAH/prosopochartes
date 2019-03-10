@@ -19,7 +19,7 @@
 				<div class="form-group">
 					<label>Diplôme</label>
 					<select class="form-control" name="diplome">
-                        <option value="all">Sélectionner un champ</option>
+                        <option value="all">Sélectionner une valeur</option>
 						{% for diplome in diplomes %}
                    			<option value="{{diplome.diplome_label}}">{{diplome.diplome_label}}</option>
                			{% endfor %}
@@ -29,7 +29,7 @@
 				<div class="form-group">
 					<label>Distinction</label>
 					<select class="form-control" name="distinction">
-                        <option value="all">Sélectionner un champ</option>
+                         <option value="all">Sélectionner une valeur</option>
 						{% for distinction in distinctions %}
                    			<option value="{{distinction.distinction_label}}">{{distinction.distinction_label}}</option>
                			{% endfor %}
@@ -39,7 +39,7 @@
 				<div class="form-group">
 					<label>Domaine d'activité</label>
 					<select class="form-control" name="domaine_activite">
-                        <option value="all">Sélectionner un champ</option>
+                         <option value="all">Sélectionner une valeur</option>
 						{% for activite in activites %}
                    			<option value="{{activite.domaine_label}}">{{activite.domaine_label}}</option>
                			{% endfor %}
@@ -49,7 +49,7 @@
 				<div class="form-group">
 					<label>Pays de nationalité</label>
 					<select class="form-control" name="pays">
-                    <option value="all">Sélectionner un champ</option>
+                    <option value="all">Sélectionner une valeur</option>
 						{% for pa in pays %}
                    			<option value="{{pa.pays_label}}">{{pa.pays_label}}</option>
                			{% endfor %}
@@ -59,7 +59,7 @@
 				<div class="form-group">
 					<label>Occupation</label>
 					<select class="form-control" name="occupations">
-                        <option value="all">Sélectionner un champ</option>
+                        <option value="all">Sélectionner une valeur</option>
 						{% for occupation in occupations %}
                    			<option value="{{occupation.occupation_label}}">{{occupation.occupation_label}}</option>
                			{% endfor %}
