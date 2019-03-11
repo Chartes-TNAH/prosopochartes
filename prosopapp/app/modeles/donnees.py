@@ -57,7 +57,7 @@ class Pays_nationalite(db.Model):
 # il permet d'indiquer une collection pour chaque côté de la relation (ici : 'individuals', et 'occupations')
 class Occupation(db.Model):
     __tablename__ = "occupation"
-    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    id = db.Column(db.Integer, unique=True, primary_key=True, nullable=False)
     occupation_label = db.Column(db.Text)
     individu = db.relationship(
         "Individu",
