@@ -113,6 +113,7 @@ def resultats_avances():
     pays = request.args.get("pays", None)
     domaine_activite = request.args.get("domaine_activite", None)
     distinction = request.args.get("distinction", None)
+    diplome = request.args.get("diplome", None)
 
 
     page = request.args.get("page", 1)
@@ -159,14 +160,17 @@ def resultats_avances():
         requete = requete.filter(These_enc.date_soutenance <= theseMax)
     if theseLabel :
         requete = requete.filter(These_enc.these_label.like("%{}%".format(theseLabel)))
-    if occupations :
+    if occupations and occupations != "all":
         requete = requete.filter(Occupation.occupation_label == occupations)
-    if pays:
+    if pays and pays != "all":
         requete = requete.filter(Pays_nationalite.pays_label == pays)
-    if domaine_activite :
+    if domaine_activite and domaine_activite != "all":
        requete = requete.filter(Domaine_activite.domaine_label == domaine_activite)
-    if distinction :
+    if distinction and distinction != "all":
         requete = requete.filter(Distinction.distinction_label == distinction)
+    if diplome and diplome != "all":
+        requete = requete.filter(Diplome.diplome_label == diplome)
+
 
 
 
@@ -174,6 +178,7 @@ def resultats_avances():
 
     return render_template(
         "pages/resultats_avances.html",
+        motclef=motclef,
         naissanceMin=naissanceMin,
         naissanceExacte=naissanceExacte,
         naissanceMax=naissanceMax,
@@ -188,6 +193,7 @@ def resultats_avances():
         pays=pays,
         domaine_activite=domaine_activite,
         distinction=distinction,
+        diplome=diplome,
         requete=requete
         )
 
