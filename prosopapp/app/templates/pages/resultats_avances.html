@@ -6,7 +6,7 @@
 
     <div class="container">
         <div class="row" style="padding-top:5%;">
-    {% if resultats %}
+    {% if requete %}
         <div class="media">
             <img src="../../statics/Images/logochartes.jpg" class="align-self-start mr-3" alt="...">
             <div class="media-body"/>
@@ -14,21 +14,25 @@
         </div>
         <div class="container" style="padding-top:5%;">
             <h3>{{titre}}</h3>
-            <p>Nous avons trouvé {{resultats.total}} chercheurs dans notre base qui correspondent à votre recherche.</p>
+            <p>Nous avons trouvé {{requete.total}} chercheurs dans notre base qui correspondent à votre recherche.</p>
         <ul>
-            {% for individu in resultats.items %}
+            {% for individu in requete.items %}
                 <li><a href="{{ url_for('noticechercheur', individu_id=individu.id) }}">{{individu.nom}} {{individu.prenom}}</a></li>
             {% endfor %}
         </ul>
     <nav aria-label="research-pagination">
       <ul class="pagination">
-        {%- for page in resultats.iter_pages()%}
+        {%- for page in requete.iter_pages() %}
             {% if page %}
-              {% if page != resultats.page %}
+              {% if page != requete.page %}
                 <li class="page-item">
-                 <!-- Il faut déclarer dans notre url_for la page où l'on affiche les résultats, mais également toutes les variables qui ont été récoltées via la fonction .request dans notre
+                <!-- Il faut déclarer dans notre url_for la page où l'on affiche les résultats, mais également toutes les variables qui ont été récoltées via la fonction .request dans notre
                 définition de fonction, similaire à ce que nous avions fait en instanciation de la fonction.-->
-                    <a class="page-link" href="{{ url_for('resultats', keyword=keyword, page=page) }}">{{page}}</a>
+                    <a class="page-link" href="{{ url_for('resultats_avances', naissanceMin=naissanceMin,
+                    naissanceExacte=naissanceExacte, naissanceMax=naissanceMax, mortMin=mortMin, mortExacte=mortExacte,
+                    mortMax=mortMax, theseMin=theseMin, theseExacte=theseExacte, theseMax=theseMax, theseLabel=theseLabel,occupations=occupations,
+                    pays=pays, domaine_activite=domaine_activite, distinction=distinction, diplome=diplome, motclef=motclef,
+                     page=page)}}">{{page}}</a>
                 </li>
               {% else %}
                 <li class="page-item active disabled">
