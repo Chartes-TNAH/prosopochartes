@@ -80,7 +80,7 @@ def resultats():
                 These_enc.these_label.like("%{}%".format(motclef)),
             )
         ).order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
-        titre = "Voici les résultats de votre recherche pour : '"+ motclef + "`"
+        titre = "Voici les résultats de votre recherche pour : '"+ motclef + "'."
         #On affiche une phrase qui indiquera les résultats de la recherche en fonction du mot clé rentré par l'utilisateur
         #Cette variable titre sera réutilisée dans la page resultats.html
     return render_template("pages/resultats.html", resultats=resultats, titre=titre, keyword=motclef)
