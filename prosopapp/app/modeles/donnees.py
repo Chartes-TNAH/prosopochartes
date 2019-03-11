@@ -58,10 +58,12 @@ class Pays_nationalite(db.Model):
 class Occupation(db.Model):
     __tablename__ = "occupation"
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    parents = db.relationship(
+    occupation_label = db.Column(db.Text)
+    individu = db.relationship(
         "Individu",
         secondary=have_occupation,
-        back_populates="occupations")
+        back_populates="occupations_") # La collection a été nommée 'occupations_' pour ne pas que cela crée un conflit dans la fonction 'resultats_avances'
+                                       # Dans la mesure où une variable 'occupations' a déjà été définie comme mot-clé pour la recherche avancée
 
 # Table contenant les champs disciplinaires (ex : moyen-âge, histoire du livre)
 class Domaine_activite(db.Model):
