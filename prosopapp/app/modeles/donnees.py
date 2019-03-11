@@ -4,6 +4,12 @@ from ..app import db
 
 # Création du modèle selon celui de la base de données prosopochartes.sqlite
 
+# Table d'association nécessaire à la déclaration d'une relation many-to-many avec la table Occupation dans notre db
+have_occupation = Table("have_occupation", db.Model.metadata, # !!!! CAMILLE PAS SÛRE POUR CE 'db.Model.metadata' !!!!
+    Column("individu.id", Integer, ForeignKey("individu.id")),
+    Column("occupation.id", Integer, ForeignKey("occupation.id"))
+)
+
 # Table correspondant à un.e chercheu.r.se
 # Par souci de simplicité, chaque membre de la table est dans une relation many to one avec les autres tables
 # (dans notre base, un.e chercheu.r.se n'a qu'un diplôme, une distinction...)
@@ -19,19 +25,23 @@ class Individu(db.Model):
     image_lien = db.Column(db.Text)
     id_wikidata = db.Column(db.Text)
     id_autorite = db.Column(db.Text)
-    diplome_id = db.Column(db.Integer, db.ForeignKey('diplome.id'))
-    these_enc_id = db.Column(db.Integer, db.ForeignKey('these_enc.id'))
-    occupation_id = db.Column(db.Integer, db.ForeignKey('occupation.id'))
-    domaine_activite_id = db.Column(db.Integer, db.ForeignKey('domaine_activite.id'))
-    distinction_id = db.Column(db.Integer, db.ForeignKey('distinction.id'))
+    diplome_id = db.Column(db.Integer, db.ForeignKey("diplome.id"))
+    these_enc_id = db.Column(db.Integer, db.ForeignKey("these_enc.id"))
+    occupation_id = db.Column(db.Integer, db.ForeignKey("occupation.id"))
+    domaine_activite_id = db.Column(db.Integer, db.ForeignKey("domaine_activite.id"))
+    distinction_id = db.Column(db.Integer, db.ForeignKey("distinction.id"))
     annee_naissance = db.Column(db.Integer)
     annee_mort = db.Column(db.Integer)
     pays_nationalite = db.relationship("Pays_nationalite", back_populates="individu")
     diplome = db.relationship ("Diplome", back_populates="individu")
     these_enc = db.relationship("These_enc", back_populates="individu")
-    occupation = db.relationship("Occupation", back_populates="individu")
+    occupation = db.relationship(
+        "Occupation",
+        secondary=have_occupation,
+        back_populates="individuals")
     domaine_activite = db.relationship("Domaine_activite", back_populates="individu")
     distinction = db.relationship("Distinction", back_populates="individu")
+
 
 # Table contenant les pays correspondant à la nationalité des individus
 class Pays_nationalite(db.Model):
@@ -41,11 +51,19 @@ class Pays_nationalite(db.Model):
     individu = db.relationship("Individu", back_populates="pays_nationalite")
 
 # Table contenant les métiers exercés par les individus (ex : archiviste, historien)
+# La table d'association (nécessaire pour une relation many-to-many)
+# est indiquée grâce au deuxième argument de 'relationship' : 'secondary = have_occupation
+# L'utilisation du troisième argument, back_populates, est indispensable pour mettre en place une relation bi-directionnelle :
+# il permet d'indiquer une collection pour chaque côté de la relation (ici : 'individuals', et 'occupations')
 class Occupation(db.Model):
     __tablename__ = "occupation"
-    id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
+    id = db.Column(db.Integer, unique=True, primary_key=True, nullable=False)
     occupation_label = db.Column(db.Text)
-    individu = db.relationship("Individu", back_populates="occupation")
+    individu = db.relationship(
+        "Individu",
+        secondary=have_occupation,
+        back_populates="occupations_") # La collection a été nommée 'occupations_' pour ne pas que cela crée un conflit dans la fonction 'resultats_avances'
+                                       # Dans la mesure où une variable 'occupations' a déjà été définie comme mot-clé pour la recherche avancée
 
 # Table contenant les champs disciplinaires (ex : moyen-âge, histoire du livre)
 class Domaine_activite(db.Model):
