@@ -5,7 +5,7 @@ from ..app import db
 # Création du modèle selon celui de la base de données prosopochartes.sqlite
 
 # Table d'association nécessaire à la déclaration d'une relation many-to-many avec la table Occupation dans notre db
-have_occupation = Table("have_occupation", db.Model.metadata, # !!!! CAMILLE PAS SÛRE POUR CE 'db.Model.metadata' !!!!
+avoir_occupation = Table("avoir_occupation", db.Model.metadata, # !!!! CAMILLE PAS SÛRE POUR CE 'db.Model.metadata' !!!!
     Column("individu.id", Integer, ForeignKey("individu.id")),
     Column("occupation.id", Integer, ForeignKey("occupation.id"))
 )
@@ -37,7 +37,7 @@ class Individu(db.Model):
     these_enc = db.relationship("These_enc", back_populates="individu")
     occupation = db.relationship(
         "Occupation",
-        secondary=have_occupation,
+        secondary=avoir_occupation,
         back_populates="individuals")
     domaine_activite = db.relationship("Domaine_activite", back_populates="individu")
     distinction = db.relationship("Distinction", back_populates="individu")
@@ -52,7 +52,7 @@ class Pays_nationalite(db.Model):
 
 # Table contenant les métiers exercés par les individus (ex : archiviste, historien)
 # La table d'association (nécessaire pour une relation many-to-many)
-# est indiquée grâce au deuxième argument de 'relationship' : 'secondary = have_occupation
+# est indiquée grâce au deuxième argument de 'relationship' : 'secondary = avoir_occupation
 # L'utilisation du troisième argument, back_populates, est indispensable pour mettre en place une relation bi-directionnelle :
 # il permet d'indiquer une collection pour chaque côté de la relation (ici : 'individuals', et 'occupations')
 class Occupation(db.Model):
@@ -61,7 +61,7 @@ class Occupation(db.Model):
     occupation_label = db.Column(db.Text)
     individu = db.relationship(
         "Individu",
-        secondary=have_occupation,
+        secondary=avoir_occupation,
         back_populates="occupations_") # La collection a été nommée 'occupations_' pour ne pas que cela crée un conflit dans la fonction 'resultats_avances'
                                        # Dans la mesure où une variable 'occupations' a déjà été définie comme mot-clé pour la recherche avancée
 
