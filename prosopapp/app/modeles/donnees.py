@@ -3,17 +3,32 @@
 from ..app import db
 
 # Création du modèle selon celui de la base de données prosopochartes.sqlite
+# Table d'association nécessaire à la déclaration d'une relation many-to-many entre la table indiv8idu et la table Occupation dans notre db
+# Grâce au backref, nous créons directement la relationship dans les deux tables concernées soit Avoir_occupation et Individu et Avoir_occupation et Occupation
+# single_parent sert à définir que Avoir_occupation est bien une table de relation qui est reliée à deux tables parentes. On aurait utilisé un secondary pour
+#exprimer cette relation dans l'autre sens.
 
-# Table d'association nécessaire à la déclaration d'une relation many-to-many avec la table Occupation dans notre db
-avoir_occupation = Table("avoir_occupation", db.Model.metadata, # !!!! CAMILLE PAS SÛRE POUR CE 'db.Model.metadata' !!!!
-    Column("individu.id", Integer, ForeignKey("individu.id")),
-    Column("occupation.id", Integer, ForeignKey("occupation.id"))
-)
+class Avoir_occupation(db.Model):
+    __tablename__ = "avoir_occupation"
+    id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
+    individu_id = db.Column(db.Integer, db.ForeignKey("individu.id"), primary_key=True)
+    occupation_id = db.Column(db.Integer, db.ForeignKey("occupation.id"), primary_key=True)
+    individus = db.relationship("Individu", backref="individuals", single_parent=True)
+    occupations = db.relationship("Occupation", backref="individuals", single_parent=True)
+
+#---------Je laisse pour le moment le code de la précédente version, avant la transformation de avoir_occupation en table --------
+    #Avoir_occupation = db.Table("avoir_occupation",
+        #db.Column("individu_id", db.Integer, db.ForeignKey("individu.id"), primary_key=True),
+        #db.Column("occupation_id", db.Integer, db.ForeignKey("occupation.id"), primary_key=True)
+       # )
+
 
 # Table correspondant à un.e chercheu.r.se
-# Par souci de simplicité, chaque membre de la table est dans une relation many to one avec les autres tables
-# (dans notre base, un.e chercheu.r.se n'a qu'un diplôme, une distinction...)
-# Les relations sont donc identifiées par des clefs étrangères
+# Par souci de simplicité, chaque membre de la table est dans la plupart des cas dans une relation many to one avec les autres tables
+# (dans notre base, un.e chercheu.r.se n'a qu'un diplôme, une thèse...)
+#Sauf pour le cas de l'occupation, où nous avons créés une relation many to many et qui suppose l'ajout d'une table
+#supplémentaire que nous avons dénommées avoir_occupation dans notre modèle sqlite.
+# Les relations (or occupation) sont identifiées par des clefs étrangères.
 class Individu(db.Model):
     __tablename__ = "individu"
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
@@ -27,18 +42,22 @@ class Individu(db.Model):
     id_autorite = db.Column(db.Text)
     diplome_id = db.Column(db.Integer, db.ForeignKey("diplome.id"))
     these_enc_id = db.Column(db.Integer, db.ForeignKey("these_enc.id"))
-    occupation_id = db.Column(db.Integer, db.ForeignKey("occupation.id"))
     domaine_activite_id = db.Column(db.Integer, db.ForeignKey("domaine_activite.id"))
     distinction_id = db.Column(db.Integer, db.ForeignKey("distinction.id"))
     annee_naissance = db.Column(db.Integer)
     annee_mort = db.Column(db.Integer)
     pays_nationalite = db.relationship("Pays_nationalite", back_populates="individu")
-    diplome = db.relationship ("Diplome", back_populates="individu")
+    diplome = db.relationship("Diplome", back_populates="individu")
     these_enc = db.relationship("These_enc", back_populates="individu")
-    occupation = db.relationship(
-        "Occupation",
-        secondary=avoir_occupation,
-        back_populates="individuals")
+    # La table d'association (nécessaire pour une relation many-to-many)
+    # est indiquée grâce au deuxième argument de 'relationship' : 'secondary = avoir_occupation
+    # l'utilisation d'un backref à la place du back_populates permet de directement déclarer au sein de la table occupation la relation : (cela nous "économise" l'écriture d'une relation.
+
+    # ---------Je laisse pour le moment le code de la précédente version, avant la transformation de avoir_occupation en table --------
+    #occupations = db.relationship(
+      #"Occupation",
+        #secondary=Avoir_occupation,
+        #backref="individuals")
     domaine_activite = db.relationship("Domaine_activite", back_populates="individu")
     distinction = db.relationship("Distinction", back_populates="individu")
 
@@ -51,19 +70,10 @@ class Pays_nationalite(db.Model):
     individu = db.relationship("Individu", back_populates="pays_nationalite")
 
 # Table contenant les métiers exercés par les individus (ex : archiviste, historien)
-# La table d'association (nécessaire pour une relation many-to-many)
-# est indiquée grâce au deuxième argument de 'relationship' : 'secondary = avoir_occupation
-# L'utilisation du troisième argument, back_populates, est indispensable pour mettre en place une relation bi-directionnelle :
-# il permet d'indiquer une collection pour chaque côté de la relation (ici : 'individuals', et 'occupations')
 class Occupation(db.Model):
     __tablename__ = "occupation"
     id = db.Column(db.Integer, unique=True, primary_key=True, nullable=False)
     occupation_label = db.Column(db.Text)
-    individu = db.relationship(
-        "Individu",
-        secondary=avoir_occupation,
-        back_populates="occupations_") # La collection a été nommée 'occupations_' pour ne pas que cela crée un conflit dans la fonction 'resultats_avances'
-                                       # Dans la mesure où une variable 'occupations' a déjà été définie comme mot-clé pour la recherche avancée
 
 # Table contenant les champs disciplinaires (ex : moyen-âge, histoire du livre)
 class Domaine_activite(db.Model):
