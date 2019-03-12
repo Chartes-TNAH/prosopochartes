@@ -30,7 +30,8 @@ headerfooter en premier lieu, puis la mise en forme bootstrap ci-après-->
                                 <dt>Identifiant VIAF</dt><dd>{{individu.id_autorite}}</dd>
                                 <dt>Domaine d'activité</dt><dd>{{individu.domaine_activite.domaine_label}}
                                 </dd>
-                                <dt>Occupation</dt><dd>{{individu.occupation.occupation_label}}</dd>
+                                <dt>Occupation</dt><dd>{{individu.avoir_occupation.}}</dd>
+                                <!-- C'est la table occupation qui contient une relation many to many, c'est à ce niveau de la requête que nous avons encore des diff...-->
                             </dl>
                         </div >
                         <div class="col-sm-1" style="background-color:#fe2734 ; max-width:4%"></div>
