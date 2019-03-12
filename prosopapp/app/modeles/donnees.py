@@ -3,10 +3,17 @@
 from ..app import db
 
 # Création du modèle selon celui de la base de données prosopochartes.sqlite
-Avoir_occupation = db.Table("avoir_occupation",
-        db.Column("individu_id", db.Integer, db.ForeignKey("individu.id"), primary_key=True),
-        db.Column("occupation_id", db.Integer, db.ForeignKey("occupation.id"), primary_key=True)
-        )
+class Avoir_occupation(db.Model):
+    __tablename__ = "avoir_occupation"
+    id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
+    individus = db.relationship("Individu", backref=db.backref("individuals"), single_parent=True)
+    occupations = db.relationship("Occupation", backref=db.backref("individuals"), single_parent=True)
+
+
+    #Avoir_occupation = db.Table("avoir_occupation",
+        #db.Column("individu_id", db.Integer, db.ForeignKey("individu.id"), primary_key=True),
+        #db.Column("occupation_id", db.Integer, db.ForeignKey("occupation.id"), primary_key=True)
+       # )
 # Table d'association nécessaire à la déclaration d'une relation many-to-many entre la table indiv8idu et la table Occupation dans notre db
 
 
@@ -39,10 +46,10 @@ class Individu(db.Model):
     # La table d'association (nécessaire pour une relation many-to-many)
     # est indiquée grâce au deuxième argument de 'relationship' : 'secondary = avoir_occupation
     # l'utilisation d'un backref à la place du back_populates permet de directement déclarer au sein de la table occupation la relation : (cela nous "économise" l'écriture d'une relation.
-    occupations = db.relationship(
-       "Occupation",
-        secondary=Avoir_occupation,
-        backref="individuals")
+    #occupations = db.relationship(
+      #"Occupation",
+        #secondary=Avoir_occupation,
+        #backref="individuals")
     domaine_activite = db.relationship("Domaine_activite", back_populates="individu")
     distinction = db.relationship("Distinction", back_populates="individu")
 

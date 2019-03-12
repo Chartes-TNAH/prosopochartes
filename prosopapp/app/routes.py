@@ -65,7 +65,7 @@ def resultats():
     if motclef:
     #Si on a un mot clé, on requête toutes les tables de notre base de donnée pour vérifier s'il y a des correspondances
     #Le résultat de cette requête est stocké dans la liste resultats = []
-        resultats = Individu.query.outerjoin(Diplome).outerjoin(Distinction).outerjoin(Pays_nationalite).outerjoin(Domaine_activite).outerjoin(These_enc).filter(
+        resultats = Individu.query.outerjoin(Diplome).join(Avoir_occupation).outerjoin(Distinction).outerjoin(Pays_nationalite).outerjoin(Domaine_activite).outerjoin(These_enc).filter(
             or_(
                 Individu.nom.like("%{}%".format(motclef)),
                 Individu.prenom.like("%{}%".format(motclef)),
@@ -76,7 +76,7 @@ def resultats():
                 Diplome.diplome_label.like("%{}%".format(motclef)),
                 Distinction.distinction_label.like("%{}%".format(motclef)),
                 Pays_nationalite.pays_label.like("%{}%".format(motclef)),
-                #Avoir_occupation.occupation_id.occupation_label.like("%{}%".format(motclef)),
+                Avoir_occupation.occupations.occupation_label.like("%{}%".format(motclef)),
                 Domaine_activite.domaine_label.like("%{}%".format(motclef)),
                 These_enc.these_label.like("%{}%".format(motclef)),
             )
