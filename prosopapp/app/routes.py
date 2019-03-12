@@ -79,6 +79,7 @@ def resultats():
                 Domaine_activite.domaine_label.like("%{}%".format(motclef)),
                 These_enc.these_label.like("%{}%".format(motclef)),
                 Occupation.occupation_label.like("%{}%".format(motclef)),
+                #Cette requête ne fonctionne pas, j'ai essayé bcp de choses mais rien ne fonctionne jusqu'ici
             )
         ).order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
         titre = "Voici les résultats de votre recherche pour : '"+ motclef + "'."
@@ -124,7 +125,7 @@ def resultats_avances():
     else:
         page = 1
 
-    requete = Individu.query.outerjoin(Diplome).outerjoin(Distinction).outerjoin(Pays_nationalite).outerjoin(Occupation).outerjoin(Domaine_activite).outerjoin(These_enc)
+    requete = Individu.query.outerjoin(Diplome).outerjoin(Distinction).outerjoin(Pays_nationalite).join(Avoir_occupation.occupations).outerjoin(Domaine_activite).outerjoin(These_enc)
 
     if motclef :
         requete = requete.filter(or_(
