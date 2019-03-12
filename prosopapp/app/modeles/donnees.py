@@ -3,6 +3,11 @@
 from ..app import db
 
 # Création du modèle selon celui de la base de données prosopochartes.sqlite
+# Table d'association nécessaire à la déclaration d'une relation many-to-many entre la table indiv8idu et la table Occupation dans notre db
+# Grâce au backref, nous créons directement la relationship dans les deux tables concernées soit Avoir_occupation et Individu et Avoir_occupation et Occupation
+# single_parent sert à définir que Avoir_occupation est bien une table de relation qui est reliée à deux tables parentes. On aurait utilisé un secondary pour
+#exprimer cette relation dans l'autre sens.
+
 class Avoir_occupation(db.Model):
     __tablename__ = "avoir_occupation"
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
@@ -11,12 +16,11 @@ class Avoir_occupation(db.Model):
     individus = db.relationship("Individu", backref="individuals", single_parent=True)
     occupations = db.relationship("Occupation", backref="individuals", single_parent=True)
 
-
+#---------Je laisse pour le moment le code de la précédente version, avant la transformation de avoir_occupation en table --------
     #Avoir_occupation = db.Table("avoir_occupation",
         #db.Column("individu_id", db.Integer, db.ForeignKey("individu.id"), primary_key=True),
         #db.Column("occupation_id", db.Integer, db.ForeignKey("occupation.id"), primary_key=True)
        # )
-# Table d'association nécessaire à la déclaration d'une relation many-to-many entre la table indiv8idu et la table Occupation dans notre db
 
 
 # Table correspondant à un.e chercheu.r.se
@@ -48,6 +52,8 @@ class Individu(db.Model):
     # La table d'association (nécessaire pour une relation many-to-many)
     # est indiquée grâce au deuxième argument de 'relationship' : 'secondary = avoir_occupation
     # l'utilisation d'un backref à la place du back_populates permet de directement déclarer au sein de la table occupation la relation : (cela nous "économise" l'écriture d'une relation.
+
+    # ---------Je laisse pour le moment le code de la précédente version, avant la transformation de avoir_occupation en table --------
     #occupations = db.relationship(
       #"Occupation",
         #secondary=Avoir_occupation,

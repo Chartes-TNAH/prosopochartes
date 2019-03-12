@@ -65,7 +65,8 @@ def resultats():
     if motclef:
     #Si on a un mot clé, on requête toutes les tables de notre base de donnée pour vérifier s'il y a des correspondances
     #Le résultat de cette requête est stocké dans la liste resultats = []
-        resultats = Individu.query.outerjoin(Diplome).outerjoin(Distinction).outerjoin(Pays_nationalite).outerjoin(Domaine_activite).outerjoin(These_enc).join(Avoir_occupation.occupations).filter(
+        resultats = Individu.query.outerjoin(Diplome).outerjoin(Distinction).outerjoin(Pays_nationalite).outerjoin(Domaine_activite).outerjoin(These_enc)\
+            .join(Avoir_occupation.occupations).filter(
             or_(
                 Individu.nom.like("%{}%".format(motclef)),
                 Individu.prenom.like("%{}%".format(motclef)),
@@ -79,7 +80,7 @@ def resultats():
                 Domaine_activite.domaine_label.like("%{}%".format(motclef)),
                 These_enc.these_label.like("%{}%".format(motclef)),
                 Occupation.occupation_label.like("%{}%".format(motclef)),
-                #Cette requête ne fonctionne pas, j'ai essayé bcp de choses mais rien ne fonctionne jusqu'ici
+                #Cette requête ne fonctionne pas, j'ai essayé bcp de choses mais rien ne fonctionne jusqu'ici, cf message d'erreur
             )
         ).order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
         titre = "Voici les résultats de votre recherche pour : '"+ motclef + "'."
