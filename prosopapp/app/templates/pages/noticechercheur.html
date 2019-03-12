@@ -56,12 +56,12 @@ différentes requêtes via des url_for (disséminées notamment dans la page che
                             <p> </p>
                          {% endif %}
                      <!-- Si l'individu possède une occupation-->
-                         {% if individuu.occupations %}
+                         {% if individuu.individuals %}
                              <dt>Occupation</dt>
                              <!-- Afficher la - les occupations-->
-                             {% for occupation in individuu.occupations%}
-                                <dd>{{occupation.occupation_label}}</dd>
-                             {% endfor  %}
+                              {% for individu in individuu.individuals%}
+                                <dd>{{individu.occupations.occupation_label}}</dd>
+                              {% endfor  %}
                          {% else %}
                             <p> </p>
                          {% endif %}

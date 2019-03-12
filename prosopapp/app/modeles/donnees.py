@@ -6,8 +6,10 @@ from ..app import db
 class Avoir_occupation(db.Model):
     __tablename__ = "avoir_occupation"
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
-    individus = db.relationship("Individu", backref=db.backref("individuals"), single_parent=True)
-    occupations = db.relationship("Occupation", backref=db.backref("individuals"), single_parent=True)
+    individu_id = db.Column(db.Integer, db.ForeignKey("individu.id"), primary_key=True)
+    occupation_id = db.Column(db.Integer, db.ForeignKey("occupation.id"), primary_key=True)
+    individus = db.relationship("Individu", backref="individuals", single_parent=True)
+    occupations = db.relationship("Occupation", backref="individuals", single_parent=True)
 
 
     #Avoir_occupation = db.Table("avoir_occupation",
