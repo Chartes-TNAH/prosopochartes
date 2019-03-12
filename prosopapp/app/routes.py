@@ -25,6 +25,9 @@ def accueil ():
 def chercheurs():
     """Route permettant d'afficher certains champs pour les notices de tous les chercheurs"""
     individus = Individu.query.order_by(Individu.nom.asc()).all()
+    #occupations = Occupation.query.filter(Occupation.avoir_occupation.any(Occupation.id==Individu.id
+    #                                                                      )).all()
+    #occupations = Occupation.query.all()
 #Nous stockons dans la variable individu une liste contenant les valeurs de notre table individu, c'est ce qui nous permet
 #de faire le lien vers son template qui se trouve dans le dossier "pages" (avec l'utilisation surtout de la fonction render_template)
     return render_template("pages/chercheurs.html", individus=individus)
