@@ -2,7 +2,8 @@ from flask import render_template, url_for, request
 
 #cette commande nous permet de relier nos templates à nos urls - routes
 #On importe url_for pour construire des URL vers les fonctions et les pages html
-from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc
+from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc, Avoir_occupation
+
 #cette commande nous permet de relier les classes de notre modèle de données pour pouvoir ensuite les requêter.
 from sqlalchemy import and_, or_
 from sqlalchemy.orm import session
@@ -64,7 +65,7 @@ def resultats():
     if motclef:
     #Si on a un mot clé, on requête toutes les tables de notre base de donnée pour vérifier s'il y a des correspondances
     #Le résultat de cette requête est stocké dans la liste resultats = []
-        resultats = Individu.query.outerjoin(Diplome).outerjoin(Distinction).outerjoin(Pays_nationalite).outerjoin(Occupation).outerjoin(Domaine_activite).outerjoin(These_enc).filter(
+        resultats = Individu.query.outerjoin(Diplome).outerjoin(Distinction).outerjoin(Pays_nationalite).outerjoin(Domaine_activite).outerjoin(These_enc).filter(
             or_(
                 Individu.nom.like("%{}%".format(motclef)),
                 Individu.prenom.like("%{}%".format(motclef)),
@@ -75,7 +76,7 @@ def resultats():
                 Diplome.diplome_label.like("%{}%".format(motclef)),
                 Distinction.distinction_label.like("%{}%".format(motclef)),
                 Pays_nationalite.pays_label.like("%{}%".format(motclef)),
-                Occupation.occupation_label.like("%{}%".format(motclef)),
+                #Avoir_occupation.occupation_id.occupation_label.like("%{}%".format(motclef)),
                 Domaine_activite.domaine_label.like("%{}%".format(motclef)),
                 These_enc.these_label.like("%{}%".format(motclef)),
             )

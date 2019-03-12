@@ -4,9 +4,9 @@ from ..app import db
 
 # Création du modèle selon celui de la base de données prosopochartes.sqlite
 Avoir_occupation = db.Table("avoir_occupation",
-                         db.Column("individu_id", db.Integer, db.ForeignKey("individu.id"), primary_key=True),
-                         db.Column("occupation_id", db.Integer, db.ForeignKey("occupation.id"), primary_key=True)
-                         )
+        db.Column("individu_id", db.Integer, db.ForeignKey("individu.id"), primary_key=True),
+        db.Column("occupation_id", db.Integer, db.ForeignKey("occupation.id"), primary_key=True)
+        )
 # Table d'association nécessaire à la déclaration d'une relation many-to-many entre la table indiv8idu et la table Occupation dans notre db
 
 
