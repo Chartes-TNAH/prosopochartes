@@ -55,8 +55,11 @@ différentes requêtes via des url_for (disséminées notamment dans la page che
                          {% else %}
                             <p> </p>
                          {% endif %}
-                         {% if individuu.avoir_occupation.occupations.occupation_label %}
-                             <dt>Occupation</dt><dd>{{individuu.avoir_occupation.occupations.occupation_label}}</dd>
+                         {% if individuu.occupations %}
+                             <dt>Occupation</dt>
+                             {% for occupation in individuu.occupations%}
+                                <dd>{{occupation.occupation_label}}</dd>
+                             {% endfor  %}
                          {% else %}
                             <p> </p>
                          {% endif %}
