@@ -166,9 +166,8 @@ def resultats_avances():
         requete = requete.filter(Individu.these_enc.has(These_enc.date_soutenance == theseExacte))
     if theseMax :
         requete = requete.filter(Individu.these_enc.has(These_enc.date_soutenance <= theseMax))
-    #if theseLabel :
-        #requete = requete.filter(These_enc.these_label.like("%{}%".format(theseLabel)))
-        #requete = requete.filter((Individu.these_enc.has(These_enc.these_label)).like("%{}%".format(theseLabel)))
+    if theseLabel :
+        requete = requete.filter(Individu.these_enc.has((These_enc.these_label).like("%{}%".format(theseLabel))))
     if occupations and occupations != "all":
         requete = requete.filter(Individu.occupations.any(Occupation.occupation_label == occupations))
     if pays and pays != "all":
