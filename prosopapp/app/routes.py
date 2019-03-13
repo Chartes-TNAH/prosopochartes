@@ -101,7 +101,7 @@ def resultats_avances():
     les dates précises, ou de définir un intervalle)
     """
 
-
+# Il faut premièrement aller récupérer les valeurs entrées dans le formulaire de rechercher par le biais de leurs attributs name.
     motclef = request.args.get("motclef", None)
     naissanceMin = request.args.get("naissanceMin", None)
     naissanceExacte = request.args.get("naissanceExacte", None)
@@ -127,7 +127,10 @@ def resultats_avances():
     else:
         page = 1
 
+#Déclaration d'une variable requete qui nous servira à stocker les recherches réalisées et à combiner plusieurs champs lors du requêtage.
+# Notre requete étant ensuite filtrée, nous lui attribuons la valeur initiale permettant ensuite de filter les champs de la table individu.
     requete = Individu.query
+    # Le premier champ de la recherche avancée est en fait le même champ que celui de la recherche générale
     if motclef :
         requete = requete.filter(or_(
             Individu.nom.like("%{}%".format(motclef)),
@@ -158,23 +161,24 @@ def resultats_avances():
     if mortMax :
         requete = requete.filter(Individu.annee_mort <= mortMax)
     if theseMin :
-        requete = requete.filter(These_enc.date_soutenance >= theseMin)
+        requete = requete.filter(Individu.these_enc.has(These_enc.date_soutenance >= theseMin))
     if theseExacte :
-        requete = requete.filter(These_enc.date_soutenance == theseExacte)
+        requete = requete.filter(Individu.these_enc.has(These_enc.date_soutenance == theseExacte))
     if theseMax :
-        requete = requete.filter(These_enc.date_soutenance <= theseMax)
-    if theseLabel :
-        requete = requete.filter(These_enc.these_label.like("%{}%".format(theseLabel)))
+        requete = requete.filter(Individu.these_enc.has(These_enc.date_soutenance <= theseMax))
+    #if theseLabel :
+        #requete = requete.filter(These_enc.these_label.like("%{}%".format(theseLabel)))
+        #requete = requete.filter((Individu.these_enc.has(These_enc.these_label)).like("%{}%".format(theseLabel)))
     if occupations and occupations != "all":
-        requete = requete.filter(Occupation.occupation_label == occupations)
+        requete = requete.filter(Individu.occupations.any(Occupation.occupation_label == occupations))
     if pays and pays != "all":
-        requete = requete.filter(Pays_nationalite.pays_label == pays)
+        requete = requete.filter(Individu.pays_nationalite.has(Pays_nationalite.pays_label == pays))
     if domaine_activite and domaine_activite != "all":
-       requete = requete.filter(Domaine_activite.domaine_label == domaine_activite)
+       requete = requete.filter(Individu.domaine_activite.has(Domaine_activite.domaine_label == domaine_activite))
     if distinction and distinction != "all":
-        requete = requete.filter(Distinction.distinction_label == distinction)
+        requete = requete.filter(Individu.distinction.has(Distinction.distinction_label == distinction))
     if diplome and diplome != "all":
-        requete = requete.filter(Diplome.diplome_label == diplome)
+        requete = requete.filter(Individu.diplome.has(Diplome.diplome_label == diplome))
 
 
 
