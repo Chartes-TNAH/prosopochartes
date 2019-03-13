@@ -23,6 +23,7 @@ app = Flask(__name__,  template_folder=templates, static_folder=static
 
 # Configuration de la base de données
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../prosopochartes.sqlite'
+app.config['SQLALCHEMY_ECHO'] = True
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 #Instanciation du mode debug, cette fonction est liée au fichier .flaskenv
 app.config['DEBUG'] = True

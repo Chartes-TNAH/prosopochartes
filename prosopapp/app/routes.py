@@ -65,8 +65,7 @@ def resultats():
     if motclef:
     #Si on a un mot clé, on requête toutes les tables de notre base de donnée pour vérifier s'il y a des correspondances
     #Le résultat de cette requête est stocké dans la liste resultats = []
-        resultats = Individu.query.outerjoin(Diplome).outerjoin(Distinction).outerjoin(Pays_nationalite).outerjoin(Domaine_activite).outerjoin(These_enc)\
-            .join(Avoir_occupation.occupations).filter(
+        resultats = Individu.query.filter(
             or_(
                 Individu.nom.like("%{}%".format(motclef)),
                 Individu.prenom.like("%{}%".format(motclef)),
@@ -74,13 +73,14 @@ def resultats():
                 Individu.annee_naissance.like("%{}%".format(motclef)),
                 Individu.date_mort.like("%{}%".format(motclef)),
                 Individu.date_naissance.like("%{}%".format(motclef)),
-                Diplome.diplome_label.like("%{}%".format(motclef)),
-                Distinction.distinction_label.like("%{}%".format(motclef)),
-                Pays_nationalite.pays_label.like("%{}%".format(motclef)),
-                Domaine_activite.domaine_label.like("%{}%".format(motclef)),
-                These_enc.these_label.like("%{}%".format(motclef)),
-                Occupation.occupation_label.like("%{}%".format(motclef)),
-                #Cette requête ne fonctionne pas, j'ai essayé bcp de choses mais rien ne fonctionne jusqu'ici, cf message d'erreur
+                #has signifie : est-ce que le critère est true
+                Individu.diplome.has(Diplome.diplome_label).like("%{}%".format(motclef)),
+                Individu.distinction.has(Distinction.distinction_label).like("%{}%".format(motclef)),
+                Individu.pays_nationalite.has(Pays_nationalite.pays_label).like("%{}%".format(motclef)),
+                Individu.domaine_activite.has(Domaine_activite.domaine_label).like("%{}%".format(motclef)),
+                Individu.these_enc.has(These_enc.these_label).like("%{}%".format(motclef)),
+                # any signifie : au moins un des critères est true
+                Individu.occupations.any(Occupation.occupation_label).like("%{}%".format(motclef)),
             )
         ).order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
         titre = "Voici les résultats de votre recherche pour : '"+ motclef + "'."
@@ -126,7 +126,7 @@ def resultats_avances():
     else:
         page = 1
 
-    requete = Individu.query.outerjoin(Diplome).outerjoin(Distinction).outerjoin(Pays_nationalite).join(Avoir_occupation.occupations).outerjoin(Domaine_activite).outerjoin(These_enc)
+    requete = Individu.query.outerjoin(Diplome).outerjoin(Distinction).outerjoin(Pays_nationalite).outerjoin(Domaine_activite).outerjoin(These_enc)
 
     if motclef :
         requete = requete.filter(or_(
@@ -139,7 +139,7 @@ def resultats_avances():
                 Diplome.diplome_label.like("%{}%".format(motclef)),
                 Distinction.distinction_label.like("%{}%".format(motclef)),
                 Pays_nationalite.pays_label.like("%{}%".format(motclef)),
-                Occupation.occupation_label.like("%{}%".format(motclef)),
+                #Occupation.occupation_label.like("%{}%".format(motclef)),
                 Domaine_activite.domaine_label.like("%{}%".format(motclef)),
                 These_enc.these_label.like("%{}%".format(motclef)),
             ))

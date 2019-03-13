@@ -8,19 +8,20 @@ from ..app import db
 # single_parent sert à définir que Avoir_occupation est bien une table de relation qui est reliée à deux tables parentes. On aurait utilisé un secondary pour
 #exprimer cette relation dans l'autre sens.
 
-class Avoir_occupation(db.Model):
-    __tablename__ = "avoir_occupation"
-    id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
-    individu_id = db.Column(db.Integer, db.ForeignKey("individu.id"), primary_key=True)
-    occupation_id = db.Column(db.Integer, db.ForeignKey("occupation.id"), primary_key=True)
-    individus = db.relationship("Individu", backref="individuals", single_parent=True)
-    occupations = db.relationship("Occupation", backref="individuals", single_parent=True)
+#class Avoir_occupation(db.Model):
+    #__tablename__ = "avoir_occupation"
+    #id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
+    #individu_id = db.Column(db.Integer, db.ForeignKey("individu.id"), primary_key=True)
+    #occupation_id = db.Column(db.Integer, db.ForeignKey("occupation.id"), primary_key=True)
+    #individus = db.relationship("Individu", backref="individuals", single_parent=True)
+    #occupations = db.relationship("Occupation", backref="individuals", single_parent=True)
 
 #---------Je laisse pour le moment le code de la précédente version, avant la transformation de avoir_occupation en table --------
-    #Avoir_occupation = db.Table("avoir_occupation",
-        #db.Column("individu_id", db.Integer, db.ForeignKey("individu.id"), primary_key=True),
-        #db.Column("occupation_id", db.Integer, db.ForeignKey("occupation.id"), primary_key=True)
-       # )
+Avoir_occupation = db.Table("avoir_occupation",
+    db.Column("id", db.Integer, unique=True, nullable=False, primary_key=True),
+    db.Column("individu_id", db.Integer, db.ForeignKey("individu.id"), primary_key=True),
+    db.Column("occupation_id", db.Integer, db.ForeignKey("occupation.id"), primary_key=True)
+    )
 
 
 # Table correspondant à un.e chercheu.r.se
@@ -49,6 +50,8 @@ class Individu(db.Model):
     pays_nationalite = db.relationship("Pays_nationalite", back_populates="individu")
     diplome = db.relationship("Diplome", back_populates="individu")
     these_enc = db.relationship("These_enc", back_populates="individu")
+    occupations = db.relationship("Occupation", secondary=Avoir_occupation, backref=db.backref("individus"))
+
     # La table d'association (nécessaire pour une relation many-to-many)
     # est indiquée grâce au deuxième argument de 'relationship' : 'secondary = avoir_occupation
     # l'utilisation d'un backref à la place du back_populates permet de directement déclarer au sein de la table occupation la relation : (cela nous "économise" l'écriture d'une relation.
