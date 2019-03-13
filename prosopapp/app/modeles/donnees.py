@@ -16,7 +16,6 @@ from ..app import db
     #individus = db.relationship("Individu", backref="individuals", single_parent=True)
     #occupations = db.relationship("Occupation", backref="individuals", single_parent=True)
 
-#---------Je laisse pour le moment le code de la précédente version, avant la transformation de avoir_occupation en table --------
 Avoir_occupation = db.Table("avoir_occupation",
     db.Column("id", db.Integer, unique=True, nullable=False, primary_key=True),
     db.Column("individu_id", db.Integer, db.ForeignKey("individu.id"), primary_key=True),
@@ -50,17 +49,10 @@ class Individu(db.Model):
     pays_nationalite = db.relationship("Pays_nationalite", back_populates="individu")
     diplome = db.relationship("Diplome", back_populates="individu")
     these_enc = db.relationship("These_enc", back_populates="individu")
-    occupations = db.relationship("Occupation", secondary=Avoir_occupation, backref=db.backref("individus"))
-
+    occupations = db.relationship("Occupation", secondary=Avoir_occupation, backref=db.backref("individuals"))
     # La table d'association (nécessaire pour une relation many-to-many)
     # est indiquée grâce au deuxième argument de 'relationship' : 'secondary = avoir_occupation
     # l'utilisation d'un backref à la place du back_populates permet de directement déclarer au sein de la table occupation la relation : (cela nous "économise" l'écriture d'une relation.
-
-    # ---------Je laisse pour le moment le code de la précédente version, avant la transformation de avoir_occupation en table --------
-    #occupations = db.relationship(
-      #"Occupation",
-        #secondary=Avoir_occupation,
-        #backref="individuals")
     domaine_activite = db.relationship("Domaine_activite", back_populates="individu")
     distinction = db.relationship("Distinction", back_populates="individu")
 

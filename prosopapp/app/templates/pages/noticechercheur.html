@@ -55,13 +55,13 @@ différentes requêtes via des url_for (disséminées notamment dans la page che
                          {% else %}
                             <p> </p>
                          {% endif %}
-                     <!-- Si l'individu possède une occupation-->
-                         {% if individuu.individuals %}
+                           <!-- Si l'individu possède une occupation-->
+                         {% if individuu.occupations %}
                              <dt>Occupation</dt>
                              <!-- Afficher la - les occupations-->
-                              {% for individu in individuu.individuals%}
-                                <dd>{{individu.occupations.occupation_label}}</dd>
-                              {% endfor  %}
+                             {% for occupation in individuu.occupations%}
+                                <dd>{{occupation.occupation_label}}</dd>
+                             {% endfor  %}
                          {% else %}
                             <p> </p>
                          {% endif %}

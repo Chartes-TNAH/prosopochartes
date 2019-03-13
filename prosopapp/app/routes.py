@@ -74,13 +74,13 @@ def resultats():
                 Individu.date_mort.like("%{}%".format(motclef)),
                 Individu.date_naissance.like("%{}%".format(motclef)),
                 #has signifie : est-ce que le critère est true
-                Individu.diplome.has(Diplome.diplome_label).like("%{}%".format(motclef)),
-                Individu.distinction.has(Distinction.distinction_label).like("%{}%".format(motclef)),
-                Individu.pays_nationalite.has(Pays_nationalite.pays_label).like("%{}%".format(motclef)),
-                Individu.domaine_activite.has(Domaine_activite.domaine_label).like("%{}%".format(motclef)),
-                Individu.these_enc.has(These_enc.these_label).like("%{}%".format(motclef)),
-                # any signifie : au moins un des critères est true
-                Individu.occupations.any(Occupation.occupation_label).like("%{}%".format(motclef)),
+                Individu.diplome.has((Diplome.diplome_label).like("%{}%".format(motclef))),
+                Individu.distinction.has((Distinction.distinction_label).like("%{}%".format(motclef))),
+                Individu.pays_nationalite.has((Pays_nationalite.pays_label).like("%{}%".format(motclef))),
+                Individu.domaine_activite.has((Domaine_activite.domaine_label).like("%{}%".format(motclef))),
+                Individu.these_enc.has((These_enc.these_label).like("%{}%".format(motclef))),
+                # any signifie : au moins un des critères est true, nous l'utilisons ici puisque nous cherchons à requêter un champ pouvant contenir plusieurs valeurs.
+                Individu.occupations.any((Occupation.occupation_label).like("%{}%".format(motclef))),
             )
         ).order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
         titre = "Voici les résultats de votre recherche pour : '"+ motclef + "'."
