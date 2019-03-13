@@ -32,6 +32,7 @@ def chercheurs():
 
 @app.route('/recherche')
 def recherche():
+    """Route permettant de créer le formulaire de recherche avancée"""
     occupations = Occupation.query.all()
     pays = Pays_nationalite.query.all()
     activites = Domaine_activite.query.all()
@@ -126,22 +127,23 @@ def resultats_avances():
     else:
         page = 1
 
-    requete = Individu.query.outerjoin(Diplome).outerjoin(Distinction).outerjoin(Pays_nationalite).outerjoin(Domaine_activite).outerjoin(These_enc)
-
+    requete = Individu.query
     if motclef :
         requete = requete.filter(or_(
-                Individu.nom.like("%{}%".format(motclef)),
-                Individu.prenom.like("%{}%".format(motclef)),
-                Individu.annee_mort.like("%{}%".format(motclef)),
-                Individu.annee_naissance.like("%{}%".format(motclef)),
-                Individu.date_mort.like("%{}%".format(motclef)),
-                Individu.date_naissance.like("%{}%".format(motclef)),
-                Diplome.diplome_label.like("%{}%".format(motclef)),
-                Distinction.distinction_label.like("%{}%".format(motclef)),
-                Pays_nationalite.pays_label.like("%{}%".format(motclef)),
-                #Occupation.occupation_label.like("%{}%".format(motclef)),
-                Domaine_activite.domaine_label.like("%{}%".format(motclef)),
-                These_enc.these_label.like("%{}%".format(motclef)),
+            Individu.nom.like("%{}%".format(motclef)),
+            Individu.prenom.like("%{}%".format(motclef)),
+            Individu.annee_mort.like("%{}%".format(motclef)),
+            Individu.annee_naissance.like("%{}%".format(motclef)),
+            Individu.date_mort.like("%{}%".format(motclef)),
+            Individu.date_naissance.like("%{}%".format(motclef)),
+            # has signifie : est-ce que le critère est true
+            Individu.diplome.has((Diplome.diplome_label).like("%{}%".format(motclef))),
+            Individu.distinction.has((Distinction.distinction_label).like("%{}%".format(motclef))),
+            Individu.pays_nationalite.has((Pays_nationalite.pays_label).like("%{}%".format(motclef))),
+            Individu.domaine_activite.has((Domaine_activite.domaine_label).like("%{}%".format(motclef))),
+            Individu.these_enc.has((These_enc.these_label).like("%{}%".format(motclef))),
+            # any signifie : au moins un des critères est true, nous l'utilisons ici puisque nous cherchons à requêter un champ pouvant contenir plusieurs valeurs.
+            Individu.occupations.any((Occupation.occupation_label).like("%{}%".format(motclef))),
             ))
     if naissanceMin :
         requete = requete.filter(Individu.annee_naissance >= naissanceMin)
