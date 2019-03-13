@@ -32,8 +32,8 @@ headerfooter en premier lieu, puis la mise en forme bootstrap ci-après-->
                                 </dd>
                                 <dt>Occupation</dt>
                                 <!--Pour chaque individu, afficher son - ses occupations par le biais de la relation n-n-->
-                                {% for individu in individu.individuals%}
-                                <dd>{{individu.occupations.occupation_label}}</dd>
+                                {% for occupation in individu.occupations%}
+                                <dd>{{occupation.occupation_label}}</dd>
                                  {% endfor  %}
                             </dl>
                         </div >
