@@ -186,6 +186,26 @@ def resultats_avances():
 
     requete = requete.order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
 
+    # Ci-dessous se trouvent certains messages d'erreur correspondant à des erreurs spécifiques
+    if naissanceMin and naissanceMax and naissanceMin >= naissanceMax:
+        message = "Vous avez renseigné une date de naissance minimale postérieure à la date de naissance maximale."
+    if mortMin and mortMax and mortMin >= mortMax:
+        message = "Vous avez renseigné une date de mort minimale postérieure à la date de mort maximale."
+    if theseMin and theseMax and theseMin >= theseMax:
+        message = "Vous avez renseigné une date de soutenance minimale postérieure à la date de soutenance maximale."
+    # Ci-dessous la condition qui permet d'afficher une erreur si un champ date n'est pas vide, mais n'est pas rempli
+    # avec des integers
+    if naissanceMin and isinstance(naissanceMin, int) is False \
+            or naissanceExacte and isinstance(naissanceExacte, int) is False \
+            or naissanceMax and isinstance(naissanceMax, int) is False \
+            or mortMin and isinstance(mortMin, int) is False \
+            or mortExacte and isinstance(mortExacte, int) is False \
+            or mortMax and isinstance(mortMax, int) is False \
+            or theseMin and isinstance(theseMin, int) is False \
+            or theseExacte and isinstance(theseExacte, int) is False \
+            or theseMax and isinstance(theseMax, int) is False:
+        message = "Au moins l'un de vos champs date contient des caractères qui ne sont pas des chiffres."
+
     titre = "Résultats"
     return render_template(
         "pages/resultats_avances.html",
