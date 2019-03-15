@@ -28,7 +28,7 @@
                 <li class="page-item">
                  <!-- Il faut déclarer dans notre url_for la page où l'on affiche les résultats, mais également toutes les variables qui ont été récoltées via la fonction .request dans notre
                 définition de fonction, similaire à ce que nous avions fait en instanciation de la fonction.-->
-                    <a class="page-link" href="{{ url_for('resultats', keyword=keyword, page=page) }}">{{page}}</a>
+                    <a class="page-link" href="{{ url_for('resultats', motclef=motclef, page=page) }}">{{page}}</a>
                 </li>
               {% else %}
                 <li class="page-item active disabled">

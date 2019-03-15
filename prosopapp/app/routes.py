@@ -44,7 +44,7 @@ def recherche():
 def resultats():
     """ Route permettant la recherche plein-texte
     """
-    motclef = request.args.get("keyword", None)
+    motclef = request.args.get("motclef", None)
     #On stocke dans la variable mot clef une liste qui est destinée à contenir la valeur du mot clé rentré par l'utilisateur dans la barre de recherche
     page = request.args.get("page", 1)
     #On stocke dans la variable page une liste qui est destinée à contenir la valeur du numéro de page
@@ -59,9 +59,6 @@ def resultats():
 
     # On crée une liste vide de résultat (qui restera vide par défaut si on n'a pas de mot clé)
     resultats = []
-
-    # On crée une variable titre qui nous servira à afficher le résultat de notre requête
-    titre = "Résultats"
 
     if motclef:
     #Si on a un mot clé, on requête toutes les tables de notre base de donnée pour vérifier s'il y a des correspondances
@@ -85,9 +82,9 @@ def resultats():
             )
         ).order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
         titre = "Voici les résultats de votre recherche pour : '"+ motclef + "'."
-        #On affiche une phrase qui indiquera les résultats de la recherche en fonction du mot clé rentré par l'utilisateur
+        #On affiche une phrase de titre qui indiquera les résultats de la recherche en fonction du mot clé rentré par l'utilisateur
         #Cette variable titre sera réutilisée dans la page resultats.html
-    return render_template("pages/resultats.html", resultats=resultats, titre=titre, keyword=motclef)
+    return render_template("pages/resultats.html", resultats=resultats, titre=titre, motclef=motclef)
     #On retourne la page resultats.html, et on indique à quoi correspondent les variables resultats, titre et keyword,
     #qui seront appelées ensuite au sein des pages html
 
@@ -119,7 +116,7 @@ def resultats_avances():
     distinction = request.args.get("distinction", None)
     diplome = request.args.get("diplome", None)
 
-
+#Même commentaires que pour la pagination effectuées pour la fonction résultats
     page = request.args.get("page", 1)
 
     if isinstance(page, str) and page.isdigit():
@@ -179,11 +176,9 @@ def resultats_avances():
     if diplome and diplome != "all":
         requete = requete.filter(Individu.diplome.has(Diplome.diplome_label == diplome))
 
-
-
-
     requete = requete.order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
 
+    titre = "Résultats"
     return render_template(
         "pages/resultats_avances.html",
         motclef=motclef,
@@ -202,6 +197,7 @@ def resultats_avances():
         domaine_activite=domaine_activite,
         distinction=distinction,
         diplome=diplome,
+        titre=titre,
         requete=requete
         )
 
