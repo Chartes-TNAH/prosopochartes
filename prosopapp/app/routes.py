@@ -124,6 +124,9 @@ def resultats_avances():
     else:
         page = 1
 
+# Cette variable sert à faire apparaître les messages d'erreurs :
+    message = []
+
 #Déclaration d'une variable requete qui nous servira à stocker les recherches réalisées et à combiner plusieurs champs lors du requêtage.
 # Notre requete étant ensuite filtrée, nous lui attribuons la valeur initiale permettant ensuite de filter les champs de la table individu.
     requete = Individu.query
