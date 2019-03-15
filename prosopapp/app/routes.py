@@ -1,11 +1,15 @@
 from flask import render_template, url_for, request
-
-#cette commande nous permet de relier nos templates à nos urls - routes
+#Cette commande nous permet de relier nos templates à nos urls - routes
 #On importe url_for pour construire des URL vers les fonctions et les pages html
-from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc, Avoir_occupation
+#Cette commande nous permet d'importer les noms de types d'objets moins courant que int ou str, et de pouvoir ainsi les utiliser
+#dans des fonctions tels que insinstance.()
 
-#cette commande nous permet de relier les classes de notre modèle de données pour pouvoir ensuite les requêter.
+from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc, Avoir_occupation
+#Cette commande nous permet de relier les classes de notre modèle de données pour pouvoir ensuite les requêter.
+
 from sqlalchemy import and_, or_
+#Cette commande nous permet d'utiliser les opérateurs 'and' et 'or' dans nos fonctions de requêtage de notre base de données
+
 from sqlalchemy.orm import session
 
 from app.app import app
@@ -124,6 +128,10 @@ def resultats_avances():
     else:
         page = 1
 
+# Cette variable sert à faire apparaître les messages d'erreurs :
+    message = []
+    champdate = (int, type(None))
+
 #Déclaration d'une variable requete qui nous servira à stocker les recherches réalisées et à combiner plusieurs champs lors du requêtage.
 # Notre requete étant ensuite filtrée, nous lui attribuons la valeur initiale permettant ensuite de filter les champs de la table individu.
     requete = Individu.query
@@ -145,6 +153,11 @@ def resultats_avances():
             # any signifie : au moins un des critères est true, nous l'utilisons ici puisque nous cherchons à requêter un champ pouvant contenir plusieurs valeurs.
             Individu.occupations.any((Occupation.occupation_label).like("%{}%".format(motclef))),
             ))
+    # Pour la suite des champs, nous avons utilisé d'autres 'if' et non pas 'elif' : en effet, en utilisant 'elif', les conditions ci-desous
+    # n'auraient été prises en compte que si la condition précédente n'avait pas été remplie.
+    # Or, nous ne souhaitons une fonction qui fasse "si pas de données dans ce champ, voir s'il y en a dans le suivant"
+    # mais une fonction qui prenne en compte tous les paramètres entrés dans chaque champs du formulaire de recherche avancée
+    # en ajoutant à chaque fois un nouveau filtre à l'état précédent de la variable requete
     if naissanceMin :
         requete = requete.filter(Individu.annee_naissance >= naissanceMin)
     if naissanceExacte :
@@ -176,6 +189,15 @@ def resultats_avances():
     if diplome and diplome != "all":
         requete = requete.filter(Individu.diplome.has(Diplome.diplome_label == diplome))
 
+    # Ci-dessous se trouvent certains messages d'erreur correspondant à des erreurs spécifiques
+    if naissanceMin and naissanceMax and naissanceMin >= naissanceMax:
+        message = "Vous avez renseigné une date de naissance minimale postérieure à la date de naissance maximale."
+    if mortMin and mortMax and mortMin >= mortMax:
+        message = "Vous avez renseigné une date de mort minimale postérieure à la date de mort maximale."
+    if theseMin and theseMax and theseMin >= theseMax:
+        message = "Vous avez renseigné une date de soutenance minimale postérieure à la date de soutenance maximale."
+  
+
     requete = requete.order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
 
     titre = "Résultats"
@@ -198,6 +220,7 @@ def resultats_avances():
         distinction=distinction,
         diplome=diplome,
         titre=titre,
+        message=message,
         requete=requete
         )
 
