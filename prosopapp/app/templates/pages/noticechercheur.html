@@ -22,6 +22,7 @@ différentes requêtes via des url_for (disséminées notamment dans la page che
                          {% endif %}
                          {% if individuu.these_enc %}
                             <dt>Thèse ENC</dt><dd>{{individuu.these_enc.these_label}}</dd>
+                            <dt>Date de soutenance de thèse</dt><dd>{{individuu.these_enc.date_soutenance}}</dd>
                          {% else %}
                             <p> </p>
                          {% endif %}
