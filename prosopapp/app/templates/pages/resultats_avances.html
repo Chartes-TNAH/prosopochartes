@@ -15,6 +15,9 @@
         <div class="container" style="padding-top:5%;">
             <h3>{{titre}}</h3>
             <p>Nous avons trouvé {{requete.total}} chercheurs dans notre base qui correspondent à votre recherche.</p>
+            {% if message %}
+            <p><strong>Erreur</strong> : {{message}}</p>
+            {% endif %}
         <ul>
             {% for individu in requete.items %}
                 <li><a href="{{ url_for('noticechercheur', individu_id=individu.id) }}">{{individu.nom}} {{individu.prenom}}</a></li>
