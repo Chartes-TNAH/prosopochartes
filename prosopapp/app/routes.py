@@ -148,6 +148,11 @@ def resultats_avances():
             # any signifie : au moins un des critères est true, nous l'utilisons ici puisque nous cherchons à requêter un champ pouvant contenir plusieurs valeurs.
             Individu.occupations.any((Occupation.occupation_label).like("%{}%".format(motclef))),
             ))
+    # Pour la suite des champs, nous avons utilisé d'autres 'if' et non pas 'elif' : en effet, en utilisant 'elif', les conditions ci-desous
+    # n'auraient été prises en compte que si la condition précédente n'avait pas été remplie.
+    # Or, nous ne souhaitons une fonction qui fasse "si pas de données dans ce champ, voir s'il y en a dans le suivant"
+    # mais une fonction qui prenne en compte tous les paramètres entrés dans chaque champs du formulaire de recherche avancée
+    # en ajoutant à chaque fois un nouveau filtre à l'état précédent de la variable requete
     if naissanceMin :
         requete = requete.filter(Individu.annee_naissance >= naissanceMin)
     if naissanceExacte :
