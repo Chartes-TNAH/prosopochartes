@@ -1,11 +1,15 @@
 from flask import render_template, url_for, request
-
-#cette commande nous permet de relier nos templates à nos urls - routes
+#Cette commande nous permet de relier nos templates à nos urls - routes
 #On importe url_for pour construire des URL vers les fonctions et les pages html
-from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc, Avoir_occupation
+#Cette commande nous permet d'importer les noms de types d'objets moins courant que int ou str, et de pouvoir ainsi les utiliser
+#dans des fonctions tels que insinstance.()
 
-#cette commande nous permet de relier les classes de notre modèle de données pour pouvoir ensuite les requêter.
+from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc, Avoir_occupation
+#Cette commande nous permet de relier les classes de notre modèle de données pour pouvoir ensuite les requêter.
+
 from sqlalchemy import and_, or_
+#Cette commande nous permet d'utiliser les opérateurs 'and' et 'or' dans nos fonctions de requêtage de notre base de données
+
 from sqlalchemy.orm import session
 
 from app.app import app
@@ -126,6 +130,7 @@ def resultats_avances():
 
 # Cette variable sert à faire apparaître les messages d'erreurs :
     message = []
+    champdate = (int, type(None))
 
 #Déclaration d'une variable requete qui nous servira à stocker les recherches réalisées et à combiner plusieurs champs lors du requêtage.
 # Notre requete étant ensuite filtrée, nous lui attribuons la valeur initiale permettant ensuite de filter les champs de la table individu.
@@ -184,8 +189,6 @@ def resultats_avances():
     if diplome and diplome != "all":
         requete = requete.filter(Individu.diplome.has(Diplome.diplome_label == diplome))
 
-    requete = requete.order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
-
     # Ci-dessous se trouvent certains messages d'erreur correspondant à des erreurs spécifiques
     if naissanceMin and naissanceMax and naissanceMin >= naissanceMax:
         message = "Vous avez renseigné une date de naissance minimale postérieure à la date de naissance maximale."
@@ -193,18 +196,9 @@ def resultats_avances():
         message = "Vous avez renseigné une date de mort minimale postérieure à la date de mort maximale."
     if theseMin and theseMax and theseMin >= theseMax:
         message = "Vous avez renseigné une date de soutenance minimale postérieure à la date de soutenance maximale."
-    # Ci-dessous la condition qui permet d'afficher une erreur si un champ date n'est pas vide, mais n'est pas rempli
-    # avec des integers
-    if naissanceMin and isinstance(naissanceMin, int) is False \
-            or naissanceExacte and isinstance(naissanceExacte, int) is False \
-            or naissanceMax and isinstance(naissanceMax, int) is False \
-            or mortMin and isinstance(mortMin, int) is False \
-            or mortExacte and isinstance(mortExacte, int) is False \
-            or mortMax and isinstance(mortMax, int) is False \
-            or theseMin and isinstance(theseMin, int) is False \
-            or theseExacte and isinstance(theseExacte, int) is False \
-            or theseMax and isinstance(theseMax, int) is False:
-        message = "Au moins l'un de vos champs date contient des caractères qui ne sont pas des chiffres."
+  
+
+    requete = requete.order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
 
     titre = "Résultats"
     return render_template(
@@ -226,6 +220,7 @@ def resultats_avances():
         distinction=distinction,
         diplome=diplome,
         titre=titre,
+        message=message,
         requete=requete
         )
 
