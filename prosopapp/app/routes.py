@@ -130,7 +130,6 @@ def resultats_avances():
 
 # Cette variable sert à faire apparaître les messages d'erreurs :
     message = []
-    champdate = (int, type(None))
 
 #Déclaration d'une variable requete qui nous servira à stocker les recherches réalisées et à combiner plusieurs champs lors du requêtage.
 # Notre requete étant ensuite filtrée, nous lui attribuons la valeur initiale permettant ensuite de filter les champs de la table individu.
@@ -155,26 +154,39 @@ def resultats_avances():
             ))
     # Pour la suite des champs, nous avons utilisé d'autres 'if' et non pas 'elif' : en effet, en utilisant 'elif', les conditions ci-desous
     # n'auraient été prises en compte que si la condition précédente n'avait pas été remplie.
-    # Or, nous ne souhaitons une fonction qui fasse "si pas de données dans ce champ, voir s'il y en a dans le suivant"
-    # mais une fonction qui prenne en compte tous les paramètres entrés dans chaque champs du formulaire de recherche avancée
+    # Or, nous ne souhaitons une fonction qui agisse ansi : "si pas de données dans ce champ, voir s'il y en a dans le suivant",
+    # mais au contraire une fonction qui prenne en compte tous les paramètres entrés dans chaque champ du formulaire de recherche avancée
     # en ajoutant à chaque fois un nouveau filtre à l'état précédent de la variable requete
-    if naissanceMin :
+    if naissanceMin and isinstance(naissanceMin, str) and naissanceMin.isdigit() :
+        naissanceMin = int(naissanceMin)
         requete = requete.filter(Individu.annee_naissance >= naissanceMin)
-    if naissanceExacte :
+    # Dans la condition ci-dessus et dans les conditions suivantes qui font référence à une date (type int dans notre base sqlite),
+    # nous avons choisi de retyper le texte entré dans le champ du formulaire par l'utilisateur (dans le cas où ce texte est composé de cractères numériques) en integer.
+    # En effet, même si les opérateurs >=, == et <= fonctionnent sur des caractères numériques même s'ils sont de type str,
+    # les retyper en integer nous permet par la suite de générer un message d'erreur lorsqu'un caractère qui n'est pas un chiffre est tapé dans ces champs
+    if naissanceExacte and isinstance(naissanceExacte, str) and naissanceExacte.isdigit() :
+        naissanceExacte = int(naissanceExacte)
         requete = requete.filter(Individu.annee_naissance == naissanceExacte)
-    if naissanceMax :
+    if naissanceMax and isinstance(naissanceMax, str) and naissanceMax.isdigit() :
+        naissanceMax = int(naissanceMax)
         requete = requete.filter(Individu.annee_naissance <= naissanceMax)
-    if mortMin :
+    if mortMin and isinstance(mortMin, str) and mortMin.isdigit() :
+        mortMin = int(mortMin)
         requete = requete.filter(Individu.annee_mort >= mortMin)
-    if mortExacte :
+    if mortExacte and isinstance(mortExacte, str) and mortExacte.isdigit() :
+        mortExacte = int(mortExacte)
         requete = requete.filter(Individu.annee_mort == mortExacte)
-    if mortMax :
+    if mortMax and isinstance(mortMax, str) and mortMax.isdigit() :
+        mortMax = int(mortMax)
         requete = requete.filter(Individu.annee_mort <= mortMax)
-    if theseMin :
+    if theseMin and isinstance(theseMin, str) and theseMin.isdigit() :
+        theseMin = int(theseMin)
         requete = requete.filter(Individu.these_enc.has(These_enc.date_soutenance >= theseMin))
-    if theseExacte :
+    if theseExacte and isinstance(theseExacte, str) and theseExacte.isdigit() :
+        theseExacte = int(theseExacte)
         requete = requete.filter(Individu.these_enc.has(These_enc.date_soutenance == theseExacte))
-    if theseMax :
+    if theseMax and isinstance(theseMax, str) and theseMax.isdigit() :
+        theseMax = int(theseMax)
         requete = requete.filter(Individu.these_enc.has(These_enc.date_soutenance <= theseMax))
     if theseLabel :
         requete = requete.filter(Individu.these_enc.has((These_enc.these_label).like("%{}%".format(theseLabel))))
@@ -196,7 +208,31 @@ def resultats_avances():
         message = "Vous avez renseigné une date de mort minimale postérieure à la date de mort maximale."
     if theseMin and theseMax and theseMin >= theseMax:
         message = "Vous avez renseigné une date de soutenance minimale postérieure à la date de soutenance maximale."
-  
+
+    # Ci-dessous les conditions qui permettent d'afficher un message d'erreur si un champ date n'est pas vide, mais n'est pas rempli
+    # avec des integers
+    if naissanceMin and isinstance(naissanceMin, int) is False :
+        message = "Le champ 'date de naissance : après...' contient des caractères qui ne sont pas des chiffres."
+    if naissanceExacte and isinstance(naissanceExacte, int) is False :
+        message = "Le champ 'date de naissance : en...' contient des caractères qui ne sont pas des chiffres."
+    if naissanceMax and isinstance(naissanceMax, int) is False :
+        message = "Le champ 'date de naissance : avant...' contient des caractères qui ne sont pas des chiffres."
+
+    if mortMin and isinstance(mortMin, int) is False :
+        message = "Le champ 'date de mort : après...' contient des caractères qui ne sont pas des chiffres."
+    if mortExacte and isinstance(mortExacte, int) is False :
+        message = "Le champ 'date de mort : en...' contient des caractères qui ne sont pas des chiffres."
+    if mortMax and isinstance(mortMax, int) is False :
+        message = "Le champ 'date de mort : avant...' contient des caractères qui ne sont pas des chiffres."
+
+    if theseMin and isinstance(theseMin, int) is False :
+        message = "Le champ 'date de soutenance : après...' contient des caractères qui ne sont pas des chiffres."
+    if theseExacte and isinstance(theseExacte, int) is False :
+        message = "Le champ 'date de soutenance : en...' contient des caractères qui ne sont pas des chiffres."
+    if theseMax and isinstance(theseMax, int) is False :
+        message = "Le champ 'date de soutenance : avant...' contient des caractères qui ne sont pas des chiffres."
+
+
 
     requete = requete.order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
 
