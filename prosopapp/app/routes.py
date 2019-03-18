@@ -131,6 +131,11 @@ def resultats_avances():
 # Cette variable sert à faire apparaître les messages d'erreurs :
     message = []
 
+# Cette liste nous sert à regrouper tous les champs relatifs à une date, pour pouvoir créer des boucles et alléger le code
+# dans les cas où nous effectuons un traitement identitques sur ces types de champs (pour caster le contenu assigné
+# à ces variables par exemple, ou pour faire apparaître certains messages d'erreurs)
+    dates = [naissanceMin, naissanceExacte, naissanceMax, mortMin, mortExacte, mortMax, theseMin, theseExacte, theseMax]
+
 #Déclaration d'une variable requete qui nous servira à stocker les recherches réalisées et à combiner plusieurs champs lors du requêtage.
 # Notre requete étant ensuite filtrée, nous lui attribuons la valeur initiale permettant ensuite de filter les champs de la table individu.
     requete = Individu.query
@@ -209,29 +214,11 @@ def resultats_avances():
     if theseMin and theseMax and theseMin >= theseMax:
         message = "Vous avez renseigné une date de soutenance minimale postérieure à la date de soutenance maximale."
 
-    # Ci-dessous les conditions qui permettent d'afficher un message d'erreur si un champ date n'est pas vide, mais n'est pas rempli
+    # Ci-dessous une boucle qui d'afficher un message d'erreur si un champ date n'est pas vide, mais n'est pas rempli
     # avec des integers
-    if naissanceMin and isinstance(naissanceMin, int) is False :
-        message = "Le champ 'date de naissance : après...' contient des caractères qui ne sont pas des chiffres."
-    if naissanceExacte and isinstance(naissanceExacte, int) is False :
-        message = "Le champ 'date de naissance : en...' contient des caractères qui ne sont pas des chiffres."
-    if naissanceMax and isinstance(naissanceMax, int) is False :
-        message = "Le champ 'date de naissance : avant...' contient des caractères qui ne sont pas des chiffres."
-
-    if mortMin and isinstance(mortMin, int) is False :
-        message = "Le champ 'date de mort : après...' contient des caractères qui ne sont pas des chiffres."
-    if mortExacte and isinstance(mortExacte, int) is False :
-        message = "Le champ 'date de mort : en...' contient des caractères qui ne sont pas des chiffres."
-    if mortMax and isinstance(mortMax, int) is False :
-        message = "Le champ 'date de mort : avant...' contient des caractères qui ne sont pas des chiffres."
-
-    if theseMin and isinstance(theseMin, int) is False :
-        message = "Le champ 'date de soutenance : après...' contient des caractères qui ne sont pas des chiffres."
-    if theseExacte and isinstance(theseExacte, int) is False :
-        message = "Le champ 'date de soutenance : en...' contient des caractères qui ne sont pas des chiffres."
-    if theseMax and isinstance(theseMax, int) is False :
-        message = "Le champ 'date de soutenance : avant...' contient des caractères qui ne sont pas des chiffres."
-
+    for date in dates :
+        if date and isinstance(date, int) is False :
+            message = "L'un des champs date contient des caractères qui ne sont pas des chiffres"
 
 
     requete = requete.order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
