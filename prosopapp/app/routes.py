@@ -38,11 +38,11 @@ def chercheurs():
 @app.route('/recherche')
 def recherche():
     """Route permettant de créer le formulaire de recherche avancée"""
-    occupations = Occupation.query.all()
-    pays = Pays_nationalite.query.all()
-    activites = Domaine_activite.query.all()
-    distinctions = Distinction.query.all()
-    diplomes = Diplome.query.all()
+    occupations = Occupation.query.order_by(Occupation.occupation_label).all()
+    pays = Pays_nationalite.query.order_by(Pays_nationalite.pays_label).all()
+    activites = Domaine_activite.query.order_by(Domaine_activite.domaine_label).all()
+    distinctions = Distinction.query.order_by(Distinction.distinction_label).all()
+    diplomes = Diplome.query.order_by(Diplome.diplome_label).all()
     # Les variables ci-dessus permettent de stocker les valeurs des tables concernées,
     # ce qui nous permet par la suite de les faire apparaître dans des menus déroulants dans notre page recherche.html
     return render_template("pages/recherche.html", occupations=occupations, pays=pays, activites=activites, distinctions=distinctions, diplomes=diplomes)
