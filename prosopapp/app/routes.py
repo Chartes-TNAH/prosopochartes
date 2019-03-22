@@ -162,36 +162,23 @@ def resultats_avances():
     # Or, nous ne souhaitons une fonction qui agisse ansi : "si pas de données dans ce champ, voir s'il y en a dans le suivant",
     # mais au contraire une fonction qui prenne en compte tous les paramètres entrés dans chaque champ du formulaire de recherche avancée
     # en ajoutant à chaque fois un nouveau filtre à l'état précédent de la variable requete
-    if naissanceMin and isinstance(naissanceMin, str) and naissanceMin.isdigit() :
-        naissanceMin = int(naissanceMin)
+    if naissanceMin :
         requete = requete.filter(Individu.annee_naissance >= naissanceMin)
-    # Dans la condition ci-dessus et dans les conditions suivantes qui font référence à une date (type int dans notre base sqlite),
-    # nous avons choisi de retyper le texte entré dans le champ du formulaire par l'utilisateur (dans le cas où ce texte est composé de cractères numériques) en integer.
-    # En effet, même si les opérateurs >=, == et <= fonctionnent sur des caractères numériques même s'ils sont de type str,
-    # les retyper en integer nous permet par la suite de générer un message d'erreur lorsqu'un caractère qui n'est pas un chiffre est tapé dans ces champs
-    if naissanceExacte and isinstance(naissanceExacte, str) and naissanceExacte.isdigit() :
-        naissanceExacte = int(naissanceExacte)
+    if naissanceExacte :
         requete = requete.filter(Individu.annee_naissance == naissanceExacte)
-    if naissanceMax and isinstance(naissanceMax, str) and naissanceMax.isdigit() :
-        naissanceMax = int(naissanceMax)
+    if naissanceMax :
         requete = requete.filter(Individu.annee_naissance <= naissanceMax)
-    if mortMin and isinstance(mortMin, str) and mortMin.isdigit() :
-        mortMin = int(mortMin)
+    if mortMin :
         requete = requete.filter(Individu.annee_mort >= mortMin)
-    if mortExacte and isinstance(mortExacte, str) and mortExacte.isdigit() :
-        mortExacte = int(mortExacte)
+    if mortExacte :
         requete = requete.filter(Individu.annee_mort == mortExacte)
-    if mortMax and isinstance(mortMax, str) and mortMax.isdigit() :
-        mortMax = int(mortMax)
+    if mortMax :
         requete = requete.filter(Individu.annee_mort <= mortMax)
-    if theseMin and isinstance(theseMin, str) and theseMin.isdigit() :
-        theseMin = int(theseMin)
+    if theseMin :
         requete = requete.filter(Individu.these_enc.has(These_enc.date_soutenance >= theseMin))
-    if theseExacte and isinstance(theseExacte, str) and theseExacte.isdigit() :
-        theseExacte = int(theseExacte)
+    if theseExacte :
         requete = requete.filter(Individu.these_enc.has(These_enc.date_soutenance == theseExacte))
-    if theseMax and isinstance(theseMax, str) and theseMax.isdigit() :
-        theseMax = int(theseMax)
+    if theseMax :
         requete = requete.filter(Individu.these_enc.has(These_enc.date_soutenance <= theseMax))
     if theseLabel :
         requete = requete.filter(Individu.these_enc.has((These_enc.these_label).like("%{}%".format(theseLabel))))
@@ -217,7 +204,7 @@ def resultats_avances():
     # Ci-dessous une boucle qui d'afficher un message d'erreur si un champ date n'est pas vide, mais n'est pas rempli
     # avec des integers
     for date in dates :
-        if date and isinstance(date, int) is False :
+        if date and date.isdigit() is False :
             message = "L'un des champs date contient des caractères qui ne sont pas des chiffres"
 
 
