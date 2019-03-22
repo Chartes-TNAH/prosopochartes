@@ -6,15 +6,16 @@
 		<div class = "container" id="formulaire-recherche-avancee" style="padding-top: 5%; padding-bottom: 5%">
 			<h2>Formulaire de recherche avancée</h2>
 			<form action="{{url_for('resultats_avances')}}" method="GET" id="recherche_form">
-				<!--Ce premier champ de recherche est constitué par un champ de recherche avancée similaire à celui présent dans notre barre de
+
+				<!--Ce premier champ de recherche est constitué d'un champ de recherche avancée similaire à celui présent dans notre barre de
                 navigation.-->
                 <div class="form-group">
 					<label>Recherche plein texte dans tous les champs des notices</label>
 					<input class="form-control" type="text" name="motclef" placeholder="Termes à rechercher">
 				</div>
 
-            <!--Cette partie de la recherche avancée est constituée de drop-downs, pour les champs dont
-             le requêtage semblait ainsi plus pertinent.-->
+            <!--Cette partie de la recherche avancée est constituée de drop-downs : il semblait en effet plus pertinent de
+            requêter par une liste de valeurs proposées les tables comportant peu de valeurs différentes.-->
 
 				<div class="form-group">
 					<label>Diplôme</label>
@@ -65,9 +66,11 @@
                			{% endfor %}
 					</select>
 				</div>
+
         <!--Fin de la recherche via des drop-downs -->
+
         <!--Notre formulaire de requête avancée contient également une partie de recherche plein texte
-         pour rechercher et ainsi filtrer en fonction des dates (naissance, mort) ou de soutenance de thèse.-->
+         pour rechercher et ainsi filtrer en fonction des dates (naissance, mort, soutenance de thèse).-->
 
 				<div class="form-group">
 					<label>Date de naissance</label>
@@ -97,8 +100,10 @@
 						</div>
 					</div>
 				</div>
+
             <!--Afin de pouvoir requêter de manière plus confortable dans le titre des thèses, nous avons choisi d'utiliser à cet endroit un
              formulaire de recherche plein-texte-->
+
 				<div class="form-group">
 					<label for="recherche-plein-texte-theses">Thèse de l'École des chartes</label>
 					<input class="form-control" type="text" id="recherche-plein-texte-theses" placeholder="Termes à rechercher" name="theseLabel">
@@ -118,6 +123,7 @@
 					</div>
 				</div>
 				<button type="submit" class="btn btn-info btn-lg btn-responsive" id="search">Rechercher</button>
+				
 			</form>
 		</div>
 	{% endblock %}
