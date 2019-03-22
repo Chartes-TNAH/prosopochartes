@@ -24,6 +24,8 @@
 						{% for diplome in diplomes %}
                    			<option value="{{diplome.diplome_label}}">{{diplome.diplome_label}}</option>
                			{% endfor %}
+						<!-- Ce type de boucle nous permet de générer une liste déroulante avec toutes les valeurs du champ
+						diplome_label ; le même principe s'applique pour les champs du formulaire ci-dessous -->
 					</select>
 				</div>
 
@@ -123,7 +125,7 @@
 					</div>
 				</div>
 				<button type="submit" class="btn btn-info btn-lg btn-responsive" id="search">Rechercher</button>
-				
+
 			</form>
 		</div>
 	{% endblock %}
