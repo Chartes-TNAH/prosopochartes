@@ -14,7 +14,7 @@
         </div>
         <div class="container" style="padding-top:5%;">
             <h3>{{titre}}</h3>
-            <p>Nous avons trouvé {{resultats.total}} chercheurs dans notre base qui correspondent à votre recherche.</p>
+            <p>Nous avons trouvé {{resultats.total}} chercheur(s) dans notre base correspondant à votre recherche.</p>
         <ul>
             {% for individu in resultats.items %}
                 <li><a href="{{ url_for('noticechercheur', individu_id=individu.id) }}">{{individu.nom}} {{individu.prenom}}</a></li>

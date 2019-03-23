@@ -1,24 +1,21 @@
-#  Importation de la base de données sqlite
-
 from ..app import db
+#  Importation de la base de données sqlite, stockée dans la variable db
 
-# Création du modèle selon celui de la base de données prosopochartes.sqlite
-# Table d'association nécessaire à la déclaration d'une relation many-to-many entre la table individu et la table Occupation dans notre db
+# Création du modèle selon celui de la base de données prosopochartes.sqlite :
 
-
+# Table d'association nécessaire à la déclaration d'une relation many-to-many entre la table individu et la table occupation dans notre db
 Avoir_occupation = db.Table("avoir_occupation",
     db.Column("id", db.Integer, unique=True, nullable=False, primary_key=True),
     db.Column("individu_id", db.Integer, db.ForeignKey("individu.id"), primary_key=True),
     db.Column("occupation_id", db.Integer, db.ForeignKey("occupation.id"), primary_key=True)
     )
 
-
 # Table correspondant à un.e chercheu.r.se
-# Par souci de simplicité, chaque membre de la table est dans la plupart des cas dans une relation many to one avec les autres tables
-# (dans notre base, un.e chercheu.r.se n'a qu'un diplôme, une thèse...)
-#Sauf pour le cas de l'occupation, où nous avons créés une relation many to many et qui suppose l'ajout d'une table
-#supplémentaire que nous avons dénommées avoir_occupation dans notre modèle sqlite.
-# Les relations (or occupation) sont identifiées par des clefs étrangères.
+# Chaque individu de la table est dans la plupart des cas dans une relation many to one avec les autres tables
+# (dans notre base, un.e chercheu.r.se n'a qu'un diplôme, une thèse...),
+# sauf dans le cas de la table occupation, reliée à individu par une relation many to many représentée
+# par la création d'une table supplémentaire.
+# Les relations many to one sont, elles, identifiées par des clefs étrangères.
 class Individu(db.Model):
     __tablename__ = "individu"
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
