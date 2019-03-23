@@ -14,7 +14,10 @@
         </div>
         <div class="container" style="padding-top:5%;">
             <h3>{{titre}}</h3>
-            <p>Nous avons trouvé {{requete.total}} chercheurs dans notre base qui correspondent à votre recherche.</p>
+            <p>Nous avons trouvé {{requete.total}} chercheur(s) dans notre base correspondant à votre recherche.</p>
+            {% if message %}
+            <p><strong>Erreur</strong> : {{message}}</p>
+            {% endif %}
         <ul>
             {% for individu in requete.items %}
                 <li><a href="{{ url_for('noticechercheur', individu_id=individu.id) }}">{{individu.nom}} {{individu.prenom}}</a></li>
@@ -31,7 +34,7 @@
                     <a class="page-link" href="{{ url_for('resultats_avances', naissanceMin=naissanceMin,
                     naissanceExacte=naissanceExacte, naissanceMax=naissanceMax, mortMin=mortMin, mortExacte=mortExacte,
                     mortMax=mortMax, theseMin=theseMin, theseExacte=theseExacte, theseMax=theseMax, theseLabel=theseLabel,occupations=occupations,
-                    pays=pays, domaine_activite=domaine_activite, distinction=distinction, diplome=diplome, motclef=motclef,
+                    pays=pays, domaine_activite=domaine_activite, distinction=distinction, diplome=diplome, motclef=motclef, titre=titre,
                      page=page)}}">{{page}}</a>
                 </li>
               {% else %}

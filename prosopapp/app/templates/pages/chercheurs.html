@@ -4,13 +4,13 @@
 <!-- Sur cette page se trouve la construction des notices abrégées pour les chercheurs. Un héritage du template
 headerfooter en premier lieu, puis la mise en forme bootstrap ci-après-->
 <h4 style="padding-top:5% ; padding-left:2% ; padding-bottom: 5%">Ils travaillent, ou ont travaillé pour l'École des Chartes.</h4>
-<!--Tout d'abord on test si nous avons ou non des éléments dans notre test et si non, nous affichons un message d'erreur -->
+<!--Tout d'abord, on teste si nous avons ou non des éléments dans notre base de données et si non, nous affichons un message d'erreur -->
     {%if individus%}
             {% for individu in individus %}
                 <div class ="container">
                     <div class="row" style="margin-bottom: 2% ; padding-bottom: 2%; border-bottom:1px solid black">
                         <div class ="col-3">
-                        <!--Nous avons des images pour certains chercheurs seulement, du coup pour les autres nous affichons
+                        <!--Nous avons des images pour certains chercheurs seulement ; pour les autres nous affichons
                          une image type qui se trouve dans notre dossier statics/Templates-->
                             {% if not individu.image_lien %}
                                 <a href="{{ url_for('noticechercheur', individu_id=individu.id) }}"><img src="{{ url_for('static', filename='Images/anonyme2.jpg')}}" class="rounded-circle" style="width:150px; height:200px;"></a>
@@ -30,13 +30,16 @@ headerfooter en premier lieu, puis la mise en forme bootstrap ci-après-->
                                 <dt>Identifiant VIAF</dt><dd>{{individu.id_autorite}}</dd>
                                 <dt>Domaine d'activité</dt><dd>{{individu.domaine_activite.domaine_label}}
                                 </dd>
-                                <dt>Occupation</dt><dd>{{individu.occupation.occupation_label}}</dd>
+                                <dt>Occupation</dt>
+                                <!--Pour chaque individu, afficher son - ses occupations par le biais de la relation n-n-->
+                                {% for occupation in individu.occupations%}
+                                <dd>{{occupation.occupation_label}}</dd>
+                                 {% endfor  %}
                             </dl>
                         </div >
                         <div class="col-sm-1" style="background-color:#fe2734 ; max-width:4%"></div>
                         </div>
                 </div>
-
             {% endfor %}
     {% else %}
         <p>La base de données est en cours de constitution.</p>

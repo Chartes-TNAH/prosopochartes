@@ -22,6 +22,7 @@ différentes requêtes via des url_for (disséminées notamment dans la page che
                          {% endif %}
                          {% if individuu.these_enc %}
                             <dt>Thèse ENC</dt><dd>{{individuu.these_enc.these_label}}</dd>
+                            <dt>Date de soutenance de thèse</dt><dd>{{individuu.these_enc.date_soutenance}}</dd>
                          {% else %}
                             <p> </p>
                          {% endif %}
@@ -55,8 +56,13 @@ différentes requêtes via des url_for (disséminées notamment dans la page che
                          {% else %}
                             <p> </p>
                          {% endif %}
-                         {% if individuu.occupation.occupation_label %}
-                             <dt>Occupation</dt><dd>{{individuu.occupation.occupation_label}}</dd>
+                           <!-- Si l'individu possède une occupation-->
+                         {% if individuu.occupations %}
+                             <dt>Occupation</dt>
+                             <!-- Afficher la - les occupations-->
+                             {% for occupation in individuu.occupations%}
+                                <dd>{{occupation.occupation_label}}</dd>
+                             {% endfor  %}
                          {% else %}
                             <p> </p>
                          {% endif %}
@@ -68,7 +74,7 @@ différentes requêtes via des url_for (disséminées notamment dans la page che
 
                       </dl>
                 </div>
-             <!-- Certains chercheurs ont des images, d'autres noms, pour le cas où ils n'en ont pas, nous avons choisi d'importer
+             <!-- Certains chercheurs ont des images, d'autres noms ; lorsqu'ils n'en ont pas, nous avons choisi d'importer
              une image par défaut qui se trouve dans notre dossier statics/Images-->
                 <div class="col-4" style="padding-top: 8%">
                     {% if not individuu.image_lien%}
