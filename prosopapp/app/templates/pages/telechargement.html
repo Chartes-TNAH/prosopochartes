@@ -2,6 +2,9 @@
 
 {% block corps %}
 
-<p>Test</p>
+<div class = "container" style="padding-top: 5%; padding-bottom: 5%; text-align:center">
+    <p>Vous pouvez télécharger l'intégralité de notre base de données au format <b>SQLite</b> en cliquant sur le bouton ci-dessous :</p>
+    <a class="btn btn-danger" href="{{url_for('download')}}">Télécharger</a>
+</div>
 
 {% endblock %}
