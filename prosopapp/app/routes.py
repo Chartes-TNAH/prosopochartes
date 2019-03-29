@@ -271,4 +271,4 @@ def noticechercheur(individu_id):
 @app.route('/download')
 def download():
     f = '../prosopochartes.sqlite'
-    return
+    return send_file(f, attachment_filename='prosopochartes.sqlite', as_attachment=True)
