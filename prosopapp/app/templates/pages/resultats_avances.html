@@ -18,12 +18,6 @@
             {% if message %}
             <p><strong>Erreur</strong> : {{message}}</p>
             {% endif %}
-
-            <p>Ordonner les résultats : <button type="submit" name="AtoZ" class="btn btn-dark btn-responsive">A-Z</button> <button type="submit" name="ZtoA" class="btn btn-dark btn-responsive">Z-A</button>
-
-</p>
-
-
         <ul>
             {% for individu in requete.items %}
                 <li><a href="{{ url_for('noticechercheur', individu_id=individu.id) }}">{{individu.nom}} {{individu.prenom}}</a></li>
@@ -42,7 +36,7 @@
                     naissanceExacte=naissanceExacte, naissanceMax=naissanceMax, mortMin=mortMin, mortExacte=mortExacte,
                     mortMax=mortMax, theseMin=theseMin, theseExacte=theseExacte, theseMax=theseMax, theseLabel=theseLabel,occupations=occupations,
                     pays=pays, domaine_activite=domaine_activite, distinction=distinction, diplome=diplome, motclef=motclef, titre=titre,
-                     page=page)}}">{{page}}</a>
+                     page=page, asc=asc, desc=desc)}}">{{page}}</a>
                 </li>
               {% else %}
                 <li class="page-item active disabled">

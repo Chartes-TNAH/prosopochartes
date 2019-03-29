@@ -125,6 +125,8 @@ def resultats_avances():
     domaine_activite = request.args.get("domaine_activite", None)
     distinction = request.args.get("distinction", None)
     diplome = request.args.get("diplome", None)
+    asc = request.args.get("asc", None)
+    desc = request.args.get("desc", None)
 
     # Mêmes commentaires que pour la pagination effectuée pour la fonction résultats
     page = request.args.get("page", 1)
@@ -209,6 +211,13 @@ def resultats_avances():
     if diplome and diplome != "all":
         requete = requete.filter(Individu.diplome.has(Diplome.diplome_label == diplome))
 
+    if asc :
+        requete = requete.order_by(Individu.nom.asc())
+    if desc :
+        requete = requete.order_by(Individu.nom.desc())
+    if not asc and not desc :
+        requete = requete.order_by(Individu.nom.asc())
+
     # Ci-dessous se trouvent certains messages d'erreur correspondant à des erreurs spécifiques :
     # Nous les faisons apparaître en utilisant également un "if", et non un "else", car, compte-tenu de la structure de notre fonction,
     # si nous choisissons le "else", il ne va entrer en jeu que si aucune des conditions "if" n'est remplie, c'est-à-dire, dans notre
@@ -230,8 +239,8 @@ def resultats_avances():
     # qu'avec des valeurs numériques. Nous avons choisi d'utiliser .isdigit() car, les valeurs entrées dans les champs du formulaires
     # correspondant à des str, cette solution était plus simple que de d'abord passer par un typage en int des valeurs renseignées dans ce champ
 
-
-    requete = requete.order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
+    requete = requete.paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
+    #requete = requete.order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
 
     titre = "Résultats"
     return render_template(
@@ -254,7 +263,9 @@ def resultats_avances():
         diplome=diplome,
         titre=titre,
         message=message,
-        requete=requete
+        requete=requete,
+        asc=asc,
+        desc=desc
         )
 
 
