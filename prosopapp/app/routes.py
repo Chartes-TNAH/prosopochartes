@@ -211,10 +211,15 @@ def resultats_avances():
     if diplome and diplome != "all":
         requete = requete.filter(Individu.diplome.has(Diplome.diplome_label == diplome))
 
+    # Les conditions ci-dessous permettent à l'utilisateur de choisir s'il souhaite obtenir les résultats dans un ordre
+    # alphabétique croissant ou décroissant
     if asc :
         requete = requete.order_by(Individu.nom.asc())
     if desc :
         requete = requete.order_by(Individu.nom.desc())
+    # Pour éviter que les résultats ne s'affichent dans aucun ordre alphabétique si aucun bouton n'est sélectionné, cette
+    # condition permet de garder l'ordre croissant si rien n'est sélectionné sur le formulaire (cette notion d' "ordre
+    # croissant par défaut" est représentée sur le formulaire par l'illusion que le bouton "A-Z" est pré-coché)
     if not asc and not desc :
         requete = requete.order_by(Individu.nom.asc())
 
