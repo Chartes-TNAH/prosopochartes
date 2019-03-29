@@ -297,7 +297,20 @@ def download():
     f = '../prosopochartes.sqlite'
     return send_file(f, attachment_filename='prosopochartes.sqlite', as_attachment=True)
 
+
+# Gestion des erreurs les plus courantes :
+
 @app.errorhandler(404)
-def page_introuvable():
+def page_introuvable(erreur):
     """Route qui permet, en cas d'erreur 404 (page introuvable, car mauvaise URL), de renvoyer vers la page 404.html"""
-    return render_template("pages/404.html", 404)
+    return render_template("pages/erreurs/404.html"), 404
+
+@app.errorhandler(410)
+def page_supprimee(erreur):
+    """Route qui permet, en cas d'erreur 410 (element suprimé), de renvoyer vers la page 410.html"""
+    return render_template("pages/erreurs/410.html")
+
+@app.errorhandler(500)
+def page_supprimee(erreur):
+    """Route qui permet, en cas d'erreur 500 (erreur de serveur interne), de renvoyer vers la page 500.html"""
+    return render_template("pages/erreurs/500.html")
