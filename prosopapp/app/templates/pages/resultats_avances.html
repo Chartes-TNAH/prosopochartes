@@ -18,11 +18,18 @@
             {% if message %}
             <p><strong>Erreur</strong> : {{message}}</p>
             {% endif %}
+
+            <p>Ordonner les résultats : <button type="submit" name="AtoZ" class="btn btn-dark btn-responsive">A-Z</button> <button type="submit" name="ZtoA" class="btn btn-dark btn-responsive">Z-A</button>
+
+</p>
+
+
         <ul>
             {% for individu in requete.items %}
                 <li><a href="{{ url_for('noticechercheur', individu_id=individu.id) }}">{{individu.nom}} {{individu.prenom}}</a></li>
             {% endfor %}
         </ul>
+
     <nav aria-label="research-pagination">
       <ul class="pagination">
         {%- for page in requete.iter_pages() %}
