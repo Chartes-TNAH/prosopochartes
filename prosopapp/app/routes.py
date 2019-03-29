@@ -289,10 +289,15 @@ def noticechercheur(individu_id):
 @app.route('/telechargement')
 def telechargement():
     """Route permettant d'afficher la page telechargement.html"""
-    return render_template("/pages/telechargement.html")
+    return render_template("pages/telechargement.html")
 
 @app.route('/download')
 def download():
     """Route permettant à l'utilisateur de télécharger le fichier prosopochartes.sqlite (base de données sur laquelle se base l'application)"""
     f = '../prosopochartes.sqlite'
     return send_file(f, attachment_filename='prosopochartes.sqlite', as_attachment=True)
+
+@app.errorhandler(404)
+def page_introuvable():
+    """Route qui permet, en cas d'erreur 404 (page introuvable, car mauvaise URL), de renvoyer vers la page 404.html"""
+    return render_template("pages/404.html", 404)
