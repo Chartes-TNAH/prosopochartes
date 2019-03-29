@@ -267,6 +267,9 @@ def noticechercheur(individu_id):
     individuu = Individu.query.get(individu_id)
     return render_template("pages/noticechercheur.html", individuu=individuu)
 
+@app.route('/telechargement')
+def telechargement():
+    return render_template("/pages/telechargement.html")
 
 @app.route('/download')
 def download():
