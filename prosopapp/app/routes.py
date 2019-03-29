@@ -1,8 +1,9 @@
-from flask import render_template, url_for, request
+from flask import render_template, url_for, request, send_file
 # L'import de render_template nous permet de relier nos templates à nos urls - routes
 # L'import de url_for permet de construire des URL vers les fonctions et les pages html
 # L'import de la commande request nous permet d'importer les noms de types d'objets moins courant que int ou str, et de pouvoir ainsi les utiliser
 # dans des fonctions tels que insinstance.()
+# L'import de send_file nous permet d'envoyer des fichiers au client
 
 from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc, Avoir_occupation
 # Cette commande nous permet d'importer les classes de notre modèle de données dans notre application, pour pouvoir ensuite les requêter.
@@ -266,3 +267,13 @@ def noticechercheur(individu_id):
     individuu = Individu.query.get(individu_id)
     return render_template("pages/noticechercheur.html", individuu=individuu)
 
+@app.route('/telechargement')
+def telechargement():
+    """Route permettant d'afficher la page telechargement.html"""
+    return render_template("/pages/telechargement.html")
+
+@app.route('/download')
+def download():
+    """Route permettant à l'utilisateur de télécharger le fichier prosopochartes.sqlite (base de données sur laquelle se base l'application)"""
+    f = '../prosopochartes.sqlite'
+    return send_file(f, attachment_filename='prosopochartes.sqlite', as_attachment=True)

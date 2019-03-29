@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>ProsopoChartes</title>
+    <title>ProsoChartes</title>
       {% include "partials/css.html" %}
       {% include "partials/metadata.html" %}
   </head>
@@ -20,6 +20,9 @@
               </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{url_for('chercheurs')}}">Galerie des chercheurs</a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('telechargement')}}">Téléchargement</a>
               </li>
         </ul>
         <form class="form-inline" action="{{url_for('resultats')}}" method="GET">
