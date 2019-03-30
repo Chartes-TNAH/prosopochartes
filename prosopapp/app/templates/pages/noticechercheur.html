@@ -42,7 +42,7 @@ différentes requêtes via des url_for (disséminées notamment dans la page che
                             <p> </p>
                          {% endif %}
                          {% if individuu.id_wikidata %}
-                            <dt>Identifiant Wikidata</dt><dd>{{individuu.id_wikidata}}</dd>
+                         <dt>Identifiant Wikidata</dt><dd><a href="{{individuu.id_wikidata}}">{{individuu.id_wikidata}}</a></dd>
                          {% else %}
                             <p> </p>
                          {% endif %}
