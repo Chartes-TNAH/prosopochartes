@@ -300,9 +300,14 @@ def aleatoire():
     # supérieur au nombre d'individus de notre base de données pour pouvoir 1) avoir la possibilité de rajouter des entrées dans
     # la base de données 2) pouvoir traiter le cas où la fonction génère un nombre qui n'est pas celui d'un id existant.
     # Nous avons cependant établit 100 comme limite maximale, afin de ne pas alourdir la fonction en provoquant trop de
-    # génération de nombres ne correspondant à aucun id
+    # génération de nombres ne correspondant à aucun id, compte tenu de la taille modeste de notre base
 
-    return redirect('http://127.0.0.1:5000/noticechercheur/' + str(nb))
+    while nb != Individu.query.filter(Individu.id) :
+        nb = random.randint(1, 100)
+
+    return redirect(url_for('accueil') + 'noticechercheur/' + str(nb))
+    # Comme url_for('noticechercheur') demande la prise en compte du paramètre individu_id, il nous faut 'recomposer' l'url sous forme
+    # de chaine de caractères pour parvenir à nos fins
 
 @app.route('/telechargement')
 def telechargement():
