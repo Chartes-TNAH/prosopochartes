@@ -9,9 +9,8 @@ from flask import render_template, url_for, request, send_file, redirect
 from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc, Avoir_occupation
 # Cette commande nous permet d'importer les classes de notre modèle de données dans notre application, pour pouvoir ensuite les requêter.
 
-from sqlalchemy import and_, or_, func
+from sqlalchemy import and_, or_
 # Cette commande nous permet d'utiliser les opérateurs 'and' et 'or' dans nos fonctions de requêtage de notre base de données
-# Cette commande nous permet d'utiliser des fonctions (telles que random) dans nos requêtes sqlalchemy
 
 from app.app import app
 # Cette commande permet d'importer, depuis notre package app, la variable app qui instancie notre application.
@@ -294,18 +293,19 @@ def aleatoire():
     """Route génère un nombre aléatoire, et retourne une redirection vers l'url composée de noticechercheur et de ce nombre aléatoire,
     ce qui déclenche de là la fonction noticechercheur prenant ce nombre aléatoire en paramètre : cela affiche donc une notice aléatoirement"""
 
-    #nb = random.randint(1, 100)
+    nbMax = Individu.query.count()
+    # Nous comptons le nombre d'entrées dans la table individu, et assignons ce nombre à la variable nbMax
 
-    nb2 = db.query(Individu.id)
-    print(nb2)
+    nb = random.randint(1, nbMax)
+    # Nous générons grâce à la fonction random un integer aléatoire pouvant aller de 1 à la valeur de nbMax
+    # Cela nous permet de générer un nombre qui correspond à un id de la table individu, tout en permettant à la fonction de continuer
+    # de marcher si nous rajoutons des individus dans la base
+
+    # Notons que cette technique marche parfaitement car nous n'avons jamais supprimé une entrée de la base : le nombre d'individus
+    # correspond aux valeurs des id ; il faudrait s'y prendre autrement si certains id avaient une valeur supérieure au nombre maximal
+    # d'individus dans la base (un message d'erreur est néanmoins prévu sur la page noticechercheur.html)
 
     return redirect(url_for('accueil') + 'noticechercheur/' + str(nb))
-    # La fonction random génère aléatoirement un nombre compris entre 1 et 100 : nous avons volontairement choisi un nombre
-    # supérieur au nombre d'individus de notre base de données pour pouvoir 1) avoir la possibilité de rajouter des entrées dans
-    # la base de données 2) pouvoir traiter le cas où la fonction génère un nombre qui n'est pas celui d'un id existant.
-    # Nous avons cependant établit 100 comme limite maximale, afin de ne pas alourdir la fonction en provoquant trop de
-    # génération de nombres ne correspondant à aucun id, compte tenu de la taille modeste de notre base
-    #return redirect(url_for('accueil') + 'noticechercheur/' + str(nb))
     # Comme url_for('noticechercheur') demande la prise en compte du paramètre individu_id, il nous faut 'recomposer' l'url sous forme
     # de chaine de caractères pour parvenir à nos fins
 
