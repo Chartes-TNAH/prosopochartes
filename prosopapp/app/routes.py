@@ -1,9 +1,10 @@
-from flask import render_template, url_for, request, send_file
+from flask import render_template, url_for, request, send_file, redirect
 # L'import de render_template nous permet de relier nos templates à nos urls - routes
 # L'import de url_for permet de construire des URL vers les fonctions et les pages html
 # L'import de la commande request nous permet d'importer les noms de types d'objets moins courant que int ou str, et de pouvoir ainsi les utiliser
 # dans des fonctions tels que insinstance.()
 # L'import de send_file nous permet d'envoyer des fichiers au client
+# L'import de redirect nous permet de créer des fonctions qui retournent une redirection vers l'url d'une autre route
 
 from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc, Avoir_occupation
 # Cette commande nous permet d'importer les classes de notre modèle de données dans notre application, pour pouvoir ensuite les requêter.
@@ -18,6 +19,9 @@ from app.app import app
 
 from .constantes import CHERCHEURS_PAR_PAGE
 # Cette commande permet d'importer le nombre de chercheurs par pages depuis notre dossier constantes.py
+
+import random
+# Cette commande nous permet de générer des nombres aléatoires
 
 # Les commandes suivantes nous permettent de créer différentes routes - qui correspondent à l'URL des différents pages
 # de notre application :
@@ -285,6 +289,20 @@ def noticechercheur(individu_id):
     """
     individuu = Individu.query.get(individu_id)
     return render_template("pages/noticechercheur.html", individuu=individuu)
+
+@app.route('/aleatoire')
+def aleatoire():
+    """Route génère un nombre aléatoire, et retourne une redirection vers l'url composée de noticechercheur et de ce nombre aléatoire,
+    ce qui déclenche de là la fonction noticechercheur prenant ce nombre aléatoire en paramètre : cela affiche donc une notice aléatoirement"""
+
+    nb = random.randint(1, 100)
+    # La fonction random génère aléatoirement un nombre compris entre 1 et 100 : nous avons volontairement choisi un nombre
+    # supérieur au nombre d'individus de notre base de données pour pouvoir 1) avoir la possibilité de rajouter des entrées dans
+    # la base de données 2) pouvoir traiter le cas où la fonction génère un nombre qui n'est pas celui d'un id existant.
+    # Nous avons cependant établit 100 comme limite maximale, afin de ne pas alourdir la fonction en provoquant trop de
+    # génération de nombres ne correspondant à aucun id
+
+    return redirect('http://127.0.0.1:5000/noticechercheur/' + str(nb))
 
 @app.route('/telechargement')
 def telechargement():
