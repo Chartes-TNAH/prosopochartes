@@ -1,9 +1,10 @@
-from flask import render_template, url_for, request, send_file
+from flask import render_template, url_for, request, send_file, redirect
 # L'import de render_template nous permet de relier nos templates à nos urls - routes
 # L'import de url_for permet de construire des URL vers les fonctions et les pages html
 # L'import de la commande request nous permet d'importer les noms de types d'objets moins courant que int ou str, et de pouvoir ainsi les utiliser
 # dans des fonctions tels que insinstance.()
 # L'import de send_file nous permet d'envoyer des fichiers au client
+# L'import de redirect nous permet de créer des fonctions qui retournent une redirection vers l'url d'une autre route
 
 from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc, Avoir_occupation
 # Cette commande nous permet d'importer les classes de notre modèle de données dans notre application, pour pouvoir ensuite les requêter.
@@ -11,13 +12,14 @@ from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Di
 from sqlalchemy import and_, or_
 # Cette commande nous permet d'utiliser les opérateurs 'and' et 'or' dans nos fonctions de requêtage de notre base de données
 
-from sqlalchemy.orm import session
-
 from app.app import app
 # Cette commande permet d'importer, depuis notre package app, la variable app qui instancie notre application.
 
 from .constantes import CHERCHEURS_PAR_PAGE
 # Cette commande permet d'importer le nombre de chercheurs par pages depuis notre dossier constantes.py
+
+import random
+# Cette commande nous permet de générer des nombres aléatoires
 
 # Les commandes suivantes nous permettent de créer différentes routes - qui correspondent à l'URL des différents pages
 # de notre application :
@@ -285,6 +287,27 @@ def noticechercheur(individu_id):
     """
     individuu = Individu.query.get(individu_id)
     return render_template("pages/noticechercheur.html", individuu=individuu)
+
+@app.route('/aleatoire')
+def aleatoire():
+    """Route génère un nombre aléatoire, et retourne une redirection vers l'url composée de noticechercheur et de ce nombre aléatoire,
+    ce qui déclenche de là la fonction noticechercheur prenant ce nombre aléatoire en paramètre : cela affiche donc une notice aléatoirement"""
+
+    nbMax = Individu.query.count()
+    # Nous comptons le nombre d'entrées dans la table individu, et assignons ce nombre à la variable nbMax
+
+    nb = random.randint(1, nbMax)
+    # Nous générons grâce à la fonction random un integer aléatoire pouvant aller de 1 à la valeur de nbMax
+    # Cela nous permet de générer un nombre qui correspond à un id de la table individu, tout en permettant à la fonction de continuer
+    # de marcher si nous rajoutons des individus dans la base
+
+    # Notons que cette technique marche parfaitement car nous n'avons jamais supprimé une entrée de la base : le nombre d'individus
+    # correspond aux valeurs des id ; il faudrait s'y prendre autrement si certains id avaient une valeur supérieure au nombre maximal
+    # d'individus dans la base (un message d'erreur est néanmoins prévu sur la page noticechercheur.html)
+
+    return redirect(url_for('accueil') + 'noticechercheur/' + str(nb))
+    # Comme url_for('noticechercheur') demande la prise en compte du paramètre individu_id, il nous faut 'recomposer' l'url sous forme
+    # de chaine de caractères pour parvenir à nos fins
 
 @app.route('/telechargement')
 def telechargement():
