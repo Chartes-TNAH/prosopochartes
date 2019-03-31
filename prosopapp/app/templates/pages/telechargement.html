@@ -1,0 +1,14 @@
+{%extends "headerfooter.html"%}
+
+{% block corps %}
+
+<div class = "container" style="padding-top: 5%; padding-bottom: 5%; text-align:center">
+    <p>Vous pouvez télécharger l'intégralité de notre base de données au format <b>SQLite</b> en cliquant sur le bouton ci-dessous :</p>
+    <a class="btn btn-dark" href="{{url_for('download')}}">Télécharger</a>
+</div>
+<div class = "container" style="padding-bottom: 5%; text-align:center">
+    <p>Le code de notre application est également disponible librement sur :</p>
+    <a class="btn btn-primary" href="https://github.com/Chartes-TNAH/prosopochartes">Github</a>
+</div>
+
+{% endblock %}

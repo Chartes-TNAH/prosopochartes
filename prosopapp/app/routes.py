@@ -1,8 +1,10 @@
-from flask import render_template, url_for, request
+from flask import render_template, url_for, request, send_file, redirect
 # L'import de render_template nous permet de relier nos templates à nos urls - routes
 # L'import de url_for permet de construire des URL vers les fonctions et les pages html
 # L'import de la commande request nous permet d'importer les noms de types d'objets moins courant que int ou str, et de pouvoir ainsi les utiliser
 # dans des fonctions tels que insinstance.()
+# L'import de send_file nous permet d'envoyer des fichiers au client
+# L'import de redirect nous permet de créer des fonctions qui retournent une redirection vers l'url d'une autre route
 
 from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Distinction, Domaine_activite, These_enc, Avoir_occupation
 # Cette commande nous permet d'importer les classes de notre modèle de données dans notre application, pour pouvoir ensuite les requêter.
@@ -10,13 +12,14 @@ from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Di
 from sqlalchemy import and_, or_
 # Cette commande nous permet d'utiliser les opérateurs 'and' et 'or' dans nos fonctions de requêtage de notre base de données
 
-from sqlalchemy.orm import session
-
 from app.app import app
 # Cette commande permet d'importer, depuis notre package app, la variable app qui instancie notre application.
 
 from .constantes import CHERCHEURS_PAR_PAGE
 # Cette commande permet d'importer le nombre de chercheurs par pages depuis notre dossier constantes.py
+
+import random
+# Cette commande nous permet de générer des nombres aléatoires
 
 # Les commandes suivantes nous permettent de créer différentes routes - qui correspondent à l'URL des différents pages
 # de notre application :
@@ -124,6 +127,8 @@ def resultats_avances():
     domaine_activite = request.args.get("domaine_activite", None)
     distinction = request.args.get("distinction", None)
     diplome = request.args.get("diplome", None)
+    asc = request.args.get("asc", None)
+    desc = request.args.get("desc", None)
 
     # Mêmes commentaires que pour la pagination effectuée pour la fonction résultats
     page = request.args.get("page", 1)
@@ -208,6 +213,21 @@ def resultats_avances():
     if diplome and diplome != "all":
         requete = requete.filter(Individu.diplome.has(Diplome.diplome_label == diplome))
 
+    # Les conditions ci-dessous permettent à l'utilisateur de choisir s'il souhaite obtenir les résultats dans un ordre
+    # alphabétique croissant ou décroissant
+    # Il n'a pas été possible de n'utiliser qu'une seule variable (par exemple : if desc / if not desc), car, si le bouton lié à "desc"
+    # était appuyé à un moment, le paramètre "if desc" continuait d'être pris en compte, et ce même si le bouton était décoché. Il a donc
+    # fallu faire appel à deux variables, pour que l'activation d'un bouton "écrase" la valeur de la variable liée à l'autre bouton.
+    if asc :
+        requete = requete.order_by(Individu.nom.asc())
+    if desc :
+        requete = requete.order_by(Individu.nom.desc())
+    # Pour éviter que les résultats ne s'affichent autrement que dans un ordre alphabétique si aucun bouton n'est sélectionné, cette
+    # condition permet de garder l'ordre croissant si rien n'est sélectionné sur le formulaire (cette notion d' "ordre
+    # croissant par défaut" est représentée sur le formulaire par l'illusion que le bouton "A-Z" est pré-coché)
+    if not asc and not desc :
+        requete = requete.order_by(Individu.nom.asc())
+
     # Ci-dessous se trouvent certains messages d'erreur correspondant à des erreurs spécifiques :
     # Nous les faisons apparaître en utilisant également un "if", et non un "else", car, compte-tenu de la structure de notre fonction,
     # si nous choisissons le "else", il ne va entrer en jeu que si aucune des conditions "if" n'est remplie, c'est-à-dire, dans notre
@@ -229,8 +249,8 @@ def resultats_avances():
     # qu'avec des valeurs numériques. Nous avons choisi d'utiliser .isdigit() car, les valeurs entrées dans les champs du formulaires
     # correspondant à des str, cette solution était plus simple que de d'abord passer par un typage en int des valeurs renseignées dans ce champ
 
-
-    requete = requete.order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
+    requete = requete.paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
+    #requete = requete.order_by(Individu.nom.asc()).paginate(page=page, per_page=CHERCHEURS_PAR_PAGE)
 
     titre = "Résultats"
     return render_template(
@@ -253,7 +273,9 @@ def resultats_avances():
         diplome=diplome,
         titre=titre,
         message=message,
-        requete=requete
+        requete=requete,
+        asc=asc,
+        desc=desc
         )
 
 
@@ -266,3 +288,34 @@ def noticechercheur(individu_id):
     individuu = Individu.query.get(individu_id)
     return render_template("pages/noticechercheur.html", individuu=individuu)
 
+@app.route('/aleatoire')
+def aleatoire():
+    """Route génère un nombre aléatoire, et retourne une redirection vers l'url composée de noticechercheur et de ce nombre aléatoire,
+    ce qui déclenche de là la fonction noticechercheur prenant ce nombre aléatoire en paramètre : cela affiche donc une notice aléatoirement"""
+
+    nbMax = Individu.query.count()
+    # Nous comptons le nombre d'entrées dans la table individu, et assignons ce nombre à la variable nbMax
+
+    nb = random.randint(1, nbMax)
+    # Nous générons grâce à la fonction random un integer aléatoire pouvant aller de 1 à la valeur de nbMax
+    # Cela nous permet de générer un nombre qui correspond à un id de la table individu, tout en permettant à la fonction de continuer
+    # de marcher si nous rajoutons des individus dans la base
+
+    # Notons que cette technique marche parfaitement car nous n'avons jamais supprimé une entrée de la base : le nombre d'individus
+    # correspond aux valeurs des id ; il faudrait s'y prendre autrement si certains id avaient une valeur supérieure au nombre maximal
+    # d'individus dans la base (un message d'erreur est néanmoins prévu sur la page noticechercheur.html)
+
+    return redirect(url_for('accueil') + 'noticechercheur/' + str(nb))
+    # Comme url_for('noticechercheur') demande la prise en compte du paramètre individu_id, il nous faut 'recomposer' l'url sous forme
+    # de chaine de caractères pour parvenir à nos fins
+
+@app.route('/telechargement')
+def telechargement():
+    """Route permettant d'afficher la page telechargement.html"""
+    return render_template("pages/telechargement.html")
+
+@app.route('/download')
+def download():
+    """Route permettant à l'utilisateur de télécharger le fichier prosopochartes.sqlite (base de données sur laquelle se base l'application)"""
+    f = '../prosopochartes.sqlite'
+    return send_file(f, attachment_filename='prosopochartes.sqlite', as_attachment=True)
