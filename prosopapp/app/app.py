@@ -48,7 +48,6 @@ app.config['DEBUG'] = True
 db = SQLAlchemy(app)
 # Intégration de l'extension SQLAlchemy à notre application Flask ; nous stockons notre base de données dans la variable db
 
-from app import routes, errorhandler
 from .routes import accueil, chercheurs, noticechercheur, recherche, resultats, resultats_avances
 from .errorhandler import page_introuvable, page_supprimee, probleme_serveur
 
