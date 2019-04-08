@@ -69,6 +69,7 @@ def resultats():
 
     resultats = []
     # On crée une liste vide de résultats (qui restera vide par défaut si on n'a pas de mot clé)
+    titre = "Aucun mot clef entré"
 
     if motclef:
     # Si on a un mot-clé, on requête toutes les tables de notre base de données pour vérifier s'il y a des correspondances
