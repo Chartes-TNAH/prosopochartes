@@ -2,7 +2,7 @@ from flask import render_template, url_for
 # L'import de render_template nous permet de relier nos templates à nos urls - routes
 # L'import de url_for permet de construire des URL vers les fonctions et les pages html
 
-from app.app import app
+from .app import app
 # Cette commande permet d'importer, depuis notre package app, la variable app qui instancie notre application.
 
 # Gestion des erreurs les plus courantes :

@@ -12,7 +12,7 @@ from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Di
 from sqlalchemy import and_, or_
 # Cette commande nous permet d'utiliser les opérateurs 'and' et 'or' dans nos fonctions de requêtage de notre base de données
 
-from app.app import app
+from .app import app
 # Cette commande permet d'importer, depuis notre package app, la variable app qui instancie notre application.
 
 from .constantes import CHERCHEURS_PAR_PAGE
