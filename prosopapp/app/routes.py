@@ -12,7 +12,7 @@ from .modeles.donnees import Individu, Pays_nationalite, Occupation, Diplome, Di
 from sqlalchemy import and_, or_
 # Cette commande nous permet d'utiliser les opérateurs 'and' et 'or' dans nos fonctions de requêtage de notre base de données
 
-from app.app import app
+from .app import app
 # Cette commande permet d'importer, depuis notre package app, la variable app qui instancie notre application.
 
 from .constantes import CHERCHEURS_PAR_PAGE
@@ -69,6 +69,7 @@ def resultats():
 
     resultats = []
     # On crée une liste vide de résultats (qui restera vide par défaut si on n'a pas de mot clé)
+    titre = "Aucun mot clef entré"
 
     if motclef:
     # Si on a un mot-clé, on requête toutes les tables de notre base de données pour vérifier s'il y a des correspondances
@@ -305,7 +306,7 @@ def aleatoire():
     # correspond aux valeurs des id ; il faudrait s'y prendre autrement si certains id avaient une valeur supérieure au nombre maximal
     # d'individus dans la base (un message d'erreur est néanmoins prévu sur la page noticechercheur.html)
 
-    return redirect(url_for('accueil') + 'noticechercheur/' + str(nb))
+    return redirect(url_for('noticechercheur', individu_id=nb))
     # Comme url_for('noticechercheur') demande la prise en compte du paramètre individu_id, il nous faut 'recomposer' l'url sous forme
     # de chaine de caractères pour parvenir à nos fins
 
