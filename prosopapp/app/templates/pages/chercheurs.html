@@ -19,7 +19,7 @@ headerfooter en premier lieu, puis la mise en forme bootstrap ci-après-->
                             {% endif %}
                         </div>
                         <div class="col-sm-4" >
-                            <a href="{{ url_for('noticechercheur', individu_id=individu.id) }}"><h5 style="color:#fe2734 ">{{individu.prenom}} {{ individu.nom }}</h5></a>
+                            <a href="{{ url_for('noticechercheur', individu_id=individu.id) }}"><h5 style="color:#bd052d ">{{individu.prenom}} {{ individu.nom }}</h5></a>
                             <dl>
                              <dt>Diplome</dt><dd>{{individu.diplome.diplome_label}}</dd>
                             <dt>Pays de nationalité</dt><dd>{{individu.pays_nationalite.pays_label}}</dd>
@@ -37,7 +37,7 @@ headerfooter en premier lieu, puis la mise en forme bootstrap ci-après-->
                                  {% endfor  %}
                             </dl>
                         </div >
-                        <div class="col-sm-1" style="background-color:#fe2734 ; max-width:4%"></div>
+                        <div class="col-sm-1" style="background-color:#bd052d ; max-width:4%"></div>
                         </div>
                 </div>
             {% endfor %}
