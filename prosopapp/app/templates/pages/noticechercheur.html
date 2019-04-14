@@ -1,1 +1,95 @@
-<!--noticechercheur-->
+{%extends "headerfooter.html"%}
+<!-- Sur cette page se trouve la mise en forme de la page correspondant à la notice complète du chercheur. On y accède par
+différentes requêtes via des url_for (disséminées notamment dans la page chercheurs.html et résultats.html-->
+{% block corps %}
+    {% if individuu %}
+        <div class="container">
+            <div class="row" style="padding-top:5%;">
+                <div class ="col-1">
+                    <h4 style="color:#fe2734">{{individuu.prenom}} {{ individuu.nom }}</h4>
+                </div>
+             <div class="row" style="margin-bottom: 2% ; padding-bottom: 2%; border-bottom:1px solid black">
+                <div class ="col-1">
+                </div>
+                 <div class ="col-7">
+                 <!--Comme certains champs de notre base de données sont vides, nous utilisons des requêtes vides qui affichent
+                  des valeurs différentes en fonction du résultat.-->
+                     <dl>
+                         {% if individuu.diplome %}
+                            <dt>Diplome</dt><dd>{{individuu.diplome.diplome_label}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                         {% if individuu.these_enc %}
+                            <dt>Thèse ENC</dt><dd>{{individuu.these_enc.these_label}}</dd>
+                            <dt>Date de soutenance de thèse</dt><dd>{{individuu.these_enc.date_soutenance}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                         {% if individuu.pays_nationalite %}
+                            <dt>Pays de nationalité</dt><dd>{{individuu.pays_nationalite.pays_label}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                         {% if individuu.annee_naissance %}
+                            <dt>Année de naissance</dt><dd>{{individuu.annee_naissance}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                         {% if individuu.annee_mort %}
+                            <dt>Année de mort</dt><dd>{{individuu.annee_mort}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                         {% if individuu.id_wikidata %}
+                         <dt>Identifiant Wikidata</dt><dd><a href="{{individuu.id_wikidata}}">{{individuu.id_wikidata}}</a></dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                         {% if individuu.id_autorite %}
+                            <dt>Identifiant VIAF</dt><dd>{{individuu.id_autorite}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                         {% if individuu.domaine_activite.domaine_label %}
+                            <dt>Domaine d'activité</dt><dd>{{individuu.domaine_activite.domaine_label}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                           <!-- Si l'individu possède une occupation-->
+                         {% if individuu.occupations %}
+                             <dt>Occupation</dt>
+                             <!-- Afficher la - les occupations-->
+                             {% for occupation in individuu.occupations%}
+                                <dd>{{occupation.occupation_label}}</dd>
+                             {% endfor  %}
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+                         {% if individuu.distinction.distinction_label %}
+                             <dt>Distinction reçue</dt><dd>{{individuu.distinction.distinction_label}}</dd>
+                         {% else %}
+                            <p> </p>
+                         {% endif %}
+
+                      </dl>
+                </div>
+             <!-- Certains chercheurs ont des images, d'autres noms ; lorsqu'ils n'en ont pas, nous avons choisi d'importer
+             une image par défaut qui se trouve dans notre dossier statics/Images-->
+                <div class="col-4" style="padding-top: 8%">
+                    {% if not individuu.image_lien%}
+                        <img src="{{ url_for('static', filename='Images/anonyme2.jpg')}}" class="rounded-circle" style="width:300px; height:400px;">
+                     {% else %}
+                         <img src="{{individuu.image_lien}}" class="rounded-circle" style="width:300px; height:400px">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <h4 style="padding-top:5% ; padding-bottom:5% ; text-align:center">Oups !</h4>
+        <p style="text-align:center">La notice que vous recherchez n'existe pas ou plus.</p>
+    {% endif %}
+{% endblock %}
+
+
+
