@@ -306,7 +306,7 @@ def aleatoire():
     # correspond aux valeurs des id ; il faudrait s'y prendre autrement si certains id avaient une valeur supérieure au nombre maximal
     # d'individus dans la base (un message d'erreur est néanmoins prévu sur la page noticechercheur.html)
 
-    return redirect(url_for('accueil') + 'noticechercheur/' + str(nb))
+    return redirect(url_for('noticechercheur', individu_id=nb))
     # Comme url_for('noticechercheur') demande la prise en compte du paramètre individu_id, il nous faut 'recomposer' l'url sous forme
     # de chaine de caractères pour parvenir à nos fins
 
