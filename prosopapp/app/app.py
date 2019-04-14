@@ -43,7 +43,7 @@ app.config['SQLALCHEMY_ECHO'] = True
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # Instanciation du mode debug, cette fonction est liée au fichier .flaskenv
 
-app.config['DEBUG'] = True
+#app.config['DEBUG'] = True
 
 db = SQLAlchemy(app)
 # Intégration de l'extension SQLAlchemy à notre application Flask ; nous stockons notre base de données dans la variable db
