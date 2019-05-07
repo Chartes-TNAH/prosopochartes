@@ -2,7 +2,7 @@
 
 ## Présentation du projet
 
-"Prosopochartes" est une application Web visant à la consultation et à l'exploration d'une base prosopographique de chercheuses et chercheurs de l'Ecole Nationale des Chartes.
+"Prosopochartes" est une application Web visant à la consultation et à l'exploration d'une base prosopographique de chercheuses et chercheurs de l'Ecole Nationale des Chartes. Elle est disponible à l'adresse suivante : [tnah.chartes.psl.eu/2019/prosopochartes](http://tnah.chartes.psl.eu/2019/prosopochartes/)
 
 Notre projet est développé avec *Python 3*. Il utilise également *Bootstrap* pour la mise en forme graphique.
 
